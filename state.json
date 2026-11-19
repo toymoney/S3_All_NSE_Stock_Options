@@ -18,6 +18,11 @@
       "id": "test-2026-11-19T20:33:14.540036+05:30:0",
       "text": "S3 stock scanner connection OK. Discovered 218 stock-option underlyings.\nSample API check 360ONE: 50 option contracts.\nS3 only; no S1/S2. This verifies connectivity, not live signal quality.\n",
       "sent": true
+    },
+    {
+      "id": "test-2026-11-19T20:38:14.696570+05:30:0",
+      "text": "S3 stock scanner connection OK. Discovered 218 stock-option underlyings.\nSample API check 360ONE: 50 contracts in full chain; 10 selected at ATM \u00b12 (CE + PE).\nS3 only; no S1/S2. This verifies connectivity, not live signal quality.\n",
+      "sent": true
     }
   ]
 }
