@@ -34,8 +34,8 @@ class StockTests(unittest.TestCase):
     def test_band_actual_strikes(self):
         chain=[contract(k,side) for k in range(50,156,5) for side in ['CE','PE']]
         band=b.select_band(chain,102.5)
-        self.assertEqual(len(band),22);self.assertEqual(min(x['strike'] for x in band),80)
-        self.assertEqual(max(x['strike'] for x in band),130)
+        self.assertEqual(len(band),10);self.assertEqual(min(x['strike'] for x in band),95)
+        self.assertEqual(max(x['strike'] for x in band),115)
     def test_peer_iv_excludes_own(self):
         c=contract(iv=199);peers=[contract(90,iv=20),c,contract(110,iv=40)]
         self.assertAlmostEqual(b.peer_iv(c,peers),.30)
