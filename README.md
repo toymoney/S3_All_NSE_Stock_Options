@@ -6,9 +6,13 @@ Python + Upstox + Telegram + GitHub Actions. Only S3 is included: no S1, S2, Kro
 
 Discovers all NSE stock-option underlyings from the current instrument master. The public master checked during development contained 218 eligible underlyings; the count can change. Indices and ordinary shares without listed options are excluded.
 
-For each stock: nearest active expiry, ATM and five actual listed strikes each side, both CE and PE (maximum 22 contracts). Real lot sizes and strike spacing are used. The minimum value gap is 15% of model value; there is no upper cutoff. Both above-value and below-value watches qualify. One alert per contract per observed session, with repeated sweeps throughout the session. No daily alert-count cap.
+For each stock: nearest active expiry, ATM and two actual listed strikes each side, both CE and PE (maximum 10 contracts). Real lot sizes and strike spacing are used. The minimum value gap is 15% of model value; there is no upper cutoff. Both above-value and below-value watches qualify. One alert per contract per observed session, with repeated sweeps throughout the session. No daily alert-count cap.
 
 These are OPTION premium estimates, not fundamental fair values of stock shares.
+
+## Updating an existing installation
+
+Replace `stock_s3_bot.py`, `tests/test_stock_s3.py` and `README.md` from this package. Workflow and secrets need no changes. A running job uses its checked-out code; cancel it and start a new `run` job to apply immediately, or wait for the next scheduled run. Existing recorded watches continue to be monitored, including those outside the newly narrowed band. New watches use ATM ±2 only.
 
 ## GitHub setup
 

@@ -74,7 +74,7 @@ def select_band(chain,spot):
     if not strikes:return []
     # Nearest actual listed strike; ties choose the higher strike.
     atm=min(strikes,key=lambda k:(abs(k-spot),-k));index=strikes.index(atm)
-    selected=set(strikes[max(0,index-5):index+6])
+    selected=set(strikes[max(0,index-2):index+3])
     return [c for c in chain if c['strike'] in selected]
 
 
@@ -440,7 +440,7 @@ class Scanner:
     def tick(self,t):
         if t.weekday()>=5:return
         day=self.prepare(t)
-        self.emit('online-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]}\nUniverse: {len(self.universe)} NSE F&O stocks; nearest expiry, ATM ±5 listed strikes, CE + PE.\nMinimum value gap {GAP*100:.0f}%. S3 only. No Kronos/S1/S2.\nFull sweeps take several minutes; report around 16:15 IST.')
+        self.emit('online-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]}\nUniverse: {len(self.universe)} NSE F&O stocks; nearest expiry, ATM ±2 listed strikes, CE + PE.\nMinimum value gap {GAP*100:.0f}%. S3 only. No Kronos/S1/S2.\nFull sweeps take several minutes; report around 16:15 IST.')
         # Finish interrupted prior days as unverified instead of inventing outcomes.
         for date,old in list(self.state['days'].items()):
             if date<day['date'] and not old.get('reported'):
@@ -458,7 +458,7 @@ def main():
     if args.mode=='test':
         scanner.prepare(start);u=scanner.universe[0]
         chain=scanner.api.chain(u,scanner.metadata)
-        scanner.emit('test-'+iso(start),f'S3 stock scanner connection OK. Discovered {len(scanner.universe)} stock-option underlyings.\nSample API check {u["symbol"]}: {len(chain)} option contracts.\nS3 only; no S1/S2. This verifies connectivity, not live signal quality.')
+        scanner.emit('test-'+iso(start),f'S3 stock scanner connection OK. Discovered {len(scanner.universe)} stock-option underlyings.\nSample API check {u["symbol"]}: {len(chain)} contracts in full chain; {len(select_band(chain,chain[0]["spot"])) if chain else 0} selected at ATM ±2 (CE + PE).\nS3 only; no S1/S2. This verifies connectivity, not live signal quality.')
         for _ in range(3):scanner.flush()
         scanner.sync(force=True);return
     end=start.replace(hour=14,minute=10,second=0,microsecond=0) if start.time()<dt_time(14,10) else start.replace(hour=16,minute=45,second=0,microsecond=0)
