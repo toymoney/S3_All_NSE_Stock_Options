@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+.s3-state/
+state_s3/
