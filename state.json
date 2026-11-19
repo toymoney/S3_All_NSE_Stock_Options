@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "kind": "stock_s3",
+  "days": {
+    "2026-11-19": {
+      "date": "2026-11-19",
+      "cursor": 0,
+      "sweeps": 0,
+      "symbols": {},
+      "counts": {},
+      "last_error": null,
+      "universe_count": 218
+    }
+  },
+  "watches": [],
+  "outbox": [
+    {
+      "id": "test-2026-11-19T20:33:14.540036+05:30:0",
+      "text": "S3 stock scanner connection OK. Discovered 218 stock-option underlyings.\nSample API check 360ONE: 50 option contracts.\nS3 only; no S1/S2. This verifies connectivity, not live signal quality.\n",
+      "sent": true
+    }
+  ]
+}
