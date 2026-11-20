@@ -1,0 +1,697 @@
+S3 STOCK OPTIONS DAILY REPORT | 2026-11-20
+Stocks in universe: 218; stocks with a successful latest chain check: 218
+Completed sweeps: 15; last completed sweep: 2026-11-20T14:55:57.332978+05:30
+Last sweep duration: 3580 seconds
+Alerts: 339 | model targets touched: 251
+No touch in monitored full-minute bars: 88 | unverified: 0
+The partial entry minute is excluded from candle checks; its unobserved movements are unknown.
+A model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.
+
+ADANIPORTS 1920 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹13.30; fixed target ₹15.84; touch ₹16.25 at 09:34:44 IST (fresh polled LTP)
+ADANIPOWER 207.5 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹3.08; fixed target ₹3.69; touch ₹3.80 at 09:42:24 IST (fresh polled LTP)
+AXISBANK 1370 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.55; fixed target ₹13.20; touch ₹14.25 at 09:37:05 IST (fresh polled LTP)
+AXISBANK 1380 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹6.30; fixed target ₹8.32; touch ₹8.32 at 09:36:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹7.70
+BAJAJFINSV 1880 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹8.10; fixed target ₹9.63; touch ₹9.63 at 09:51:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹9.75
+BHARTIARTL 2140 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹11.60; fixed target ₹15.08; touch ₹15.40 at 12:17:32 IST (fresh polled LTP)
+BHARTIARTL 2140 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹12.00; fixed target ₹9.88; touch ₹9.15 at 09:58:59 IST (fresh polled LTP)
+BHARTIARTL 2160 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.35; fixed target ₹8.82; touch ₹8.85 at 09:33:42 IST (fresh polled LTP)
+BHARTIARTL 2160 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹28.00; fixed target ₹23.15; touch ₹22.85 at 12:17:32 IST (fresh polled LTP)
+COALINDIA 390 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹3.40; fixed target ₹2.81; touch ₹2.80 at 10:02:07 IST (fresh polled LTP)
+DIXON 13250 CE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹63.90; fixed target ₹54.16; last observed ₹72.00 at 15:34:00; gap -32.9%
+EICHERMOT 8100 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹30.45; fixed target ₹37.47; touch ₹40.70 at 09:33:42 IST (fresh polled LTP)
+HDFCBANK 820 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹6.50; fixed target ₹9.07; touch ₹9.07 at 09:46:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹8.70
+ITC 295 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹3.65; fixed target ₹4.50; touch ₹4.50 at 09:34:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹4.15
+JSWSTEEL 1300 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹19.25; fixed target ₹14.78; touch ₹14.78 at 09:32:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹14.85
+KOTAKBANK 500 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹4.45; fixed target ₹5.91; touch ₹6.50 at 09:43:28 IST (fresh polled LTP)
+LT 4200 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹14.90; fixed target ₹18.01; touch ₹18.01 at 09:42:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹18.05
+LUPIN 1980 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹23.65; fixed target ₹28.21; touch ₹28.50 at 12:45:03 IST (fresh polled LTP)
+LUPIN 2000 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹14.30; fixed target ₹17.29; touch ₹17.65 at 10:25:26 IST (fresh polled LTP)
+M&M 3500 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹18.60; fixed target ₹24.19; touch ₹25.80 at 09:46:37 IST (fresh polled LTP)
+M&M 3550 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹9.55; fixed target ₹11.51; touch ₹11.90 at 09:42:24 IST (fresh polled LTP)
+MUTHOOTFIN 2550 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹22.70; fixed target ₹28.91; touch ₹28.91 at 09:35:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹29.50
+MUTHOOTFIN 2600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹9.60; fixed target ₹12.39; touch ₹12.39 at 09:35:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹12.00
+SBIN 1140 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹12.75; fixed target ₹15.13; touch ₹15.35 at 09:51:47 IST (fresh polled LTP)
+SUNPHARMA 1900 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹16.90; fixed target ₹13.84; touch ₹13.84 at 14:00:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹13.80
+SUNPHARMA 1920 PE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹31.15; fixed target ₹24.67; last observed ₹40.90 at 15:32:00; gap -65.8%
+TATACONSUM 1150 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.70; fixed target ₹9.28; touch ₹9.35 at 09:53:50 IST (fresh polled LTP)
+TATAPOWER 335 CE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹5.65; fixed target ₹4.64; last observed ₹6.35 at 15:33:00; gap -36.8%
+TITAN 4500 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹61.80; fixed target ₹75.50; touch ₹75.50 at 09:39:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹73.40
+TITAN 4550 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹34.15; fixed target ₹43.54; touch ₹43.54 at 09:39:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹41.75
+TITAN 4550 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹53.15; fixed target ₹43.59; touch ₹43.59 at 09:39:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹47.35
+TITAN 4600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹15.65; fixed target ₹22.48; touch ₹22.85 at 10:19:02 IST (fresh polled LTP)
+TRENT 3200 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹34.35; fixed target ₹43.66; touch ₹44.05 at 09:43:28 IST (fresh polled LTP)
+TVSMOTOR 4600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹31.05; fixed target ₹39.75; touch ₹39.75 at 09:46:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹40.05
+ULTRACEMCO 12600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹140.90; fixed target ₹179.68; touch ₹179.68 at 09:56:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹172.95
+ULTRACEMCO 12600 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹86.00; fixed target ₹71.18; touch ₹71.18 at 09:41:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹66.00
+ULTRACEMCO 12700 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹108.00; fixed target ₹130.64; touch ₹130.64 at 10:00:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹116.10
+ULTRACEMCO 12800 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹79.65; fixed target ₹97.92; last observed ₹70.65 at 15:34:00; gap +27.9%
+UPL 570 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹7.80; fixed target ₹6.51; touch ₹6.00 at 09:45:34 IST (fresh polled LTP)
+ADANIENT 2650 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.45; fixed target ₹13.37; touch ₹13.85 at 10:05:19 IST (fresh polled LTP)
+ADANIENT 2700 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹24.20; fixed target ₹29.93; touch ₹31.15 at 09:45:34 IST (fresh polled LTP)
+ALKEM 5100 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹33.40; fixed target ₹26.11; touch ₹26.11 at 10:17:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹25.80
+ALKEM 5200 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹22.00; fixed target ₹26.71; touch ₹26.95 at 11:12:00 IST (fresh polled LTP)
+AUBANK 970 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹8.25; fixed target ₹9.92; touch ₹9.92 at 09:40:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹9.70
+AUROPHARMA 1800 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹12.80; fixed target ₹16.79; touch ₹17.55 at 09:55:51 IST (fresh polled LTP)
+BDL 1020 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹7.50; fixed target ₹12.12; last observed ₹2.50 at 15:34:00; gap +79.4%
+BRITANNIA 4850 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹25.65; fixed target ₹35.40; touch ₹35.50 at 09:46:37 IST (fresh polled LTP)
+BRITANNIA 4900 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹15.50; fixed target ₹21.08; touch ₹21.08 at 09:45:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹20.75
+COFORGE 2100 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹18.90; fixed target ₹22.82; touch ₹22.90 at 09:48:41 IST (fresh polled LTP)
+CUMMINSIND 4050 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹37.30; fixed target ₹48.65; last observed ₹24.00 at 15:34:00; gap +50.7%
+DIXON 13000 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹71.85; fixed target ₹113.49; last observed ₹31.00 at 15:35:00; gap +72.7%
+DMART 3500 CE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹21.50; fixed target ₹14.80; last observed ₹20.40 at 15:35:00; gap -37.8%
+HDFCBANK 830 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹5.25; fixed target ₹6.26; touch ₹6.26 at 10:12:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹6.25
+ICICIBANK 1610 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹7.95; fixed target ₹6.75; touch ₹6.75 at 09:47:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹6.95
+ICICIBANK 1620 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹14.65; fixed target ₹12.38; touch ₹11.40 at 10:51:04 IST (fresh polled LTP)
+INDIGO 5500 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹46.55; fixed target ₹64.38; touch ₹64.38 at 10:13:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹64.95
+LT 4100 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹69.85; fixed target ₹84.98; touch ₹84.98 at 09:56:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹83.65
+LT 4150 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹38.45; fixed target ₹46.34; touch ₹47.00 at 09:52:49 IST (fresh polled LTP)
+LT 4150 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹26.90; fixed target ₹20.36; touch ₹20.00 at 09:52:49 IST (fresh polled LTP)
+M&M 3450 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹57.80; fixed target ₹69.07; touch ₹70.00 at 09:51:47 IST (fresh polled LTP)
+M&M 3450 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹10.25; fixed target ₹8.73; touch ₹7.35 at 09:51:47 IST (fresh polled LTP)
+MARUTI 13600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹163.65; fixed target ₹197.40; touch ₹200.00 at 10:33:01 IST (fresh polled LTP)
+MARUTI 13600 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹87.10; fixed target ₹72.86; touch ₹70.95 at 09:50:44 IST (fresh polled LTP)
+MARUTI 13700 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹121.10; fixed target ₹148.51; touch ₹148.51 at 10:33:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹147.80
+MARUTI 13800 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹93.50; fixed target ₹112.40; touch ₹113.15 at 10:36:07 IST (fresh polled LTP)
+MCX 3600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹26.40; fixed target ₹31.70; touch ₹31.70 at 12:52:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹31.25
+NESTLEIND 1310 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹11.25; fixed target ₹13.88; last observed ₹4.90 at 15:33:00; gap +64.7%
+PERSISTENT 6000 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹99.75; fixed target ₹117.65; touch ₹117.65 at 09:56:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹114.00
+POLICYBZR 1000 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹10.45; fixed target ₹12.67; last observed ₹3.00 at 15:35:00; gap +76.3%
+SBILIFE 1800 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹12.35; fixed target ₹16.28; touch ₹16.45 at 11:56:38 IST (fresh polled LTP)
+SBIN 1150 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹9.50; fixed target ₹11.32; touch ₹11.75 at 12:05:00 IST (fresh polled LTP)
+SBIN 1150 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹12.95; fixed target ₹10.91; touch ₹10.25 at 11:58:43 IST (fresh polled LTP)
+SUNPHARMA 1880 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹18.80; fixed target ₹23.35; touch ₹23.35 at 13:57:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹23.45
+SUNPHARMA 1880 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹9.25; fixed target ₹7.43; touch ₹6.65 at 13:52:27 IST (fresh polled LTP)
+SUNPHARMA 1900 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.00; fixed target ₹13.11; touch ₹13.11 at 13:53:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹12.75
+SUNPHARMA 1920 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹5.85; fixed target ₹7.22; touch ₹7.22 at 11:23:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹7.20
+TATACONSUM 1160 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹8.05; fixed target ₹9.68; last observed ₹4.15 at 15:32:00; gap +57.1%
+TATACONSUM 1170 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹4.95; fixed target ₹6.25; last observed ₹1.95 at 15:32:00; gap +68.8%
+ULTRACEMCO 12900 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹48.80; fixed target ₹62.67; touch ₹64.55 at 09:58:59 IST (fresh polled LTP)
+WIPRO 185 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹2.53; fixed target ₹2.09; touch ₹2.09 at 13:25:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹2.07
+ADANIGREEN 1440 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹11.00; fixed target ₹13.02; touch ₹13.40 at 11:20:21 IST (fresh polled LTP)
+ADANIGREEN 1440 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹23.40; fixed target ₹18.81; touch ₹18.81 at 11:31:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹19.95
+AMBER 6700 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹45.85; fixed target ₹56.34; touch ₹59.45 at 10:03:09 IST (fresh polled LTP)
+ASIANPAINT 2600 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹14.10; fixed target ₹16.64; touch ₹16.64 at 10:04:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹16.80
+AXISBANK 1390 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹10.75; fixed target ₹8.28; touch ₹8.20 at 10:42:25 IST (fresh polled LTP)
+AXISBANK 1400 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹18.05; fixed target ₹14.65; touch ₹14.55 at 10:42:25 IST (fresh polled LTP)
+BAJFINANCE 1100 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.10; fixed target ₹8.56; touch ₹8.56 at 10:50:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹7.75
+BAJFINANCE 1110 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹3.80; fixed target ₹4.87; touch ₹4.87 at 10:49:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹4.80
+BHARTIARTL 2120 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹21.95; fixed target ₹31.23; touch ₹31.80 at 12:24:58 IST (fresh polled LTP)
+BIOCON 360 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹3.95; fixed target ₹4.83; touch ₹4.83 at 12:13:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹4.90
+BRITANNIA 4800 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹45.25; fixed target ₹57.92; touch ₹58.00 at 11:35:51 IST (fresh polled LTP)
+CHOLAFIN 1840 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹9.90; fixed target ₹8.34; touch ₹7.70 at 10:29:47 IST (fresh polled LTP)
+CIPLA 1410 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹10.55; fixed target ₹8.80; touch ₹8.65 at 12:48:13 IST (fresh polled LTP)
+COCHINSHIP 1160 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹6.95; fixed target ₹5.84; touch ₹5.80 at 10:21:11 IST (fresh polled LTP)
+HAL 4800 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹33.25; fixed target ₹40.33; touch ₹40.35 at 10:22:14 IST (fresh polled LTP)
+HINDALCO 920 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹4.55; fixed target ₹5.73; touch ₹5.75 at 10:15:51 IST (fresh polled LTP)
+HINDUNILVR 2040 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹13.20; fixed target ₹16.63; touch ₹16.63 at 13:40:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹16.85
+HINDUNILVR 2060 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.40; fixed target ₹9.27; touch ₹9.27 at 10:25:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹9.35
+HINDUNILVR 2060 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹25.75; fixed target ₹20.73; touch ₹20.73 at 13:56:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹20.70
+ICICIBANK 1600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.80; fixed target ₹13.67; touch ₹13.85 at 10:44:42 IST (fresh polled LTP)
+INDIGO 5500 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹28.00; fixed target ₹39.50; touch ₹39.50 at 13:34:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹38.45
+JSWSTEEL 1290 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹7.70; fixed target ₹6.38; touch ₹6.35 at 11:03:38 IST (fresh polled LTP)
+JSWSTEEL 1310 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹8.25; fixed target ₹9.95; touch ₹10.90 at 11:23:29 IST (fresh polled LTP)
+LICI 405 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹3.50; fixed target ₹4.27; touch ₹4.60 at 11:38:55 IST (fresh polled LTP)
+LT 4250 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹8.10; fixed target ₹10.80; last observed ₹4.00 at 15:35:00; gap +62.9%
+LTF 270 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹3.02; fixed target ₹3.56; touch ₹3.69 at 10:38:12 IST (fresh polled LTP)
+LTM 4100 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.85; fixed target ₹13.76; touch ₹13.90 at 11:38:55 IST (fresh polled LTP)
+MARUTI 13700 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹156.25; fixed target ₹134.17; touch ₹128.25 at 10:24:22 IST (fresh polled LTP)
+MARUTI 13800 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹226.25; fixed target ₹195.95; touch ₹195.75 at 10:24:22 IST (fresh polled LTP)
+MCX 3550 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹45.70; fixed target ₹54.04; last observed ₹31.00 at 15:36:00; gap +42.6%
+PERSISTENT 6000 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹46.75; fixed target ₹40.05; touch ₹38.80 at 10:16:55 IST (fresh polled LTP)
+POLICYBZR 1000 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹16.95; fixed target ₹20.56; touch ₹25.45 at 10:38:12 IST (fresh polled LTP)
+POLYCAB 7300 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹35.45; fixed target ₹29.85; touch ₹28.25 at 10:24:22 IST (fresh polled LTP)
+POLYCAB 7400 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹70.75; fixed target ₹93.61; touch ₹96.45 at 11:30:55 IST (fresh polled LTP)
+POLYCAB 7500 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹38.05; fixed target ₹45.55; touch ₹58.00 at 11:32:40 IST (fresh polled LTP)
+RELIANCE 1350 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹7.10; fixed target ₹6.01; touch ₹6.00 at 10:25:26 IST (fresh polled LTP)
+RELIANCE 1360 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹9.55; fixed target ₹11.31; touch ₹11.31 at 12:01:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹11.15
+SBIN 1140 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹6.10; fixed target ₹5.09; touch ₹4.80 at 12:02:49 IST (fresh polled LTP)
+SBIN 1160 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹6.55; fixed target ₹8.21; touch ₹8.21 at 12:30:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹8.05
+SBIN 1160 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹17.65; fixed target ₹14.90; touch ₹14.60 at 12:03:54 IST (fresh polled LTP)
+SOLARINDS 18250 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹75.40; fixed target ₹55.24; touch ₹52.00 at 10:57:23 IST (fresh polled LTP)
+TATACONSUM 1140 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹4.70; fixed target ₹3.80; touch ₹3.80 at 10:31:54 IST (fresh polled LTP)
+TATACONSUM 1150 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹9.15; fixed target ₹7.50; touch ₹7.25 at 10:57:23 IST (fresh polled LTP)
+TIINDIA 2150 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹9.40; fixed target ₹12.58; last observed ₹4.60 at 15:35:00; gap +63.4%
+ADANIENT 2650 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹51.05; fixed target ₹60.09; touch ₹61.90 at 10:51:04 IST (fresh polled LTP)
+ADANIGREEN 1420 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹13.80; fixed target ₹18.06; touch ₹18.06 at 10:44:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹18.35
+AUROPHARMA 1820 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹8.15; fixed target ₹10.78; touch ₹10.80 at 12:30:14 IST (fresh polled LTP)
+AXISBANK 1380 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹4.65; fixed target ₹3.92; touch ₹3.70 at 10:29:47 IST (fresh polled LTP)
+AXISBANK 1390 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.90; fixed target ₹9.65; touch ₹10.15 at 10:42:25 IST (fresh polled LTP)
+AXISBANK 1400 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹5.00; fixed target ₹6.18; touch ₹6.65 at 10:42:25 IST (fresh polled LTP)
+BAJAJFINSV 1860 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹17.50; fixed target ₹22.13; touch ₹22.40 at 10:25:26 IST (fresh polled LTP)
+BAJFINANCE 1090 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹7.20; fixed target ₹6.22; touch ₹6.22 at 10:27:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹6.25
+BEL 400 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹3.65; fixed target ₹4.33; touch ₹4.40 at 10:25:26 IST (fresh polled LTP)
+BHARATFORG 1740 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.00; fixed target ₹12.50; touch ₹12.55 at 10:39:15 IST (fresh polled LTP)
+BSE 3700 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹37.40; fixed target ₹44.35; touch ₹45.50 at 10:29:47 IST (fresh polled LTP)
+CDSL 1420 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.75; fixed target ₹13.17; touch ₹13.55 at 12:24:58 IST (fresh polled LTP)
+COALINDIA 389.75 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹1.60; fixed target ₹2.23; touch ₹2.25 at 12:39:46 IST (fresh polled LTP)
+COFORGE 2140 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹18.80; fixed target ₹22.54; touch ₹25.60 at 10:25:26 IST (fresh polled LTP)
+DRREDDY 1410 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹5.85; fixed target ₹7.40; last observed ₹1.85 at 15:35:00; gap +75.0%
+GVT&D 4100 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹10.40; fixed target ₹13.53; last observed ₹5.90 at 15:36:00; gap +56.4%
+GVT&D 4200 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹33.70; fixed target ₹43.17; last observed ₹23.40 at 15:36:00; gap +45.8%
+HAVELLS 1220 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹11.30; fixed target ₹13.30; last observed ₹2.75 at 15:36:00; gap +79.3%
+HAVELLS 1230 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹7.30; fixed target ₹9.08; last observed ₹1.40 at 15:36:00; gap +84.6%
+HDFCBANK 830 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹8.20; fixed target ₹6.67; touch ₹6.67 at 10:43:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹6.90
+ICICIBANK 1610 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.70; fixed target ₹9.11; touch ₹9.11 at 10:38:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹9.30
+JSWSTEEL 1300 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹9.95; fixed target ₹12.65; touch ₹13.00 at 11:05:43 IST (fresh polled LTP)
+LAURUSLABS 2300 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹13.50; fixed target ₹16.58; touch ₹17.25 at 10:45:46 IST (fresh polled LTP)
+MARUTI 13900 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹80.85; fixed target ₹101.90; touch ₹101.90 at 10:46:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹96.55
+MARUTI 13900 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹271.65; fixed target ₹235.90; touch ₹235.90 at 10:42:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹251.80
+MOTILALOFS 1180 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹8.85; fixed target ₹10.54; touch ₹10.54 at 11:13:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹10.60
+MOTILALOFS 1220 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹8.50; fixed target ₹7.09; touch ₹7.00 at 10:44:42 IST (fresh polled LTP)
+MPHASIS 2500 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹12.30; fixed target ₹15.19; last observed ₹5.30 at 15:33:00; gap +65.1%
+NAUKRI 1180 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹13.60; fixed target ₹10.85; touch ₹10.15 at 10:38:12 IST (fresh polled LTP)
+POWERGRID 260 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹2.80; fixed target ₹2.42; touch ₹2.25 at 10:43:27 IST (fresh polled LTP)
+TIINDIA 2200 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹21.20; fixed target ₹27.14; last observed ₹14.85 at 15:32:00; gap +45.3%
+ASIANPAINT 2620 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹5.95; fixed target ₹7.24; touch ₹7.24 at 12:35:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹7.35
+BAJAJ-AUTO 10700 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹55.90; fixed target ₹47.36; touch ₹46.85 at 10:47:55 IST (fresh polled LTP)
+BAJAJ-AUTO 10800 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹95.85; fixed target ₹121.49; touch ₹126.95 at 10:59:29 IST (fresh polled LTP)
+BAJAJ-AUTO 10800 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹104.85; fixed target ₹89.15; touch ₹89.15 at 10:49:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹89.35
+BAJAJ-AUTO 10900 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹63.50; fixed target ₹77.67; touch ₹79.65 at 10:59:29 IST (fresh polled LTP)
+BAJAJ-AUTO 10900 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹172.00; fixed target ₹146.59; touch ₹145.50 at 10:53:12 IST (fresh polled LTP)
+BAJFINANCE 1090 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹12.55; fixed target ₹15.10; touch ₹15.85 at 11:19:20 IST (fresh polled LTP)
+COFORGE 2140 PE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹22.40; fixed target ₹18.76; last observed ₹58.00 at 15:37:00; gap -209.1%
+COFORGE 2160 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹26.20; fixed target ₹32.48; touch ₹32.90 at 10:46:47 IST (fresh polled LTP)
+COFORGE 2180 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹19.45; fixed target ₹23.74; touch ₹25.00 at 10:46:47 IST (fresh polled LTP)
+COFORGE 2180 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹49.60; fixed target ₹41.09; touch ₹41.05 at 10:46:47 IST (fresh polled LTP)
+DABUR 390 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹4.50; fixed target ₹5.44; last observed ₹4.35 at 15:32:00; gap +20.1%
+DABUR 395 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹2.40; fixed target ₹3.01; last observed ₹1.95 at 15:32:00; gap +35.2%
+HDFCBANK 840 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹13.50; fixed target ₹11.18; touch ₹11.10 at 12:34:27 IST (fresh polled LTP)
+HINDUNILVR 2080 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹5.10; fixed target ₹6.13; last observed ₹4.15 at 15:33:00; gap +32.3%
+LT 4200 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹44.50; fixed target ₹35.82; touch ₹35.82 at 11:24:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹37.75
+MPHASIS 2450 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹23.40; fixed target ₹29.99; last observed ₹9.00 at 15:32:00; gap +70.0%
+OFSS 9750 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹78.10; fixed target ₹104.43; touch ₹105.35 at 15:18:16 IST (fresh polled LTP)
+POWERINDIA 30000 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹290.85; fixed target ₹407.40; last observed ₹186.60 at 15:33:00; gap +54.2%
+POWERINDIA 30500 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹159.90; fixed target ₹192.72; touch ₹192.72 at 11:26:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹179.30
+TRENT 3300 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.95; fixed target ₹13.45; touch ₹13.80 at 11:04:38 IST (fresh polled LTP)
+TVSMOTOR 4650 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹13.50; fixed target ₹16.42; touch ₹16.85 at 11:35:51 IST (fresh polled LTP)
+ZYDUSLIFE 1190 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹12.45; fixed target ₹14.67; touch ₹14.85 at 11:32:40 IST (fresh polled LTP)
+ZYDUSLIFE 1200 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.55; fixed target ₹9.59; touch ₹10.00 at 11:33:43 IST (fresh polled LTP)
+ZYDUSLIFE 1200 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹14.75; fixed target ₹12.45; touch ₹11.80 at 11:30:55 IST (fresh polled LTP)
+ADANIPORTS 1920 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹15.55; fixed target ₹13.28; touch ₹13.28 at 11:17:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹13.75
+AXISBANK 1410 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹5.10; fixed target ₹6.49; touch ₹6.50 at 11:39:59 IST (fresh polled LTP)
+BAJAJFINSV 1900 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹6.70; fixed target ₹7.97; touch ₹8.00 at 11:52:27 IST (fresh polled LTP)
+COFORGE 2120 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹22.35; fixed target ₹19.28; touch ₹19.05 at 11:08:52 IST (fresh polled LTP)
+ETERNAL 360 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹4.95; fixed target ₹6.00; last observed ₹4.45 at 15:36:00; gap +25.8%
+ETERNAL 365 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹2.65; fixed target ₹3.20; touch ₹3.20 at 11:22:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹3.10
+HAVELLS 1210 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹12.25; fixed target ₹14.42; last observed ₹7.00 at 15:32:00; gap +51.5%
+HDFCAMC 2640 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹18.85; fixed target ₹16.28; touch ₹16.10 at 11:45:12 IST (fresh polled LTP)
+HYUNDAI 2220 CE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹19.65; fixed target ₹16.96; last observed ₹21.75 at 15:32:00; gap -28.2%
+KEI 3900 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹15.30; fixed target ₹18.33; touch ₹19.00 at 12:44:03 IST (fresh polled LTP)
+MUTHOOTFIN 2500 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹58.95; fixed target ₹78.57; last observed ₹49.85 at 15:36:00; gap +36.5%
+NESTLEIND 1300 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.50; fixed target ₹12.85; touch ₹13.30 at 11:16:12 IST (fresh polled LTP)
+POLYCAB 7400 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹43.00; fixed target ₹56.47; last observed ₹8.25 at 15:32:00; gap +85.4%
+SBICARD 570 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹5.95; fixed target ₹7.63; touch ₹8.05 at 11:44:12 IST (fresh polled LTP)
+SIEMENS 3550 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹22.15; fixed target ₹18.97; touch ₹18.40 at 11:56:38 IST (fresh polled LTP)
+SIEMENS 3600 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹40.20; fixed target ₹32.32; touch ₹32.00 at 12:41:56 IST (fresh polled LTP)
+TATAELXSI 3850 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹21.00; fixed target ₹25.54; touch ₹26.25 at 12:10:11 IST (fresh polled LTP)
+BAJAJ-AUTO 11000 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹50.20; fixed target ₹59.97; last observed ₹19.00 at 15:36:00; gap +68.3%
+COCHINSHIP 1140 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹13.50; fixed target ₹11.01; touch ₹10.80 at 11:42:05 IST (fresh polled LTP)
+CUMMINSIND 4100 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹27.45; fixed target ₹35.68; touch ₹39.35 at 14:50:10 IST (fresh polled LTP)
+DRREDDY 1380 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹3.65; fixed target ₹5.47; last observed ₹1.15 at 15:33:00; gap +79.0%
+DRREDDY 1400 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹8.30; fixed target ₹7.00; touch ₹5.45 at 11:41:03 IST (fresh polled LTP)
+GODREJPROP 1880 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹13.35; fixed target ₹10.79; touch ₹9.90 at 12:03:54 IST (fresh polled LTP)
+GODREJPROP 1900 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹12.05; fixed target ₹14.46; touch ₹15.20 at 12:15:26 IST (fresh polled LTP)
+HINDPETRO 395 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹1.75; fixed target ₹2.19; touch ₹2.20 at 11:34:46 IST (fresh polled LTP)
+HINDUNILVR 2020 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹23.00; fixed target ₹30.06; touch ₹30.06 at 13:40:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹30.85
+LTM 4200 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹35.70; fixed target ₹47.33; touch ₹49.00 at 11:51:23 IST (fresh polled LTP)
+MARUTI 14000 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹106.65; fixed target ₹131.73; last observed ₹75.65 at 15:32:00; gap +42.6%
+MPHASIS 2400 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹13.05; fixed target ₹15.89; touch ₹17.10 at 11:52:27 IST (fresh polled LTP)
+TVSMOTOR 4550 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹20.60; fixed target ₹16.46; touch ₹15.65 at 12:21:53 IST (fresh polled LTP)
+ADANIGREEN 1420 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹11.15; fixed target ₹9.45; touch ₹9.35 at 13:14:01 IST (fresh polled LTP)
+AXISBANK 1410 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹17.90; fixed target ₹14.97; touch ₹14.80 at 11:54:31 IST (fresh polled LTP)
+BANKBARODA 287.5 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹1.61; fixed target ₹1.97; touch ₹1.98 at 12:02:49 IST (fresh polled LTP)
+CUMMINSIND 4100 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹36.20; fixed target ₹45.64; touch ₹47.25 at 13:12:59 IST (fresh polled LTP)
+GLENMARK 2660 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹11.20; fixed target ₹15.11; touch ₹15.50 at 12:22:53 IST (fresh polled LTP)
+HYUNDAI 2240 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹14.50; fixed target ₹12.27; touch ₹10.80 at 15:14:00 IST (fresh polled LTP)
+INDHOTEL 900 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹9.35; fixed target ₹11.19; touch ₹11.25 at 12:18:34 IST (fresh polled LTP)
+JSWSTEEL 1320 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.70; fixed target ₹9.33; touch ₹9.40 at 12:00:48 IST (fresh polled LTP)
+M&M 3500 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹20.10; fixed target ₹24.57; last observed ₹4.20 at 15:33:00; gap +82.9%
+MAXHEALTH 1080 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹8.95; fixed target ₹10.61; touch ₹10.80 at 12:20:36 IST (fresh polled LTP)
+POLICYBZR 1020 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹14.20; fixed target ₹17.78; touch ₹17.78 at 12:34:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹18.05
+SBILIFE 1820 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹8.75; fixed target ₹10.69; touch ₹11.00 at 12:07:07 IST (fresh polled LTP)
+ADANIENT 2700 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹26.20; fixed target ₹33.67; last observed ₹16.50 at 15:35:00; gap +51.0%
+ADANIPORTS 1900 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹4.95; fixed target ₹6.91; last observed ₹2.10 at 15:35:00; gap +69.6%
+AXISBANK 1420 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹11.60; fixed target ₹14.35; touch ₹15.15 at 12:28:08 IST (fresh polled LTP)
+AXISBANK 1420 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹15.55; fixed target ₹13.20; touch ₹12.00 at 12:09:09 IST (fresh polled LTP)
+AXISBANK 1430 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹8.80; fixed target ₹10.74; touch ₹10.75 at 12:28:08 IST (fresh polled LTP)
+EICHERMOT 8000 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹28.35; fixed target ₹35.91; last observed ₹14.90 at 15:33:00; gap +58.5%
+GLENMARK 2620 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹20.10; fixed target ₹16.77; touch ₹16.40 at 12:14:21 IST (fresh polled LTP)
+HDFCBANK 850 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹2.50; fixed target ₹3.14; touch ₹3.15 at 12:37:37 IST (fresh polled LTP)
+INDIGO 5400 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹23.20; fixed target ₹18.72; touch ₹17.85 at 13:33:03 IST (fresh polled LTP)
+INDIGO 5450 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹34.95; fixed target ₹28.98; touch ₹28.98 at 12:13:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹29.55
+ITC 297.5 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹1.55; fixed target ₹2.43; touch ₹2.45 at 13:54:38 IST (fresh polled LTP)
+JUBLFOOD 430 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹6.85; fixed target ₹8.33; last observed ₹6.30 at 15:37:00; gap +24.4%
+KEI 3700 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹11.80; fixed target ₹16.23; last observed ₹8.20 at 15:37:00; gap +49.5%
+KOTAKBANK 510 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹4.75; fixed target ₹4.04; touch ₹3.80 at 12:22:53 IST (fresh polled LTP)
+POLYCAB 7600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹26.90; fixed target ₹31.84; touch ₹36.35 at 14:50:10 IST (fresh polled LTP)
+APOLLOHOSP 9100 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹145.00; fixed target ₹173.95; touch ₹179.05 at 13:28:47 IST (fresh polled LTP)
+APOLLOHOSP 9100 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹61.85; fixed target ₹50.93; touch ₹50.93 at 13:12:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹53.00
+APOLLOHOSP 9200 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹89.10; fixed target ₹113.91; touch ₹115.75 at 13:28:47 IST (fresh polled LTP)
+APOLLOHOSP 9300 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹56.85; fixed target ₹70.79; touch ₹75.00 at 13:28:47 IST (fresh polled LTP)
+AXISBANK 1430 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹16.70; fixed target ₹13.69; touch ₹13.50 at 12:28:08 IST (fresh polled LTP)
+AXISBANK 1440 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹5.80; fixed target ₹7.25; touch ₹7.80 at 12:28:08 IST (fresh polled LTP)
+BHARTIARTL 2180 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹36.95; fixed target ₹31.46; touch ₹31.40 at 12:30:14 IST (fresh polled LTP)
+CGPOWER 800 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.40; fixed target ₹8.96; touch ₹9.25 at 13:42:45 IST (fresh polled LTP)
+DIXON 13250 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹184.90; fixed target ₹219.66; touch ₹223.55 at 13:23:26 IST (fresh polled LTP)
+DIXON 13500 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹45.75; fixed target ₹34.31; touch ₹34.31 at 12:59:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹33.60
+GVT&D 4400 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹35.95; fixed target ₹28.76; touch ₹25.85 at 12:57:29 IST (fresh polled LTP)
+HINDZINC 520 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹4.95; fixed target ₹5.99; touch ₹6.00 at 13:04:40 IST (fresh polled LTP)
+KOTAKBANK 510 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹3.65; fixed target ₹4.70; touch ₹4.75 at 12:35:30 IST (fresh polled LTP)
+OFSS 10000 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹87.50; fixed target ₹73.05; touch ₹70.05 at 13:12:59 IST (fresh polled LTP)
+PFC 330 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹2.55; fixed target ₹3.33; last observed ₹2.80 at 15:32:00; gap +16.0%
+PHOENIXLTD 2280 CE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹25.70; fixed target ₹21.65; last observed ₹23.10 at 15:32:00; gap -6.7%
+TVSMOTOR 4600 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹30.45; fixed target ₹43.66; touch ₹44.45 at 13:24:31 IST (fresh polled LTP)
+ULTRACEMCO 12700 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹66.50; fixed target ₹54.65; touch ₹53.90 at 13:14:01 IST (fresh polled LTP)
+ADANIENSOL 1520 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹7.35; fixed target ₹9.50; last observed ₹2.00 at 15:37:00; gap +78.9%
+ADANIGREEN 1460 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹6.00; fixed target ₹8.09; last observed ₹4.75 at 15:37:00; gap +41.3%
+AMBER 6800 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹62.75; fixed target ₹53.67; touch ₹53.65 at 12:56:28 IST (fresh polled LTP)
+CIPLA 1400 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹15.90; fixed target ₹19.71; last observed ₹9.50 at 15:33:00; gap +51.8%
+CONCOR 440 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹3.65; fixed target ₹4.42; last observed ₹2.20 at 15:33:00; gap +50.3%
+EICHERMOT 8100 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹64.85; fixed target ₹77.46; last observed ₹37.80 at 15:35:00; gap +51.2%
+FEDERALBNK 375 PE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹5.70; fixed target ₹4.61; last observed ₹5.15 at 15:35:00; gap -11.7%
+KPITTECH 530 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹4.35; fixed target ₹5.16; last observed ₹2.35 at 15:32:00; gap +54.5%
+MARICO 930 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹2.70; fixed target ₹2.13; touch ₹1.95 at 14:50:10 IST (fresh polled LTP)
+PNB 153 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹2.12; fixed target ₹2.53; touch ₹2.58 at 13:36:22 IST (fresh polled LTP)
+POLYCAB 7500 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹53.30; fixed target ₹71.21; last observed ₹35.00 at 15:36:00; gap +50.8%
+AXISBANK 1450 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.60; fixed target ₹9.37; touch ₹9.55 at 13:06:47 IST (fresh polled LTP)
+BAJFINANCE 1110 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹6.90; fixed target ₹5.91; touch ₹5.75 at 13:52:27 IST (fresh polled LTP)
+BDL 1040 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹10.50; fixed target ₹15.09; last observed ₹8.00 at 15:35:00; gap +47.0%
+COALINDIA 390 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹2.25; fixed target ₹2.91; last observed ₹1.20 at 15:37:00; gap +58.7%
+DIVISLAB 11000 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹45.50; fixed target ₹54.97; last observed ₹12.35 at 15:32:00; gap +77.5%
+HAVELLS 1200 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹11.70; fixed target ₹15.20; last observed ₹9.25 at 15:33:00; gap +39.1%
+HEROMOTOCO 5600 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹31.30; fixed target ₹26.83; touch ₹26.10 at 13:35:16 IST (fresh polled LTP)
+HINDALCO 910 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹4.20; fixed target ₹3.57; touch ₹3.40 at 13:40:38 IST (fresh polled LTP)
+ICICIBANK 1630 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹11.35; fixed target ₹13.75; touch ₹13.75 at 14:19:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹13.80
+ICICIBANK 1630 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹7.95; fixed target ₹6.65; touch ₹6.50 at 14:58:53 IST (fresh polled LTP)
+ICICIBANK 1640 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹7.30; fixed target ₹8.87; last observed ₹4.30 at 15:33:00; gap +51.5%
+ICICIBANK 1650 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹4.45; fixed target ₹5.70; last observed ₹2.40 at 15:33:00; gap +57.9%
+LTM 4200 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹37.00; fixed target ₹45.14; last observed ₹33.60 at 15:36:00; gap +25.6%
+SUPREMEIND 3250 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹26.90; fixed target ₹21.68; touch ₹21.68 at 13:40:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹23.20
+TECHM 1740 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹18.35; fixed target ₹23.94; last observed ₹14.90 at 15:35:00; gap +37.8%
+TIINDIA 2200 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹36.45; fixed target ₹43.54; last observed ₹32.75 at 15:35:00; gap +24.8%
+TIINDIA 2250 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹14.05; fixed target ₹17.65; last observed ₹13.00 at 15:35:00; gap +26.3%
+TRENT 3200 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹9.30; fixed target ₹11.50; last observed ₹2.25 at 15:35:00; gap +80.4%
+AMBER 6600 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹34.00; fixed target ₹44.32; last observed ₹12.40 at 15:36:00; gap +72.0%
+AUROPHARMA 1820 PE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹17.30; fixed target ₹14.26; last observed ₹26.15 at 15:37:00; gap -83.4%
+BAJFINANCE 1120 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹7.35; fixed target ₹9.62; last observed ₹3.85 at 15:32:00; gap +60.0%
+BAJFINANCE 1120 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹12.95; fixed target ₹10.58; touch ₹10.58 at 14:25:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹10.90
+BAJFINANCE 1130 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹5.20; fixed target ₹6.43; last observed ₹3.05 at 15:32:00; gap +52.6%
+BANKBARODA 285 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹2.25; fixed target ₹1.86; touch ₹1.73 at 13:45:55 IST (fresh polled LTP)
+COLPAL 1760 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹18.90; fixed target ₹22.50; last observed ₹13.30 at 15:32:00; gap +40.9%
+CUMMINSIND 4150 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹12.85; fixed target ₹17.32; touch ₹17.35 at 14:08:18 IST (fresh polled LTP)
+DATAPATTNS 4300 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹38.60; fixed target ₹31.95; touch ₹31.25 at 13:24:31 IST (fresh polled LTP)
+HDFCBANK 840 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.15; fixed target ₹8.49; touch ₹8.49 at 13:47:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹8.35
+HEROMOTOCO 5500 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹36.10; fixed target ₹44.39; last observed ₹27.40 at 15:35:00; gap +38.3%
+HINDALCO 930 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹6.70; fixed target ₹7.94; touch ₹9.20 at 13:40:38 IST (fresh polled LTP)
+INDIGO 5550 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹18.35; fixed target ₹22.10; touch ₹25.65 at 13:33:03 IST (fresh polled LTP)
+KOTAKBANK 515 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹5.65; fixed target ₹4.81; touch ₹4.70 at 15:21:33 IST (fresh polled LTP)
+M&M 3600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹6.20; fixed target ₹7.66; touch ₹7.66 at 13:30:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹7.00
+MARICO 920 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹5.00; fixed target ₹6.08; last observed ₹2.85 at 15:32:00; gap +53.1%
+PIDILITIND 1600 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹10.35; fixed target ₹12.49; touch ₹13.50 at 14:50:10 IST (fresh polled LTP)
+PRESTIGE 1660 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹29.25; fixed target ₹24.76; touch ₹24.65 at 15:10:48 IST (fresh polled LTP)
+SHRIRAMFIN 980 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹4.70; fixed target ₹4.04; touch ₹3.90 at 14:50:10 IST (fresh polled LTP)
+TCS 2360 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹16.10; fixed target ₹13.71; touch ₹13.05 at 15:21:33 IST (fresh polled LTP)
+TCS 2400 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹16.25; fixed target ₹19.37; last observed ₹14.85 at 15:35:00; gap +23.4%
+TECHM 1760 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹35.00; fixed target ₹29.06; touch ₹27.00 at 15:03:13 IST (fresh polled LTP)
+TITAN 4650 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹13.25; fixed target ₹16.71; touch ₹16.71 at 14:16:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹17.20
+UPL 570 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹3.00; fixed target ₹3.61; touch ₹3.65 at 14:50:10 IST (fresh polled LTP)
+VOLTAS 1240 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹11.35; fixed target ₹13.47; last observed ₹7.40 at 15:36:00; gap +45.1%
+ADANIPORTS 1940 CE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹10.70; fixed target ₹9.15; touch ₹9.00 at 13:52:27 IST (fresh polled LTP)
+APOLLOHOSP 9400 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹46.65; fixed target ₹57.24; last observed ₹27.65 at 15:37:00; gap +51.7%
+AXISBANK 1440 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹18.75; fixed target ₹15.66; touch ₹15.66 at 14:17:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹15.55
+BAJAJ-AUTO 10700 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹90.80; fixed target ₹108.00; touch ₹110.10 at 13:41:43 IST (fresh polled LTP)
+DIXON 12750 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹30.10; fixed target ₹36.23; touch ₹37.05 at 14:04:04 IST (fresh polled LTP)
+INDUSINDBK 1010 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹5.55; fixed target ₹6.67; touch ₹6.67 at 14:17:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹6.85
+KOTAKBANK 515 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹2.45; fixed target ₹2.99; last observed ₹1.75 at 15:36:00; gap +41.5%
+LUPIN 2020 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹7.30; fixed target ₹8.86; touch ₹9.50 at 15:06:28 IST (fresh polled LTP)
+MARUTI 14100 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹68.55; fixed target ₹90.35; last observed ₹64.80 at 15:37:00; gap +28.3%
+PERSISTENT 6100 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹53.45; fixed target ₹64.60; last observed ₹41.40 at 15:32:00; gap +35.9%
+POLICYBZR 1020 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹11.25; fixed target ₹13.59; last observed ₹9.70 at 15:33:00; gap +28.6%
+TECHM 1700 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹10.70; fixed target ₹8.91; touch ₹7.50 at 14:50:10 IST (fresh polled LTP)
+GVT&D 4300 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹36.45; fixed target ₹50.62; touch ₹52.25 at 14:06:13 IST (fresh polled LTP)
+GVT&D 4400 PE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹112.60; fixed target ₹138.05; touch ₹138.05 at 14:10:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹141.00
+HDFCBANK 860 CE (2026-11-23) | UP | VALUE_REACHED
+Reference ₹2.90; fixed target ₹3.71; touch ₹3.71 at 14:19:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹3.70
+ITC 302.5 PE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹4.25; fixed target ₹3.63; last observed ₹5.25 at 15:36:00; gap -44.7%
+POLYCAB 7700 PE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹187.60; fixed target ₹157.36; last observed ₹198.70 at 15:33:00; gap -26.3%
+SBIN 1170 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹8.65; fixed target ₹10.65; last observed ₹4.95 at 15:35:00; gap +53.5%
+SBIN 1170 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹11.95; fixed target ₹10.37; touch ₹10.25 at 14:56:48 IST (fresh polled LTP)
+SBIN 1180 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹5.30; fixed target ₹6.57; last observed ₹2.85 at 15:35:00; gap +56.6%
+SBIN 1180 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹18.70; fixed target ₹16.09; touch ₹16.09 at 14:58:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹17.30
+TITAN 4600 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹26.85; fixed target ₹35.41; last observed ₹25.40 at 15:35:00; gap +28.3%
+TRENT 3250 PE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹23.05; fixed target ₹18.43; last observed ₹23.35 at 15:36:00; gap -26.7%
+TRENT 3350 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹10.25; fixed target ₹12.47; last observed ₹3.45 at 15:36:00; gap +72.3%
+VOLTAS 1220 PE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹9.60; fixed target ₹7.93; last observed ₹8.95 at 15:36:00; gap -12.8%
+ABB 6900 CE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹89.00; fixed target ₹111.19; last observed ₹71.65 at 15:36:00; gap +35.6%
+ABB 7000 PE (2026-11-23) | DOWN | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹112.00; fixed target ₹92.65; last observed ₹118.15 at 15:36:00; gap -27.5%
+ADANIENSOL 1480 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹19.30; fixed target ₹15.62; touch ₹15.62 at 15:36:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹15.50
+AMBER 6800 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹86.45; fixed target ₹104.72; last observed ₹65.00 at 15:37:00; gap +37.9%
+BAJAJFINSV 1900 PE (2026-11-23) | DOWN | VALUE_REACHED
+Reference ₹9.90; fixed target ₹8.55; touch ₹8.55 at 15:04:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹8.30
+
+WHY CONTRACTS WERE SKIPPED (checks, not unique contracts)
+atm_shift_during_request: 18
+chains_received: 3313
+gap_below_threshold: 4500
+insufficient_peer_iv: 8895
+liquidity: 6677
+new_alerts: 339
+no_liquid_contracts: 178
+stale_option_or_missing_quote: 8222
