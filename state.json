@@ -14,15 +14,728 @@
     },
     "2026-11-20": {
       "date": "2026-11-20",
-      "cursor": 0,
+      "cursor": 48,
       "sweeps": 0,
-      "symbols": {},
-      "counts": {},
+      "symbols": {
+        "360ONE": {
+          "checked_at": "2026-11-20T09:20:15.126174+05:30",
+          "status": "chain_received"
+        },
+        "ABB": {
+          "checked_at": "2026-11-20T09:20:18.547466+05:30",
+          "status": "chain_received"
+        },
+        "ABCAPITAL": {
+          "checked_at": "2026-11-20T09:20:22.031025+05:30",
+          "status": "chain_received"
+        },
+        "ADANIENSOL": {
+          "checked_at": "2026-11-20T09:20:25.532530+05:30",
+          "status": "chain_received"
+        },
+        "ADANIENT": {
+          "checked_at": "2026-11-20T09:20:28.982095+05:30",
+          "status": "chain_received"
+        },
+        "ADANIGREEN": {
+          "checked_at": "2026-11-20T09:20:32.451853+05:30",
+          "status": "chain_received"
+        },
+        "ADANIPORTS": {
+          "checked_at": "2026-11-20T09:20:35.940840+05:30",
+          "status": "chain_received"
+        },
+        "ADANIPOWER": {
+          "checked_at": "2026-11-20T09:20:44.399783+05:30",
+          "status": "chain_received"
+        },
+        "ALKEM": {
+          "checked_at": "2026-11-20T09:20:52.879225+05:30",
+          "status": "chain_received"
+        },
+        "AMBER": {
+          "checked_at": "2026-11-20T09:20:55.162785+05:30",
+          "status": "chain_received"
+        },
+        "AMBUJACEM": {
+          "checked_at": "2026-11-20T09:20:58.606303+05:30",
+          "status": "chain_received"
+        },
+        "ANANDRATHI": {
+          "checked_at": "2026-11-20T09:21:02.101692+05:30",
+          "status": "chain_received"
+        },
+        "ANGELONE": {
+          "checked_at": "2026-11-20T09:21:04.378046+05:30",
+          "status": "chain_received"
+        },
+        "APLAPOLLO": {
+          "checked_at": "2026-11-20T09:21:07.847272+05:30",
+          "status": "chain_received"
+        },
+        "APOLLOHOSP": {
+          "checked_at": "2026-11-20T09:21:11.308771+05:30",
+          "status": "chain_received"
+        },
+        "ASHOKLEY": {
+          "checked_at": "2026-11-20T09:21:14.787237+05:30",
+          "status": "chain_received"
+        },
+        "ASIANPAINT": {
+          "checked_at": "2026-11-20T09:21:19.453864+05:30",
+          "status": "chain_received"
+        },
+        "ASTRAL": {
+          "checked_at": "2026-11-20T09:21:22.936903+05:30",
+          "status": "chain_received"
+        },
+        "ATHERENERG": {
+          "checked_at": "2026-11-20T09:21:25.202947+05:30",
+          "status": "chain_received"
+        },
+        "AUBANK": {
+          "checked_at": "2026-11-20T09:21:28.676004+05:30",
+          "status": "chain_received"
+        },
+        "AUROPHARMA": {
+          "checked_at": "2026-11-20T09:21:32.154777+05:30",
+          "status": "chain_received"
+        },
+        "AXISBANK": {
+          "checked_at": "2026-11-20T09:21:35.627881+05:30",
+          "status": "chain_received"
+        },
+        "BAJAJ-AUTO": {
+          "checked_at": "2026-11-20T09:21:47.908049+05:30",
+          "status": "chain_received"
+        },
+        "BAJAJFINSV": {
+          "checked_at": "2026-11-20T09:21:52.590109+05:30",
+          "status": "chain_received"
+        },
+        "BAJFINANCE": {
+          "checked_at": "2026-11-20T09:22:01.104351+05:30",
+          "status": "chain_received"
+        },
+        "BANDHANBNK": {
+          "checked_at": "2026-11-20T09:22:04.552696+05:30",
+          "status": "chain_received"
+        },
+        "BANKBARODA": {
+          "checked_at": "2026-11-20T09:22:06.811697+05:30",
+          "status": "chain_received"
+        },
+        "BANKINDIA": {
+          "checked_at": "2026-11-20T09:22:10.309177+05:30",
+          "status": "chain_received"
+        },
+        "BDL": {
+          "checked_at": "2026-11-20T09:22:12.574433+05:30",
+          "status": "chain_received"
+        },
+        "BEL": {
+          "checked_at": "2026-11-20T09:22:16.063432+05:30",
+          "status": "chain_received"
+        },
+        "BHARATFORG": {
+          "checked_at": "2026-11-20T09:22:20.717295+05:30",
+          "status": "chain_received"
+        },
+        "BHARTIARTL": {
+          "checked_at": "2026-11-20T09:22:24.206409+05:30",
+          "status": "chain_received"
+        },
+        "BHEL": {
+          "checked_at": "2026-11-20T09:22:44.178625+05:30",
+          "status": "chain_received"
+        },
+        "BIOCON": {
+          "checked_at": "2026-11-20T09:22:48.840323+05:30",
+          "status": "chain_received"
+        },
+        "BLUESTARCO": {
+          "checked_at": "2026-11-20T09:22:53.528610+05:30",
+          "status": "chain_received"
+        },
+        "BOSCHLTD": {
+          "checked_at": "2026-11-20T09:22:58.191280+05:30",
+          "status": "chain_received"
+        },
+        "BPCL": {
+          "checked_at": "2026-11-20T09:23:01.666617+05:30",
+          "status": "chain_received"
+        },
+        "BRITANNIA": {
+          "checked_at": "2026-11-20T09:23:05.140784+05:30",
+          "status": "chain_received"
+        },
+        "BSE": {
+          "checked_at": "2026-11-20T09:23:08.605234+05:30",
+          "status": "chain_received"
+        },
+        "CAMS": {
+          "checked_at": "2026-11-20T09:23:12.082280+05:30",
+          "status": "chain_received"
+        },
+        "CANBK": {
+          "checked_at": "2026-11-20T09:23:15.550158+05:30",
+          "status": "chain_received"
+        },
+        "CDSL": {
+          "checked_at": "2026-11-20T09:23:19.011587+05:30",
+          "status": "chain_received"
+        },
+        "CGPOWER": {
+          "checked_at": "2026-11-20T09:23:23.680646+05:30",
+          "status": "chain_received"
+        },
+        "CHOLAFIN": {
+          "checked_at": "2026-11-20T09:23:27.158725+05:30",
+          "status": "chain_received"
+        },
+        "CIPLA": {
+          "checked_at": "2026-11-20T09:23:30.671341+05:30",
+          "status": "chain_received"
+        },
+        "COALINDIA": {
+          "checked_at": "2026-11-20T09:23:34.105593+05:30",
+          "status": "chain_received"
+        },
+        "COCHINSHIP": {
+          "checked_at": "2026-11-20T09:23:42.614158+05:30",
+          "status": "chain_received"
+        },
+        "COFORGE": {
+          "checked_at": "2026-11-20T09:23:46.085722+05:30",
+          "status": "chain_received"
+        }
+      },
+      "counts": {
+        "chains_received": 48,
+        "stale_option_or_missing_quote": 74,
+        "liquidity": 142,
+        "insufficient_peer_iv": 139,
+        "gap_below_threshold": 65,
+        "new_alerts": 10,
+        "no_liquid_contracts": 5
+      },
       "last_error": null,
-      "universe_count": 218
+      "universe_count": 218,
+      "sweep_started": "2026-11-20T09:20:14.796800+05:30"
     }
   },
-  "watches": [],
+  "watches": [
+    {
+      "key": "NSE_FO|68576",
+      "symbol": "ADANIPORTS",
+      "underlying": "NSE_EQ|INE742F01042",
+      "expiry": "2026-11-23",
+      "strike": 1920.0,
+      "side": "CE",
+      "lot": 475,
+      "spot": 1915.5,
+      "market": {
+        "ltp": 13.3,
+        "oi": 639825.0,
+        "volume": 94050.0,
+        "bid_price": 12.15,
+        "ask_price": 12.6,
+        "bid_qty": 950.0,
+        "ask_qty": 950.0
+      },
+      "greeks": {
+        "vega": 0.7058,
+        "theta": -2.513,
+        "gamma": 0.0093,
+        "delta": 0.4203,
+        "iv": 23.19,
+        "pop": 30.06
+      },
+      "quote_time": "2026-11-20T09:20:36.99+05:30",
+      "last_trade_time": "1795146635682",
+      "target": 15.8403,
+      "entry": 13.3,
+      "direction": "UP",
+      "gap_pct": 16.036715922776633,
+      "executable_gap_pct": 20.455836137367346,
+      "peer_iv": 24.253333333333334,
+      "years": 0.008921958210045662,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "d4f5000d64ce680a",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:20:37.125888+05:30",
+      "status": "OPEN",
+      "last_price": 13.05,
+      "last_observed_at": "2026-11-20T09:23:22.486939+05:30",
+      "checked_until": "2026-11-20T09:20:37.125888+05:30",
+      "last_candle_attempt": "2026-11-20T09:20:42.930339+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    },
+    {
+      "key": "NSE_FO|73319",
+      "symbol": "ADANIPOWER",
+      "underlying": "NSE_EQ|INE814H01029",
+      "expiry": "2026-11-23",
+      "strike": 207.5,
+      "side": "CE",
+      "lot": 3550,
+      "spot": 209.75,
+      "market": {
+        "ltp": 3.08,
+        "oi": 1128900.0,
+        "volume": 170400.0,
+        "bid_price": 3.02,
+        "ask_price": 3.14,
+        "bid_qty": 10650.0,
+        "ask_qty": 3550.0
+      },
+      "greeks": {
+        "vega": 0.0758,
+        "theta": -0.3298,
+        "gamma": 0.0687,
+        "delta": 0.6078,
+        "iv": 28.32,
+        "pop": 38.6
+      },
+      "quote_time": "2026-11-20T09:20:45.475+05:30",
+      "last_trade_time": "1795146604106",
+      "target": 3.6948,
+      "entry": 3.08,
+      "direction": "UP",
+      "gap_pct": 16.640305063694516,
+      "executable_gap_pct": 15.016414902597655,
+      "peer_iv": 29.598908427718428,
+      "years": 0.008921689575818112,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "04b961c85e3b8a73",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:20:45.597537+05:30",
+      "status": "OPEN",
+      "last_price": 3.61,
+      "last_observed_at": "2026-11-20T09:23:22.486939+05:30",
+      "checked_until": "2026-11-20T09:20:45.597537+05:30",
+      "last_candle_attempt": "2026-11-20T09:20:51.397839+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    },
+    {
+      "key": "NSE_FO|83764",
+      "symbol": "AXISBANK",
+      "underlying": "NSE_EQ|INE238A01034",
+      "expiry": "2026-11-23",
+      "strike": 1370.0,
+      "side": "CE",
+      "lot": 625,
+      "spot": 1378.1,
+      "market": {
+        "ltp": 10.55,
+        "oi": 1764375.0,
+        "volume": 212500.0,
+        "bid_price": 10.05,
+        "ask_price": 10.45,
+        "bid_qty": 1250.0,
+        "ask_qty": 625.0
+      },
+      "greeks": {
+        "vega": 0.4953,
+        "theta": -1.0956,
+        "gamma": 0.0204,
+        "delta": 0.6184,
+        "iv": 14.4,
+        "pop": 39.12
+      },
+      "quote_time": "2026-11-20T09:21:36.699+05:30",
+      "last_trade_time": "1795146688874",
+      "target": 13.2024,
+      "entry": 10.55,
+      "direction": "UP",
+      "gap_pct": 20.090147050437572,
+      "executable_gap_pct": 20.847586414888415,
+      "peer_iv": 15.503585344102808,
+      "years": 0.008920064841831558,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "7b6f4218195e5f28",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:21:36.835148+05:30",
+      "status": "OPEN",
+      "last_price": 10.9,
+      "last_observed_at": "2026-11-20T09:23:22.486939+05:30",
+      "checked_until": "2026-11-20T09:21:36.835148+05:30",
+      "last_candle_attempt": "2026-11-20T09:21:46.440366+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    },
+    {
+      "key": "NSE_FO|83773",
+      "symbol": "AXISBANK",
+      "underlying": "NSE_EQ|INE238A01034",
+      "expiry": "2026-11-23",
+      "strike": 1380.0,
+      "side": "CE",
+      "lot": 625,
+      "spot": 1378.1,
+      "market": {
+        "ltp": 6.3,
+        "oi": 2039375.0,
+        "volume": 625625.0,
+        "bid_price": 6.2,
+        "ask_price": 6.4,
+        "bid_qty": 2500.0,
+        "ask_qty": 4375.0
+      },
+      "greeks": {
+        "vega": 0.508,
+        "theta": -1.295,
+        "gamma": 0.0181,
+        "delta": 0.4206,
+        "iv": 16.6,
+        "pop": 30.22
+      },
+      "quote_time": "2026-11-20T09:21:36.699+05:30",
+      "last_trade_time": "1795146694870",
+      "target": 8.3189,
+      "entry": 6.3,
+      "direction": "UP",
+      "gap_pct": 24.268556146910672,
+      "executable_gap_pct": 23.066469736544168,
+      "peer_iv": 17.109266091958208,
+      "years": 0.008920064841831558,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "d30d1b5b9a790a15",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:21:36.835148+05:30",
+      "status": "OPEN",
+      "last_price": 6.9,
+      "last_observed_at": "2026-11-20T09:23:22.486939+05:30",
+      "checked_until": "2026-11-20T09:21:36.835148+05:30",
+      "last_candle_attempt": "2026-11-20T09:21:51.123013+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    },
+    {
+      "key": "NSE_FO|75492",
+      "symbol": "BAJAJFINSV",
+      "underlying": "NSE_EQ|INE918I01026",
+      "expiry": "2026-11-23",
+      "strike": 1880.0,
+      "side": "CE",
+      "lot": 300,
+      "spot": 1870.4,
+      "market": {
+        "ltp": 8.1,
+        "oi": 1020000.0,
+        "volume": 102300.0,
+        "bid_price": 7.35,
+        "ask_price": 7.65,
+        "bid_qty": 300.0,
+        "ask_qty": 300.0
+      },
+      "greeks": {
+        "vega": 0.6593,
+        "theta": -1.8539,
+        "gamma": 0.0116,
+        "delta": 0.3588,
+        "iv": 18.31,
+        "pop": 26.82
+      },
+      "quote_time": "2026-11-20T09:21:53.667+05:30",
+      "last_trade_time": "1795146707408",
+      "target": 9.6305,
+      "entry": 8.1,
+      "direction": "UP",
+      "gap_pct": 15.892390144833147,
+      "executable_gap_pct": 20.565035136786854,
+      "peer_iv": 19.10499999999999,
+      "years": 0.00891952747260274,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "cdba2887f2859b3a",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:21:53.781624+05:30",
+      "status": "OPEN",
+      "last_price": 8.2,
+      "last_observed_at": "2026-11-20T09:23:22.486939+05:30",
+      "checked_until": "2026-11-20T09:21:53.781624+05:30",
+      "last_candle_attempt": "2026-11-20T09:21:59.605372+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    },
+    {
+      "key": "NSE_FO|89676",
+      "symbol": "BHARTIARTL",
+      "underlying": "NSE_EQ|INE397D01024",
+      "expiry": "2026-11-23",
+      "strike": 2140.0,
+      "side": "CE",
+      "lot": 475,
+      "spot": 2147.1,
+      "market": {
+        "ltp": 11.6,
+        "oi": 1687200.0,
+        "volume": 376675.0,
+        "bid_price": 11.7,
+        "ask_price": 12.05,
+        "bid_qty": 475.0,
+        "ask_qty": 475.0
+      },
+      "greeks": {
+        "vega": 0.8057,
+        "theta": -1.7068,
+        "gamma": 0.0143,
+        "delta": 0.4897,
+        "iv": 13.79,
+        "pop": 33.73
+      },
+      "quote_time": "2026-11-20T09:22:25.266+05:30",
+      "last_trade_time": "1795146744467",
+      "target": 15.0815,
+      "entry": 11.6,
+      "direction": "UP",
+      "gap_pct": 23.08447235333014,
+      "executable_gap_pct": 20.100680332554145,
+      "peer_iv": 12.937639326143985,
+      "years": 0.00891852551354008,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "e1b51849ab5b1f39",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:22:25.379405+05:30",
+      "status": "OPEN",
+      "last_price": 10.65,
+      "last_observed_at": "2026-11-20T09:23:22.486939+05:30",
+      "checked_until": "2026-11-20T09:22:25.379405+05:30",
+      "last_candle_attempt": "2026-11-20T09:22:42.713804+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    },
+    {
+      "key": "NSE_FO|89677",
+      "symbol": "BHARTIARTL",
+      "underlying": "NSE_EQ|INE397D01024",
+      "expiry": "2026-11-23",
+      "strike": 2140.0,
+      "side": "PE",
+      "lot": 475,
+      "spot": 2147.1,
+      "market": {
+        "ltp": 12.0,
+        "oi": 1202225.0,
+        "volume": 318725.0,
+        "bid_price": 11.7,
+        "ask_price": 12.0,
+        "bid_qty": 950.0,
+        "ask_qty": 950.0
+      },
+      "greeks": {
+        "vega": 0.8058,
+        "theta": -1.9487,
+        "gamma": 0.0125,
+        "delta": -0.5083,
+        "iv": 15.75,
+        "pop": 35.24
+      },
+      "quote_time": "2026-11-20T09:22:25.266+05:30",
+      "last_trade_time": "1795146741659",
+      "target": 9.881,
+      "entry": 12.0,
+      "direction": "DOWN",
+      "gap_pct": -21.44465352769727,
+      "executable_gap_pct": -18.40853718950483,
+      "peer_iv": 16.854688613431353,
+      "years": 0.00891852551354008,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "3dcd0311ec524229",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:22:25.379405+05:30",
+      "status": "OPEN",
+      "last_price": 13.95,
+      "last_observed_at": "2026-11-20T09:23:22.486939+05:30",
+      "checked_until": "2026-11-20T09:22:25.379405+05:30",
+      "last_candle_attempt": "2026-11-20T09:22:47.382606+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    },
+    {
+      "key": "NSE_FO|79298",
+      "symbol": "BHARTIARTL",
+      "underlying": "NSE_EQ|INE397D01024",
+      "expiry": "2026-11-23",
+      "strike": 2160.0,
+      "side": "CE",
+      "lot": 475,
+      "spot": 2147.1,
+      "market": {
+        "ltp": 7.35,
+        "oi": 2327025.0,
+        "volume": 838850.0,
+        "bid_price": 6.5,
+        "ask_price": 6.65,
+        "bid_qty": 1900.0,
+        "ask_qty": 1425.0
+      },
+      "greeks": {
+        "vega": 0.6914,
+        "theta": -1.9445,
+        "gamma": 0.0093,
+        "delta": 0.2899,
+        "iv": 18.31,
+        "pop": 22.66
+      },
+      "quote_time": "2026-11-20T09:22:25.266+05:30",
+      "last_trade_time": "1795146743373",
+      "target": 8.8223,
+      "entry": 7.35,
+      "direction": "UP",
+      "gap_pct": 16.688070897210714,
+      "executable_gap_pct": 24.622540335571593,
+      "peer_iv": 17.15259467941133,
+      "years": 0.00891852551354008,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "c6dabfacd86f99fc",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:22:25.379405+05:30",
+      "status": "OPEN",
+      "last_price": 7.2,
+      "last_observed_at": "2026-11-20T09:23:22.486939+05:30",
+      "checked_until": "2026-11-20T09:22:25.379405+05:30",
+      "last_candle_attempt": "2026-11-20T09:22:52.045222+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    },
+    {
+      "key": "NSE_FO|79299",
+      "symbol": "BHARTIARTL",
+      "underlying": "NSE_EQ|INE397D01024",
+      "expiry": "2026-11-23",
+      "strike": 2160.0,
+      "side": "PE",
+      "lot": 475,
+      "spot": 2147.1,
+      "market": {
+        "ltp": 28.0,
+        "oi": 502550.0,
+        "volume": 56525.0,
+        "bid_price": 29.45,
+        "ask_price": 30.2,
+        "bid_qty": 475.0,
+        "ask_qty": 950.0
+      },
+      "greeks": {
+        "vega": 0.7239,
+        "theta": -2.4156,
+        "gamma": 0.0082,
+        "delta": -0.6785,
+        "iv": 21.73,
+        "pop": 42.22
+      },
+      "quote_time": "2026-11-20T09:22:25.266+05:30",
+      "last_trade_time": "1795146736113",
+      "target": 23.154,
+      "entry": 28.0,
+      "direction": "DOWN",
+      "gap_pct": -20.929263511927584,
+      "executable_gap_pct": -27.191671800938117,
+      "peer_iv": 20.497412182434715,
+      "years": 0.00891852551354008,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "0a7f87931421944d",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:22:25.379405+05:30",
+      "status": "OPEN",
+      "last_price": 30.25,
+      "last_observed_at": "2026-11-20T09:23:22.486939+05:30",
+      "checked_until": "2026-11-20T09:22:25.379405+05:30",
+      "last_candle_attempt": "2026-11-20T09:22:56.728808+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    },
+    {
+      "key": "NSE_FO|45741",
+      "symbol": "COALINDIA",
+      "underlying": "NSE_EQ|INE522F01014",
+      "expiry": "2026-11-23",
+      "strike": 390.0,
+      "side": "PE",
+      "lot": 1350,
+      "spot": 390.25,
+      "market": {
+        "ltp": 3.4,
+        "oi": 993600.0,
+        "volume": 623700.0,
+        "bid_price": 3.3,
+        "ask_price": 3.4,
+        "bid_qty": 1350.0,
+        "ask_qty": 13500.0
+      },
+      "greeks": {
+        "vega": 0.1467,
+        "theta": -0.4952,
+        "gamma": 0.0493,
+        "delta": -0.5131,
+        "iv": 21.97,
+        "pop": 35.63
+      },
+      "quote_time": "2026-11-20T09:23:35.195+05:30",
+      "last_trade_time": "1795146809070",
+      "target": 2.8111,
+      "entry": 3.4,
+      "direction": "DOWN",
+      "gap_pct": -20.94954537694413,
+      "executable_gap_pct": -17.392205807034006,
+      "peer_iv": 20.65649999999997,
+      "years": 0.008916307865804161,
+      "r": 0.06,
+      "q": 0.0,
+      "id": "42036b0d591ce894",
+      "day": "2026-11-20",
+      "entered": "2026-11-20T09:23:35.315144+05:30",
+      "status": "OPEN",
+      "last_price": 3.4,
+      "last_observed_at": "2026-11-20T09:23:35.315144+05:30",
+      "checked_until": "2026-11-20T09:23:35.315144+05:30",
+      "last_candle_attempt": "2026-11-20T09:23:41.135385+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false
+    }
+  ],
   "outbox": [
     {
       "id": "test-2026-11-19T20:33:14.540036+05:30:0",
@@ -42,6 +755,56 @@
     {
       "id": "report-2026-11-19:0",
       "text": "S3 STOCK OPTIONS DAILY REPORT | 2026-11-19\nStocks in universe: 218; stocks with a successful latest chain check: 0\nCompleted sweeps: 0; last completed sweep: none\nLast sweep duration: unknown seconds\nAlerts: 0 | model targets touched: 0\nNo touch in monitored full-minute bars: 0 | unverified: 0\nThe partial entry minute is excluded from candle checks; its unobserved movements are unknown.\nA model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.\n\n\nWHY CONTRACTS WERE SKIPPED (checks, not unique contracts)\n",
+      "sent": true
+    },
+    {
+      "id": "entry-d4f5000d64ce680a:0",
+      "text": "S3 STOCK OPTIONS | ADANIPORTS 1920 CE\nBELOW MODEL VALUE | expiry 2026-11-23\nLTP \u20b913.30 | fixed model target \u20b915.84\nGap 16.0% of model value | direction UP\nBid \u20b912.15 | ask \u20b912.60\nIV 23.19% | peer IV 24.25%\nDelta 0.420 | Gamma 0.00930\nTheta -2.51 | Vega 0.71\nOI 639825 | volume 94050 | lot 475\n09:20:37 IST | ID d4f5000d64ce680a\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "entry-04b961c85e3b8a73:0",
+      "text": "S3 STOCK OPTIONS | ADANIPOWER 207.5 CE\nBELOW MODEL VALUE | expiry 2026-11-23\nLTP \u20b93.08 | fixed model target \u20b93.69\nGap 16.6% of model value | direction UP\nBid \u20b93.02 | ask \u20b93.14\nIV 28.32% | peer IV 29.60%\nDelta 0.608 | Gamma 0.06870\nTheta -0.33 | Vega 0.08\nOI 1.1289e+06 | volume 170400 | lot 3550\n09:20:45 IST | ID 04b961c85e3b8a73\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "entry-7b6f4218195e5f28:0",
+      "text": "S3 STOCK OPTIONS | AXISBANK 1370 CE\nBELOW MODEL VALUE | expiry 2026-11-23\nLTP \u20b910.55 | fixed model target \u20b913.20\nGap 20.1% of model value | direction UP\nBid \u20b910.05 | ask \u20b910.45\nIV 14.40% | peer IV 15.50%\nDelta 0.618 | Gamma 0.02040\nTheta -1.10 | Vega 0.50\nOI 1.76438e+06 | volume 212500 | lot 625\n09:21:36 IST | ID 7b6f4218195e5f28\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "entry-d30d1b5b9a790a15:0",
+      "text": "S3 STOCK OPTIONS | AXISBANK 1380 CE\nBELOW MODEL VALUE | expiry 2026-11-23\nLTP \u20b96.30 | fixed model target \u20b98.32\nGap 24.3% of model value | direction UP\nBid \u20b96.20 | ask \u20b96.40\nIV 16.60% | peer IV 17.11%\nDelta 0.421 | Gamma 0.01810\nTheta -1.29 | Vega 0.51\nOI 2.03938e+06 | volume 625625 | lot 625\n09:21:36 IST | ID d30d1b5b9a790a15\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "entry-cdba2887f2859b3a:0",
+      "text": "S3 STOCK OPTIONS | BAJAJFINSV 1880 CE\nBELOW MODEL VALUE | expiry 2026-11-23\nLTP \u20b98.10 | fixed model target \u20b99.63\nGap 15.9% of model value | direction UP\nBid \u20b97.35 | ask \u20b97.65\nIV 18.31% | peer IV 19.10%\nDelta 0.359 | Gamma 0.01160\nTheta -1.85 | Vega 0.66\nOI 1.02e+06 | volume 102300 | lot 300\n09:21:53 IST | ID cdba2887f2859b3a\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "entry-e1b51849ab5b1f39:0",
+      "text": "S3 STOCK OPTIONS | BHARTIARTL 2140 CE\nBELOW MODEL VALUE | expiry 2026-11-23\nLTP \u20b911.60 | fixed model target \u20b915.08\nGap 23.1% of model value | direction UP\nBid \u20b911.70 | ask \u20b912.05\nIV 13.79% | peer IV 12.94%\nDelta 0.490 | Gamma 0.01430\nTheta -1.71 | Vega 0.81\nOI 1.6872e+06 | volume 376675 | lot 475\n09:22:25 IST | ID e1b51849ab5b1f39\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "entry-3dcd0311ec524229:0",
+      "text": "S3 STOCK OPTIONS | BHARTIARTL 2140 PE\nABOVE MODEL VALUE | expiry 2026-11-23\nLTP \u20b912.00 | fixed model target \u20b99.88\nGap 21.4% of model value | direction DOWN\nBid \u20b911.70 | ask \u20b912.00\nIV 15.75% | peer IV 16.85%\nDelta -0.508 | Gamma 0.01250\nTheta -1.95 | Vega 0.81\nOI 1.20222e+06 | volume 318725 | lot 475\n09:22:25 IST | ID 3dcd0311ec524229\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "entry-c6dabfacd86f99fc:0",
+      "text": "S3 STOCK OPTIONS | BHARTIARTL 2160 CE\nBELOW MODEL VALUE | expiry 2026-11-23\nLTP \u20b97.35 | fixed model target \u20b98.82\nGap 16.7% of model value | direction UP\nBid \u20b96.50 | ask \u20b96.65\nIV 18.31% | peer IV 17.15%\nDelta 0.290 | Gamma 0.00930\nTheta -1.94 | Vega 0.69\nOI 2.32702e+06 | volume 838850 | lot 475\n09:22:25 IST | ID c6dabfacd86f99fc\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "entry-0a7f87931421944d:0",
+      "text": "S3 STOCK OPTIONS | BHARTIARTL 2160 PE\nABOVE MODEL VALUE | expiry 2026-11-23\nLTP \u20b928.00 | fixed model target \u20b923.15\nGap 20.9% of model value | direction DOWN\nBid \u20b929.45 | ask \u20b930.20\nIV 21.73% | peer IV 20.50%\nDelta -0.678 | Gamma 0.00820\nTheta -2.42 | Vega 0.72\nOI 502550 | volume 56525 | lot 475\n09:22:25 IST | ID 0a7f87931421944d\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "entry-42036b0d591ce894:0",
+      "text": "S3 STOCK OPTIONS | COALINDIA 390 PE\nABOVE MODEL VALUE | expiry 2026-11-23\nLTP \u20b93.40 | fixed model target \u20b92.81\nGap 20.9% of model value | direction DOWN\nBid \u20b93.30 | ask \u20b93.40\nIV 21.97% | peer IV 20.66%\nDelta -0.513 | Gamma 0.04930\nTheta -0.50 | Vega 0.15\nOI 993600 | volume 623700 | lot 1350\n09:23:35 IST | ID 42036b0d591ce894\nValuation watch only; no buy/sell execution or stop-loss.\n",
       "sent": true
     }
   ]
