@@ -1,0 +1,11 @@
+S3 STOCK OPTIONS DAILY REPORT | 2026-11-19
+Stocks in universe: 218; stocks with a successful latest chain check: 0
+Completed sweeps: 0; last completed sweep: none
+Last sweep duration: unknown seconds
+Alerts: 0 | model targets touched: 0
+No touch in monitored full-minute bars: 0 | unverified: 0
+The partial entry minute is excluded from candle checks; its unobserved movements are unknown.
+A model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.
+
+
+WHY CONTRACTS WERE SKIPPED (checks, not unique contracts)
