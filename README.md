@@ -6,13 +6,19 @@ Python + Upstox + Telegram + GitHub Actions. Only S3 is included: no S1, S2, Kro
 
 Discovers all NSE stock-option underlyings from the current instrument master. The public master checked during development contained 218 eligible underlyings; the count can change. Indices and ordinary shares without listed options are excluded.
 
-For each stock: nearest active expiry, ATM and two actual listed strikes each side, both CE and PE (maximum 10 contracts). Real lot sizes and strike spacing are used. The minimum value gap is 15% of model value; there is no upper cutoff. Both above-value and below-value watches qualify. One alert per contract per observed session, with repeated sweeps throughout the session. No daily alert-count cap.
+For each stock: nearest active expiry. Only the actual ATM strike may produce a new alert, on CE or PE, and only when the model target is ABOVE the current premium. Starting LTP gap must be 15% inclusive to 17% exclusive of model value. The ask-based gap must still be at least 15%. Both best bid and best ask must display at least 3 lots each. Falling-premium targets are excluded.
+
+ATM ±2 still supplies up to 10 contracts for IV estimation; neighbouring strikes do not produce alerts. If ATM is missing, stale, illiquid, or has inadequate peer IV, skip that stock rather than substitute another strike. ATM ties choose the higher strike.
+
+If both ATM CE and PE qualify in the same scan, select the larger ask-based gap (CE wins an exact tie). Keep one active BUY_ATM_GAP_DEPTH_V2 watch per stock to avoid conflicting/stacked alerts. After it resolves, a different contract can qualify later; the same contract is still limited to once per day. This is not a one-stock-per-day cap. Selection uses information available at that check, not future outcomes.
+
+The journal records policy BUY_ATM_GAP_DEPTH_V2, exact gap, current spot and ATM strike at entry. The daily report separately counts new-policy alerts, CE/PE results and one-percentage-point gap bands. Historical watches remain explicitly labelled as legacy in the totals. No historical outcomes are rewritten.
 
 These are OPTION premium estimates, not fundamental fair values of stock shares.
 
 ## Updating an existing installation
 
-Replace `stock_s3_bot.py`, `tests/test_stock_s3.py` and `README.md` from this package. Workflow and secrets need no changes. A running job uses its checked-out code; cancel it and start a new `run` job to apply immediately, or wait for the next scheduled run. Existing recorded watches continue to be monitored, including those outside the newly narrowed band. New watches use ATM ±2 only.
+Replace `stock_s3_bot.py`, `tests/test_stock_s3.py` and `README.md` from this package. Workflow and secrets need no changes. A running job uses its checked-out code; cancel it and start a new `run` job to apply immediately, or wait for the next scheduled run. Existing recorded watches continue to be monitored, including those outside the newly narrowed band. New watches use buy-only ATM selection. Stop the current job before uploading; start a fresh run after committing the files, or wait for the next schedule.
 
 ## GitHub setup
 
@@ -40,7 +46,7 @@ Keep the workflow on the default branch. Do not edit/delete the journal while a 
 
 ```text
 S3 STOCK OPTIONS | SAMPLE 100 CE
-BELOW MODEL VALUE | expiry YYYY-MM-DD
+BUY-ONLY ATM WATCH | expiry YYYY-MM-DD
 LTP ₹20.00 | fixed model target ₹25.00
 Gap 20.0% of model value | direction UP
 Bid ₹19.90 | ask ₹20.10
@@ -52,7 +58,7 @@ OI ... | volume ... | lot ...
 Valuation watch only; no buy/sell execution or stop-loss.
 ```
 
-An ABOVE MODEL VALUE watch could show ₹30 premium, ₹25 target, direction DOWN. That means convergence requires the option premium to fall. It is not a buy signal or an instruction to short the option.
+A CE at ₹10 with model target ₹12 can qualify. A PE at ₹12 with target ₹10 is excluded. A PE at ₹10 with target ₹12 can qualify instead if it meets all checks. If both sides qualify to rise, only the selected side is alerted.
 
 ```text
 S3 VALUE REACHED | SAMPLE 100 CE
@@ -65,6 +71,14 @@ Model-price convergence; not a guaranteed trade fill or profit.
 ```
 
 Daily header: `S3 STOCK OPTIONS DAILY REPORT`. Lists every watch, touch evidence or last observed gap, stocks covered, sweep duration, missing data and rejection counts. Long reports are split across Telegram messages.
+
+## First filter comparison: supplied 20 November report
+
+The original report contains 339 watches with 251 recorded touches (74.0%). Removing DOWN watches leaves 230 UP watches with 156 recorded touches (67.8%): CE 136/184 (73.9%), PE 20/46 (43.5%). This removes 109 alerts, or 32.2%. These are historical reported touch counts, not costed returns or a replay of the new combined policy.
+
+The pasted report does not give spot/ATM at entry or all candidate snapshots. Therefore the exact historical buy-only + ATM + active-stock-selection result is NOT established. Supply `state.json` or `reports/2026-11-20.json` from the s3-stock-state branch for further reconstruction; historical coverage may still limit a full replay. Do not infer ATM from the daily closing stock price.
+
+Post-close candle bars are now excluded and quote requests finishing after 15:30 cannot create hits. Existing stored hits are not automatically corrected without a data audit.
 
 ## Model and filters
 
@@ -83,11 +97,12 @@ The target is FIXED when the watch is created. A later touch is a touch of that 
 | Minimum premium and model value | ₹1 |
 | Minimum OI | 20 lots |
 | Minimum volume | 5 lots |
-| Displayed size on each side | 1 lot |
+| Best-level displayed size on each side for new alerts | 3 lots |
+| Maximum starting gap (exclusive) | 17% |
 | Maximum last-trade age | 180 seconds |
 | Minimum remaining expiry time | 30 minutes |
 
-Both LTP and the relevant quote side must pass the gap filter: ask for UP, bid for DOWN. This checks quote quality; it does not simulate fills. Missing/stale quotes or peer IV are skipped. Calls are paced at least 1.2 seconds apart, with bounded retries and quote batches of 100.
+Both LTP and ask must pass the positive gap filter; targets must exceed the premium. This checks quote quality; it does not simulate fills. Missing/stale quotes or peer IV are skipped. Calls are paced at least 1.2 seconds apart, with bounded retries and quote batches of 100.
 
 A full sweep takes several minutes, potentially considerably longer with many watches. Quote checks are attempted about once per minute; API and processing delays extend this. Candle checks rotate across open watches. Telegram sends at most five queued messages per loop, at least 3.1 seconds apart, so heavy alert volume can delay delivery and scanning. Coverage and elapsed sweep time are reported.
 
@@ -106,6 +121,8 @@ A full sweep takes several minutes, potentially considerably longer with many wa
 
 ```yaml
 MIN_VALUE_GAP: '0.15'
+MAX_VALUE_GAP: '0.17'
+MIN_DEPTH_LOTS: '3'
 MAX_SPREAD: '0.05'
 MIN_OI_LOTS: '20'
 MIN_VOLUME_LOTS: '5'
@@ -131,10 +148,16 @@ python stock_s3_bot.py --mode run
 
 Local state defaults to `state_s3/`. Git checkpointing is off unless `GIT_STATE=true`.
 
-Release verification: 28 offline tests passed for discovery, strike bands, IV interpolation, filters, quote freshness, gap direction, duplicates, candle evidence, incomplete coverage, persistence and reports. Public instrument-master retrieval and active stock-option discovery checked. Authenticated quotes/candles, Telegram and GitHub scheduling have NOT been tested with your credentials here; run the connection check and observe the first paper session.
+Release verification: 38 offline tests passed for discovery, strike bands, IV interpolation, filters, quote freshness, gap direction, duplicates, candle evidence, incomplete coverage, persistence and reports. Public instrument-master retrieval and active stock-option discovery checked. Authenticated quotes/candles, Telegram and GitHub scheduling have NOT been tested with your credentials here; run the connection check and observe the first paper session.
 
 Official references:
 - https://upstox.com/developer/api-documentation/instruments/
 - https://upstox.com/developer/api-documentation/get-pc-option-chain/
 - https://upstox.com/developer/api-documentation/get-full-market-quote/
 - https://upstox.com/developer/api-documentation/rate-limiting/
+
+## Gap and depth update — 20 November 2026
+
+The earlier buy-only ATM, CE/PE ranking and active-stock rules remain. Previous BUY_ATM_V1 open watches also block new watches for that stock until resolved. Old watches keep their original targets and policy labels; reports separate the new policy. The 3-lot test applies to new alert candidates; IV peers retain the existing 1-lot liquidity floor. Depth means displayed quantity at the best price divided by the contract lot size, not summed five-level depth. Missing depth is rejected.
+
+The research used 15% <= starting gap < 17%; exactly 17% is excluded. This narrows alerts but does not establish a future win rate. No authenticated live API checks were performed for this update.

@@ -18,10 +18,15 @@ from zoneinfo import ZoneInfo
 import requests
 
 IST=ZoneInfo('Asia/Kolkata')
+FILTER_POLICY='BUY_ATM_GAP_DEPTH_V2'
 ROOT=Path(__file__).resolve().parent
 STATE_DIR=Path(os.getenv('STATE_DIR',str(ROOT/'state_s3')))
 MASTER_URL='https://assets.upstox.com/market-quote/instruments/exchange/NSE.json.gz'
 GAP=float(os.getenv('MIN_VALUE_GAP','0.15'))
+MAX_GAP=float(os.getenv('MAX_VALUE_GAP','0.17'))
+MIN_DEPTH_LOTS=float(os.getenv('MIN_DEPTH_LOTS','3'))
+if not (0 < GAP < MAX_GAP < 1) or not math.isfinite(MIN_DEPTH_LOTS) or MIN_DEPTH_LOTS < 3:
+    raise ValueError('Require 0 < MIN_VALUE_GAP < MAX_VALUE_GAP < 1 and MIN_DEPTH_LOTS >= 3')
 MAX_SPREAD=float(os.getenv('MAX_SPREAD','0.05'))
 MIN_PREMIUM=float(os.getenv('MIN_PREMIUM','1'))
 MIN_OI_LOTS=float(os.getenv('MIN_OI_LOTS','20'))
@@ -69,11 +74,16 @@ def universe_from_master(rows,date):
     return sorted(universe,key=lambda x:x['symbol']),metadata
 
 
+def atm_strike(chain,spot):
+    strikes={c['strike'] for c in chain}
+    return min(strikes,key=lambda k:(abs(k-spot),-k)) if strikes else None
+
+
 def select_band(chain,spot):
     strikes=sorted({c['strike'] for c in chain})
     if not strikes:return []
     # Nearest actual listed strike; ties choose the higher strike.
-    atm=min(strikes,key=lambda k:(abs(k-spot),-k));index=strikes.index(atm)
+    atm=atm_strike(chain,spot);index=strikes.index(atm)
     selected=set(strikes[max(0,index-2):index+3])
     return [c for c in chain if c['strike'] in selected]
 
@@ -129,6 +139,8 @@ def bs(s,k,years,vol,side,r=RISK_RATE,q=0.):
 
 def candidate(c,band,spot,t):
     if not liquid(c):return None,'liquidity'
+    if min(num(c['market'].get('bid_qty')),num(c['market'].get('ask_qty'))) < MIN_DEPTH_LOTS*c['lot']:
+        return None,'depth_below_threshold'
     expiry=datetime.fromisoformat(c['expiry']).replace(hour=15,minute=30,tzinfo=IST)
     if (expiry-t).total_seconds()<1800:return None,'near_expiry'
     vol=peer_iv(c,band)
@@ -138,10 +150,12 @@ def candidate(c,band,spot,t):
     fair=bs(spot,c['strike'],years,vol,c['side'],q=div)
     if fair<MIN_PREMIUM:return None,'tiny_model_value'
     m=c['market'];ltp=num(m['ltp']);gap=(fair-ltp)/fair
+    if fair<=ltp:return None,'sell_direction_excluded'
     executable=num(m['ask_price']) if gap>0 else num(m['bid_price'])
     executable_gap=(fair-executable)/fair
     # Explicit same-sign check: a crossed/stale LTP must not reverse the executable gap.
     if abs(gap)<GAP or gap*executable_gap<=0 or abs(executable_gap)<GAP:return None,'gap_below_threshold'
+    if gap>=MAX_GAP:return None,'gap_above_band'
     return {'target':round(fair,4),'entry':ltp,'direction':'UP' if gap>0 else 'DOWN',
         'gap_pct':gap*100,'executable_gap_pct':executable_gap*100,'peer_iv':vol*100,
         'spot':spot,'years':years,'r':RISK_RATE,'q':div},None
@@ -279,6 +293,26 @@ class Scanner:
         day['universe_count']=len(self.universe)
         return day
 
+    def choose_buy_atm(self,verified,chain,spot,t,day):
+        atm=atm_strike(chain,spot)
+        options=[]
+        for c in verified:
+            if c['strike']!=atm:
+                self.count(day,'non_atm_excluded');continue
+            if any(w['day']==day['date'] and w['key']==c['key'] for w in self.state['watches']):continue
+            value,reason=candidate(c,verified,spot,t)
+            if reason:self.count(day,reason);continue
+            options.append((c,{**value,'policy':FILTER_POLICY,'atm_at_entry':atm}))
+        if not options:return None
+        underlying=options[0][0]['underlying']
+        if any(w['day']==day['date'] and w['underlying']==underlying and
+               w.get('policy') in ('BUY_ATM_V1',FILTER_POLICY) and w['status']=='OPEN' for w in self.state['watches']):
+            self.count(day,'existing_open_stock_watch');return None
+        # If both ATM sides qualify, keep only the larger ask-based value gap.
+        options.sort(key=lambda cv:(-cv[1]['executable_gap_pct'],cv[0]['side']))
+        if len(options)>1:self.count(day,'other_atm_side_suppressed',len(options)-1)
+        return options[0]
+
     def count(self,day,reason,n=1):day['counts'][reason]=day['counts'].get(reason,0)+n
 
     def add_watch(self,c,value,t,day):
@@ -288,12 +322,13 @@ class Scanner:
            'last_observed_at':iso(t),'checked_until':iso(t),'last_candle_attempt':None,
            'hit_time':None,'hit_price':None,'hit_evidence':None,'hit_candle_close':None}
         self.state['watches'].append(w)
-        label='BELOW MODEL VALUE' if value['direction']=='UP' else 'ABOVE MODEL VALUE'
+        label='BUY-ONLY ATM WATCH' if value.get('policy')==FILTER_POLICY else ('BELOW MODEL VALUE' if value['direction']=='UP' else 'ABOVE MODEL VALUE')
         g=c['greeks'];m=c['market']
         self.emit('entry-'+id,f'S3 STOCK OPTIONS | {c["symbol"]} {c["strike"]:g} {c["side"]}\n'
             f'{label} | expiry {c["expiry"]}\nLTP ₹{value["entry"]:.2f} | fixed model target ₹{value["target"]:.2f}\n'
             f'Gap {abs(value["gap_pct"]):.1f}% of model value | direction {value["direction"]}\n'
             f'Bid ₹{num(m["bid_price"]):.2f} | ask ₹{num(m["ask_price"]):.2f}\n'
+            f'Best-level depth: bid {num(m["bid_qty"])/c["lot"]:g} lots | ask {num(m["ask_qty"])/c["lot"]:g} lots\n'
             f'IV {num(g.get("iv")):.2f}% | peer IV {value["peer_iv"]:.2f}%\n'
             f'Delta {num(g.get("delta")):.3f} | Gamma {num(g.get("gamma")):.5f}\n'
             f'Theta {num(g.get("theta")):.2f} | Vega {num(g.get("vega")):.2f}\n'
@@ -338,11 +373,10 @@ class Scanner:
                 if updated:verified.append(updated)
             # Chain IV is only seconds older than the quote; reject a long request delay.
             if (checked-t).total_seconds()>60:self.count(day,'chain_quote_delay');return
-            for c in verified:
-                if any(w['day']==day['date'] and w['key']==c['key'] for w in self.state['watches']):continue
-                value,reason=candidate(c,verified,spot,checked)
-                if reason:self.count(day,reason);continue
-                self.add_watch(c,value,checked,day);self.count(day,'new_alerts')
+            choice=self.choose_buy_atm(verified,chain,spot,checked,day)
+            if choice:
+                c,value=choice
+                if self.add_watch(c,value,checked,day):self.count(day,'new_alerts')
         except AuthError:raise
         except APIError as e:
             day['symbols'][u['symbol']]={'checked_at':iso(now()),'status':'error','reason':str(e)}
@@ -361,6 +395,7 @@ class Scanner:
         # API batches all open keys; monitoring may take longer when many watches exist.
         if open_w:
             quotes=self.api.quotes([w['key'] for w in open_w]);observed=now()
+            if observed.date()!=t.date() or observed.time()>dt_time(15,30):return
             for w in open_w:
                 q=quotes.get(w['key'],{})
                 if not fresh(q,observed):continue
@@ -383,6 +418,7 @@ class Scanner:
         valid_minutes=set()
         for bar in bars:
             bt=parse(bar[0])
+            if not dt_time(9,15)<=bt.time()<dt_time(15,30):continue
             if len(bar)<5 or any(num(x)<=0 for x in bar[1:5]):continue
             if num(bar[2])<max(num(bar[1]),num(bar[3]),num(bar[4])) or num(bar[3])>min(num(bar[1]),num(bar[4])):continue
             valid_minutes.add(bt)
@@ -411,8 +447,13 @@ class Scanner:
         for w in rows:
             if w['status']=='OPEN':w['status']='UNVERIFIED_AT_REPORT'
         counts=Counter(w['status'] for w in rows)
+        cohort=[w for w in rows if w.get('policy')==FILTER_POLICY]
+        hits=sum(w['status']=='VALUE_REACHED' for w in cohort)
+        rate=f'{hits/len(cohort)*100:.1f}%' if cohort else 'N/A'
         good=sum(x.get('status')=='chain_received' for x in day['symbols'].values())
         lines=[f'S3 STOCK OPTIONS DAILY REPORT | {day["date"]}',
+            f'BUY-ONLY ATM: {len(cohort)} alerts; {hits} targets touched; touch rate {rate} (not net win rate)',
+            f'Legacy watches from earlier rules: {len(rows)-len(cohort)}; included separately in the full totals below.',
             f'Stocks in universe: {day["universe_count"]}; stocks with a successful latest chain check: {good}',
             f'Completed sweeps: {day["sweeps"]}; last completed sweep: {day.get("last_sweep_finished","none")}',
             f'Last sweep duration: {day.get("last_sweep_seconds","unknown")} seconds',
@@ -420,6 +461,14 @@ class Scanner:
             f'No touch in monitored full-minute bars: {counts["NO_TOUCH_IN_MONITORED_BARS"]} | unverified: {counts["UNVERIFIED_AT_REPORT"]}',
             'The partial entry minute is excluded from candle checks; its unobserved movements are unknown.',
             'A model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.','']
+        for side in ('CE','PE'):
+            subset=[w for w in cohort if w['side']==side]
+            h=sum(w['status']=='VALUE_REACHED' for w in subset)
+            lines.append(f'BUY-ONLY ATM {side}: {h}/{len(subset)} targets touched')
+        for band in sorted({int(w['gap_pct']) for w in cohort}):
+            subset=[w for w in cohort if int(w['gap_pct'])==band]
+            h=sum(w['status']=='VALUE_REACHED' for w in subset)
+            lines.append(f'BUY-ONLY ATM gap {band}-{band+1}%: {h}/{len(subset)} touched ({h/len(subset)*100:.1f}%)')
         for w in rows:
             line=f'{w["symbol"]} {w["strike"]:g} {w["side"]} ({w["expiry"]}) | {w["direction"]} | {w["status"]}\nReference ₹{w["entry"]:.2f}; fixed target ₹{w["target"]:.2f}'
             if w['status']=='VALUE_REACHED':
@@ -440,7 +489,7 @@ class Scanner:
     def tick(self,t):
         if t.weekday()>=5:return
         day=self.prepare(t)
-        self.emit('online-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]}\nUniverse: {len(self.universe)} NSE F&O stocks; nearest expiry, ATM ±2 listed strikes, CE + PE.\nMinimum value gap {GAP*100:.0f}%. S3 only. No Kronos/S1/S2.\nFull sweeps take several minutes; report around 16:15 IST.')
+        self.emit('online-'+FILTER_POLICY+'-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]}\nBUY-ONLY ATM: CE or PE only when its premium must RISE to the target.\nUniverse: {len(self.universe)} NSE F&O stocks; nearest expiry. ATM ±2 supplies IV peers; only ATM can alert.\nOne active new-policy watch per stock; if both sides qualify, larger ask-based gap wins.\nStarting gap {GAP*100:g}% to below {MAX_GAP*100:g}%; ask gap at least {GAP*100:g}%. Best bid AND ask depth at least {MIN_DEPTH_LOTS:g} lots each. S3 only.\nFull sweeps take several minutes; report around 16:15 IST.')
         # Finish interrupted prior days as unverified instead of inventing outcomes.
         for date,old in list(self.state['days'].items()):
             if date<day['date'] and not old.get('reported'):
@@ -458,7 +507,7 @@ def main():
     if args.mode=='test':
         scanner.prepare(start);u=scanner.universe[0]
         chain=scanner.api.chain(u,scanner.metadata)
-        scanner.emit('test-'+iso(start),f'S3 stock scanner connection OK. Discovered {len(scanner.universe)} stock-option underlyings.\nSample API check {u["symbol"]}: {len(chain)} contracts in full chain; {len(select_band(chain,chain[0]["spot"])) if chain else 0} selected at ATM ±2 (CE + PE).\nS3 only; no S1/S2. This verifies connectivity, not live signal quality.')
+        scanner.emit('test-'+iso(start),f'S3 stock scanner connection OK. Discovered {len(scanner.universe)} stock-option underlyings.\nSample API check {u["symbol"]}: {len(chain)} contracts in full chain; {len(select_band(chain,chain[0]["spot"])) if chain else 0} IV-support contracts at ATM ±2. New alerts: BUY-ONLY ATM CE or PE; no falling-premium watches.\nS3 only; no S1/S2. This verifies connectivity, not live signal quality.')
         for _ in range(3):scanner.flush()
         scanner.sync(force=True);return
     end=start.replace(hour=14,minute=10,second=0,microsecond=0) if start.time()<dt_time(14,10) else start.replace(hour=16,minute=45,second=0,microsecond=0)
