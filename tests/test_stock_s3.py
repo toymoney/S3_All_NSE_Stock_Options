@@ -11,7 +11,7 @@ T=datetime(2026,11,19,10,0,30,tzinfo=b.IST)
 def contract(k=100,side='CE',iv=30):
     return {'key':f'FO|{k}{side}','symbol':'SAMPLE','underlying':'EQ|1','expiry':'2026-12-29',
             'strike':k,'side':side,'lot':100,'spot':100,
-            'market':{'ltp':10,'bid_price':9.9,'ask_price':10.1,'oi':10000,'volume':10000,'bid_qty':100,'ask_qty':100},
+            'market':{'ltp':10,'bid_price':9.9,'ask_price':10.1,'oi':10000,'volume':10000,'bid_qty':300,'ask_qty':300},
             'greeks':{'iv':iv,'delta':.5,'gamma':.01,'theta':-.1,'vega':.2}}
 
 class FakeAPI:
@@ -53,12 +53,12 @@ class StockTests(unittest.TestCase):
         self.assertFalse(b.fresh({},T))
     def test_candidate_below(self):
         c=contract();band=[contract(90),c,contract(110)]
-        with patch.object(b,'bs',return_value=13):v,reason=b.candidate(c,band,100,T)
-        self.assertIsNone(reason);self.assertEqual(v['direction'],'UP');self.assertEqual(v['target'],13)
+        with patch.object(b,'bs',return_value=12):v,reason=b.candidate(c,band,100,T)
+        self.assertIsNone(reason);self.assertEqual(v['direction'],'UP');self.assertEqual(v['target'],12)
     def test_candidate_above(self):
         c=contract();band=[contract(90),c,contract(110)]
         with patch.object(b,'bs',return_value=8):v,reason=b.candidate(c,band,100,T)
-        self.assertIsNone(reason);self.assertEqual(v['direction'],'DOWN')
+        self.assertIsNone(v);self.assertEqual(reason,'sell_direction_excluded')
     def test_executable_gap_gate(self):
         c=contract();c['market'].update(ltp=8,bid_price=9.9,ask_price=10.1)
         with patch.object(b,'bs',return_value=10):v,_=b.candidate(c,[contract(90),c,contract(110)],100,T)
@@ -133,6 +133,74 @@ class StockTests(unittest.TestCase):
         api=b.API.__new__(b.API)
         api.get=lambda *args:{'NSE_FO:SYMBOL':{'instrument_token':'NSE_FO|123','last_price':10}}
         self.assertEqual(api.quotes(['NSE_FO|123'])['NSE_FO|123']['last_price'],10)
+    def test_buy_pe_eligible(self):
+        c=contract(side='PE');band=[contract(90,'PE'),c,contract(110,'PE')]
+        with patch.object(b,'bs',return_value=12):v,reason=b.candidate(c,band,100,T)
+        self.assertIsNone(reason);self.assertEqual(v['direction'],'UP')
+    def test_atm_only_selection_keeps_peer_band(self):
+        chain=[contract(k,s) for k in [90,95,100,105,110] for s in ['CE','PE']]
+        def values(c,peers,spot,t):
+            self.assertEqual(len(peers),10)
+            return {'direction':'UP','entry':10,'target':13,'executable_gap_pct':20 if c['side']=='CE' else 25},None
+        with patch.object(b,'candidate',side_effect=values) as mock:
+            choice=self.s.choose_buy_atm(chain,chain,101,T,self.day)
+        self.assertEqual(mock.call_count,2)
+        self.assertEqual(choice[0]['strike'],100);self.assertEqual(choice[0]['side'],'PE')
+        self.assertEqual(choice[1]['atm_at_entry'],100)
+    def test_missing_atm_does_not_substitute_other_strike(self):
+        chain=[contract(k) for k in [90,95,100,105,110]]
+        with patch.object(b,'candidate') as mock:
+            self.assertIsNone(self.s.choose_buy_atm([c for c in chain if c['strike']!=100],chain,100,T,self.day))
+        mock.assert_not_called()
+    def test_active_stock_watch_blocks_other_side_and_new_atm(self):
+        w=self.watch();w['policy']=b.FILTER_POLICY
+        chain=[contract(k,'PE') for k in [90,95,100,105,110]]
+        with patch.object(b,'bs',return_value=12):
+            self.assertIsNone(self.s.choose_buy_atm(chain,chain,100,T,self.day))
+        self.assertEqual(self.day['counts']['existing_open_stock_watch'],1)
+    def test_resolved_watch_allows_new_contract(self):
+        w=self.watch();w['policy']=b.FILTER_POLICY;w['status']='VALUE_REACHED'
+        chain=[contract(k,'PE') for k in [90,95,100,105,110]]
+        with patch.object(b,'bs',return_value=12):choice=self.s.choose_buy_atm(chain,chain,100,T,self.day)
+        self.assertEqual(choice[0]['side'],'PE')
+    def test_post_close_candle_cannot_hit(self):
+        w=self.watch();self.api.bars=[self.bar(35,high=15,hour=15)]
+        self.s.candle_check(w,T.replace(hour=16,minute=0))
+        self.assertEqual(w['status'],'OPEN');self.assertEqual(w['last_price'],10)
+    def test_quote_request_finishing_after_close_cannot_hit(self):
+        w=self.watch()
+        self.api.quotes=lambda keys:{w['key']:{'last_price':20,'last_trade_time':T.replace(hour=15,minute=30,second=0).timestamp()*1000}}
+        with patch.object(b,'now',return_value=T.replace(hour=15,minute=31)):
+            self.s.monitor_quotes(T.replace(hour=15,minute=29))
+        self.assertEqual(w['status'],'OPEN')
+    def test_report_separates_new_policy_from_legacy(self):
+        w=self.watch();w['policy']=b.FILTER_POLICY
+        self.s.finish(w,T,12,'fixture')
+        self.s.report(self.day,T)
+        report=(self.s.directory/'reports/2026-11-19.txt').read_text()
+        self.assertIn('BUY-ONLY ATM: 1 alerts; 1 targets touched',report)
+        self.assertIn('BUY-ONLY ATM CE: 1/1',report)
+    def test_gap_band_and_both_depth_sides(self):
+        c=contract();band=[contract(90),c,contract(110)]
+        for gap,ask_gap,expected in [(0.15,0.15,None),(0.159,0.15,None),(0.16999,0.16,None),(0.17,0.16,'gap_above_band'),(0.18,0.17,'gap_above_band'),(0.149,0.149,'gap_below_threshold'),(0.16,0.149,'gap_below_threshold')]:
+            c['market'].update(ltp=100*(1-gap),bid_price=100*(1-ask_gap)-.1,ask_price=100*(1-ask_gap))
+            with patch.object(b,'bs',return_value=100):value,reason=b.candidate(c,band,100,T)
+            self.assertEqual(reason,expected)
+        c=contract();band=[contract(90),c,contract(110)]
+        for side in ['bid_qty','ask_qty']:
+            for quantity in [299,0,None]:
+                c['market'][side]=quantity
+                with patch.object(b,'bs',return_value=12):value,reason=b.candidate(c,band,100,T)
+                self.assertIsNone(value)
+            c['market'][side]=300
+        with patch.object(b,'bs',return_value=12):value,reason=b.candidate(c,band,100,T)
+        self.assertIsNone(reason)
+    def test_previous_policy_open_watch_still_blocks(self):
+        w=self.watch();w['policy']='BUY_ATM_V1'
+        chain=[contract(k,'PE') for k in [90,95,100,105,110]]
+        with patch.object(b,'bs',return_value=12):
+            self.assertIsNone(self.s.choose_buy_atm(chain,chain,100,T,self.day))
+        self.assertEqual(self.day['counts']['existing_open_stock_watch'],1)
     def test_wrong_state_rejected(self):
         self.s.path.write_text(json.dumps({'kind':'nifty'}))
         with self.assertRaises(RuntimeError):b.Scanner(self.api,self.tmp.name)
