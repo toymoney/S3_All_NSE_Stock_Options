@@ -96,12 +96,12 @@ class StockTests(unittest.TestCase):
         self.assertEqual(w['last_price'],11)
     def test_missing_bars_not_claimed_complete(self):
         w=self.watch();self.api.bars=[self.bar(29,hour=15)]
-        self.s.candle_check(w,T.replace(hour=15,minute=40));self.assertEqual(w['status'],'OPEN')
+        self.s.candle_check(w,T.replace(hour=15,minute=50));self.assertEqual(w['status'],'OPEN')
     def test_complete_bar_coverage(self):
         w=self.watch();bt=T.replace(minute=1,second=0)
-        while bt<T.replace(hour=15,minute=30,second=0):
+        while bt<b.close_at(T):
             self.api.bars.append([b.iso(bt),10,11,9,10,100,1000]);bt+=timedelta(minutes=1)
-        self.s.candle_check(w,T.replace(hour=15,minute=40))
+        self.s.candle_check(w,T.replace(hour=15,minute=50))
         self.assertEqual(w['status'],'NO_TOUCH_IN_MONITORED_BARS')
     def test_report_unknown_and_idempotent(self):
         w=self.watch();self.s.report(self.day,T.replace(hour=16,minute=15))
@@ -127,7 +127,7 @@ class StockTests(unittest.TestCase):
               {**opt,'instrument_key':'FO|3','expiry':'2026-10-27'},
               {**opt,'instrument_key':'INDEX|1','underlying_type':'INDEX'}]
         u,m=b.universe_from_master(rows,'2026-11-19')
-        self.assertEqual(len(u),1);self.assertEqual(u[0]['expiry'],'2026-11-24')
+        self.assertEqual(len(u),1);self.assertEqual(u[0]['expiry'],'2026-12-29')
         self.assertNotIn('INDEX|1',m);self.assertNotIn('FO|3',m)
     def test_quotes_use_instrument_token(self):
         api=b.API.__new__(b.API)
@@ -164,13 +164,13 @@ class StockTests(unittest.TestCase):
         with patch.object(b,'bs',return_value=12):choice=self.s.choose_buy_atm(chain,chain,100,T,self.day)
         self.assertEqual(choice[0]['side'],'PE')
     def test_post_close_candle_cannot_hit(self):
-        w=self.watch();self.api.bars=[self.bar(35,high=15,hour=15)]
+        w=self.watch();self.api.bars=[self.bar(45,high=15,hour=15)]
         self.s.candle_check(w,T.replace(hour=16,minute=0))
         self.assertEqual(w['status'],'OPEN');self.assertEqual(w['last_price'],10)
     def test_quote_request_finishing_after_close_cannot_hit(self):
         w=self.watch()
-        self.api.quotes=lambda keys:{w['key']:{'last_price':20,'last_trade_time':T.replace(hour=15,minute=30,second=0).timestamp()*1000}}
-        with patch.object(b,'now',return_value=T.replace(hour=15,minute=31)):
+        self.api.quotes=lambda keys:{w['key']:{'last_price':20,'last_trade_time':T.replace(hour=15,minute=40,second=0).timestamp()*1000}}
+        with patch.object(b,'now',return_value=T.replace(hour=15,minute=41)):
             self.s.monitor_quotes(T.replace(hour=15,minute=29))
         self.assertEqual(w['status'],'OPEN')
     def test_report_separates_new_policy_from_legacy(self):
@@ -182,7 +182,7 @@ class StockTests(unittest.TestCase):
         self.assertIn('BUY-ONLY ATM CE: 1/1',report)
     def test_gap_band_and_both_depth_sides(self):
         c=contract();band=[contract(90),c,contract(110)]
-        for gap,ask_gap,expected in [(0.15,0.15,None),(0.159,0.15,None),(0.16999,0.16,None),(0.17,0.16,'gap_above_band'),(0.18,0.17,'gap_above_band'),(0.149,0.149,'gap_below_threshold'),(0.16,0.149,'gap_below_threshold')]:
+        for gap,ask_gap,expected in [(0.15,0.15,None),(0.159,0.15,None),(0.16999,0.16,None),(0.17,0.16,'extended_gap_oi_below_threshold'),(0.18,0.17,'extended_gap_oi_below_threshold'),(0.149,0.149,'gap_below_threshold'),(0.16,0.149,'gap_below_threshold')]:
             c['market'].update(ltp=100*(1-gap),bid_price=100*(1-ask_gap)-.1,ask_price=100*(1-ask_gap))
             with patch.object(b,'bs',return_value=100):value,reason=b.candidate(c,band,100,T)
             self.assertEqual(reason,expected)
@@ -197,6 +197,31 @@ class StockTests(unittest.TestCase):
         self.assertIsNone(reason)
     def test_previous_policy_open_watch_still_blocks(self):
         w=self.watch();w['policy']='BUY_ATM_V1'
+        chain=[contract(k,'PE') for k in [90,95,100,105,110]]
+        with patch.object(b,'bs',return_value=12):
+            self.assertIsNone(self.s.choose_buy_atm(chain,chain,100,T,self.day))
+        self.assertEqual(self.day['counts']['existing_open_stock_watch'],1)
+    def test_rollover_calendar_boundaries(self):
+        dates={'2026-11-24','2026-12-29'}
+        self.assertEqual(b.selected_expiry(dates,'2026-11-18'),'2026-11-24')
+        self.assertEqual(b.selected_expiry(dates,'2026-11-19'),'2026-12-29')
+        self.assertEqual(b.selected_expiry(dates,'2026-11-24'),'2026-12-29')
+        self.assertIsNone(b.selected_expiry({'2026-11-24'},'2026-11-19'))
+    def test_close_effective_dates(self):
+        self.assertEqual(b.stock_close(T.replace(month=7)),b.dt_time(15,30))
+        self.assertEqual(b.stock_close(T),b.dt_time(15,40))
+        self.assertEqual(b.stock_close(T.replace(month=12,day=7)),b.dt_time(15,45))
+        self.assertEqual(b.alert_cutoff(T.replace(month=12,day=7)),b.dt_time(15,20))
+    def test_extended_gap_oi_boundaries(self):
+        c=contract();band=[contract(90),c,contract(110)]
+        for gap,oi,expected in [(0.1699,20,None),(0.17,1999,'extended_gap_oi_below_threshold'),(0.17,2000,None),(0.25,2000,None),(0.2999,2000,None),(0.30,2000,'gap_above_band')]:
+            premium=100*(1-gap)
+            c['market'].update(ltp=premium,bid_price=premium-.1,ask_price=premium,oi=oi*c['lot'])
+            with patch.object(b,'bs',return_value=100):value,reason=b.candidate(c,band,100,T)
+            self.assertEqual(reason,expected)
+            if value:self.assertEqual(value['gap_tier'],'EXTENDED_OI' if gap>=.17 else 'BASE')
+    def test_v2_open_watch_still_blocks(self):
+        w=self.watch();w['policy']='BUY_ATM_GAP_DEPTH_V2'
         chain=[contract(k,'PE') for k in [90,95,100,105,110]]
         with patch.object(b,'bs',return_value=12):
             self.assertIsNone(self.s.choose_buy_atm(chain,chain,100,T,self.day))
