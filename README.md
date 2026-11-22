@@ -6,13 +6,13 @@ Python + Upstox + Telegram + GitHub Actions. Only S3 is included: no S1, S2, Kro
 
 Discovers all NSE stock-option underlyings from the current instrument master. The public master checked during development contained 218 eligible underlyings; the count can change. Indices and ordinary shares without listed options are excluded.
 
-For each stock: nearest active expiry. Only the actual ATM strike may produce a new alert, on CE or PE, and only when the model target is ABOVE the current premium. Starting LTP gap must be 15% inclusive to 17% exclusive of model value. The ask-based gap must still be at least 15%. Both best bid and best ask must display at least 3 lots each. Falling-premium targets are excluded.
+For each stock: nearest listed expiry more than five calendar days away. Only the actual ATM strike may produce a new alert, on CE or PE, and only when the model target is ABOVE the current premium. Starting LTP gap must be 15% inclusive to 30% exclusive of model value. The 17% to below 30% tier additionally requires OI >=2,000 lots; 15% to below 17% retains the 20-lot OI floor. The ask-based gap must still be at least 15%. Both best bid and best ask must display at least 3 lots each. Falling-premium targets are excluded.
 
 ATM ±2 still supplies up to 10 contracts for IV estimation; neighbouring strikes do not produce alerts. If ATM is missing, stale, illiquid, or has inadequate peer IV, skip that stock rather than substitute another strike. ATM ties choose the higher strike.
 
-If both ATM CE and PE qualify in the same scan, select the larger ask-based gap (CE wins an exact tie). Keep one active BUY_ATM_GAP_DEPTH_V2 watch per stock to avoid conflicting/stacked alerts. After it resolves, a different contract can qualify later; the same contract is still limited to once per day. This is not a one-stock-per-day cap. Selection uses information available at that check, not future outcomes.
+If both ATM CE and PE qualify in the same scan, select the larger ask-based gap (CE wins an exact tie). Keep one active BUY_ATM_GAP_DEPTH_OI_V3 watch per stock to avoid conflicting/stacked alerts. After it resolves, a different contract can qualify later; the same contract is still limited to once per day. This is not a one-stock-per-day cap. Selection uses information available at that check, not future outcomes.
 
-The journal records policy BUY_ATM_GAP_DEPTH_V2, exact gap, current spot and ATM strike at entry. The daily report separately counts new-policy alerts, CE/PE results and one-percentage-point gap bands. Historical watches remain explicitly labelled as legacy in the totals. No historical outcomes are rewritten.
+The journal records policy BUY_ATM_GAP_DEPTH_OI_V3, exact gap, current spot and ATM strike at entry. The daily report separately counts new-policy alerts, CE/PE results and one-percentage-point gap bands. Historical watches remain explicitly labelled as legacy in the totals. No historical outcomes are rewritten.
 
 These are OPTION premium estimates, not fundamental fair values of stock shares.
 
@@ -37,7 +37,7 @@ Keep the workflow on the default branch. Do not edit/delete the journal while a 
 
 - Weekday workflow starts: 08:57, 14:07 and 16:17 IST.
 - Morning process ends around 14:10; the afternoon job queues behind it and continues until 16:45. The third job is report recovery.
-- New watches: 09:20–15:00 IST. Quote monitoring until 15:30; completed-candle checks until the report around 16:15.
+- New watches: 09:20–15:20 IST. Quote monitoring until 15:40, automatically changing to 15:45 on 7 December 2026; completed-candle checks until the report around 16:15.
 - GitHub schedules can start late or be missed. Each process is limited to 5h15. This is not an exchange-grade live service.
 - No paid server/model dependency. Uses standard public-repository Actions runners and your broker account's API entitlement; check account-specific data restrictions. Review failed runs and keep your repository active.
 - No exchange holiday calendar bundled. Freshness checks block yesterday's quotes, but a weekday holiday can generate an empty report.
@@ -78,11 +78,11 @@ The original report contains 339 watches with 251 recorded touches (74.0%). Remo
 
 The pasted report does not give spot/ATM at entry or all candidate snapshots. Therefore the exact historical buy-only + ATM + active-stock-selection result is NOT established. Supply `state.json` or `reports/2026-11-20.json` from the s3-stock-state branch for further reconstruction; historical coverage may still limit a full replay. Do not infer ATM from the daily closing stock price.
 
-Post-close candle bars are now excluded and quote requests finishing after 15:30 cannot create hits. Existing stored hits are not automatically corrected without a data audit.
+Post-close candle bars are now excluded and quote requests finishing after the applicable session close cannot create hits. Existing stored hits are not automatically corrected without a data audit.
 
 ## Model and filters
 
-Black–Scholes uses current underlying spot, strike, exact time to expiry-day 15:30 IST, a risk-free rate, dividend yield and neighbouring-strike IV. The candidate's own IV is excluded to avoid merely reproducing its market price. Up to two liquid same-side strikes below and two above are weighted using OI and spread, then interpolated. No supported peer on BOTH sides means no alert; band edges can be skipped. No extrapolation is used.
+Black–Scholes uses current underlying spot, strike, exact time to expiry-day stock-derivatives close (15:40 before 7 December 2026; 15:45 thereafter), a risk-free rate, dividend yield and neighbouring-strike IV. The candidate's own IV is excluded to avoid merely reproducing its market price. Up to two liquid same-side strikes below and two above are weighted using OI and spread, then interpolated. No supported peer on BOTH sides means no alert; band edges can be skipped. No extrapolation is used.
 
 Delta, Gamma, Theta and Vega are displayed broker sensitivities, not independent ingredients added together to produce a guaranteed actual value. OI supplies liquidity checks and peer weights. This is a relative-value estimate.
 
@@ -98,7 +98,9 @@ The target is FIXED when the watch is created. A later touch is a touch of that 
 | Minimum OI | 20 lots |
 | Minimum volume | 5 lots |
 | Best-level displayed size on each side for new alerts | 3 lots |
-| Maximum starting gap (exclusive) | 17% |
+| Base starting-gap upper boundary | 17% |
+| Maximum starting gap (exclusive) | 30% |
+| OI for starting gaps >=17% | 2,000 lots |
 | Maximum last-trade age | 180 seconds |
 | Minimum remaining expiry time | 30 minutes |
 
@@ -121,7 +123,9 @@ A full sweep takes several minutes, potentially considerably longer with many wa
 
 ```yaml
 MIN_VALUE_GAP: '0.15'
-MAX_VALUE_GAP: '0.17'
+BASE_MAX_VALUE_GAP: '0.17'
+MAX_VALUE_GAP: '0.30'
+EXTENDED_MIN_OI_LOTS: '2000'
 MIN_DEPTH_LOTS: '3'
 MAX_SPREAD: '0.05'
 MIN_OI_LOTS: '20'
@@ -148,7 +152,7 @@ python stock_s3_bot.py --mode run
 
 Local state defaults to `state_s3/`. Git checkpointing is off unless `GIT_STATE=true`.
 
-Release verification: 38 offline tests passed for discovery, strike bands, IV interpolation, filters, quote freshness, gap direction, duplicates, candle evidence, incomplete coverage, persistence and reports. Public instrument-master retrieval and active stock-option discovery checked. Authenticated quotes/candles, Telegram and GitHub scheduling have NOT been tested with your credentials here; run the connection check and observe the first paper session.
+Release verification: 42 offline tests passed for discovery, strike bands, IV interpolation, filters, quote freshness, gap direction, duplicates, candle evidence, incomplete coverage, persistence and reports. Public instrument-master retrieval and active stock-option discovery checked. Authenticated quotes/candles, Telegram and GitHub scheduling have NOT been tested with your credentials here; run the connection check and observe the first paper session.
 
 Official references:
 - https://upstox.com/developer/api-documentation/instruments/
@@ -160,4 +164,32 @@ Official references:
 
 The earlier buy-only ATM, CE/PE ranking and active-stock rules remain. Previous BUY_ATM_V1 open watches also block new watches for that stock until resolved. Old watches keep their original targets and policy labels; reports separate the new policy. The 3-lot test applies to new alert candidates; IV peers retain the existing 1-lot liquidity floor. Depth means displayed quantity at the best price divided by the contract lot size, not summed five-level depth. Missing depth is rejected.
 
-The research used 15% <= starting gap < 17%; exactly 17% is excluded. This narrows alerts but does not establish a future win rate. No authenticated live API checks were performed for this update.
+The original base-tier research used 15% <= starting gap <17%. Exactly 17% now enters the extended tier and requires OI >=2,000 lots. This narrows alerts but does not establish a future win rate. No authenticated live API checks were performed for this update.
+
+## Automatic expiry rollover and session timing
+
+At five calendar days before the actual listed monthly expiry (inclusive), new scans switch to the next listed expiry more than five days away. Example: 24 November expiry switches to 29 December on 19 November. Calendar days include weekends and holidays. Dates come from the current master, so shifted expiry dates are respected. If no eligible later expiry exists, skip the stock; do not fall back to the expiring contract. Existing watches retain their expiry and target and continue monitoring. All ATM, gap and depth rules remain.
+
+Stock derivatives close at 15:40 for 3 August–6 December 2026 and 15:45 from 7 December 2026; earlier sessions use 15:30. Valuation time, quote checks, candle boundaries and coverage checks share this schedule. New alerts continue through 15:20 IST, with no 30-minute-before-close cutoff. The report remains around 16:15 IST. The five-calendar-day rollover avoids the expiry delivery-margin period.
+
+Sources: NSE CAS FAQs (October 2026 and CAS 2.0 November 2026); NSE/FAOP/77356 dated 6 November 2026; Upstox physical-settlement announcement.
+
+## 20 November depth comparison
+
+Buy-only historical watches, before ATM-only and active-stock suppression. Both best bid and best ask >=3 lots. Starting gap bands are lower-inclusive, upper-exclusive.
+
+|Gap %|Alerts|Touches|Non-touches|Touch rate|
+|---|---:|---:|---:|---:|
+|15–17|11|11|0|100%|
+|17–20|11|7|4|63.6%|
+|20–25|14|8|6|57.1%|
+|25–30|2|1|1|50%|
+|15–30 total|38|27|11|71.1%|
+
+The extended tier is now enabled: 17% to below 30% with OI >=2,000 lots.
+
+## Final OI extension
+
+New policy BUY_ATM_GAP_DEPTH_OI_V3 accepts 15% <= gap <17%, OR 17% <= gap <30% with OI >=2,000 lots. Both require >=3 lots at best bid and best ask and all existing ATM, liquidity, freshness, ask-gap and expiry checks. OI units are divided by contract lot size; 2,000 lots is not 2,000 units. Exactly 30% is excluded. Prior V1 and V2 open stock watches still block new simultaneous watches. The journal stores entry_oi_lots and gap_tier.
+
+If you previously set MAX_VALUE_GAP explicitly in your workflow, change it to 0.30; BASE_MAX_VALUE_GAP is 0.17. The bundled workflow uses code defaults. Secrets and schedule do not change. Historical 18/18 counts precede ATM and active-watch suppression.

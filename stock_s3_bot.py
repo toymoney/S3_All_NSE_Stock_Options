@@ -18,15 +18,19 @@ from zoneinfo import ZoneInfo
 import requests
 
 IST=ZoneInfo('Asia/Kolkata')
-FILTER_POLICY='BUY_ATM_GAP_DEPTH_V2'
+FILTER_POLICY='BUY_ATM_GAP_DEPTH_OI_V3'
 ROOT=Path(__file__).resolve().parent
 STATE_DIR=Path(os.getenv('STATE_DIR',str(ROOT/'state_s3')))
 MASTER_URL='https://assets.upstox.com/market-quote/instruments/exchange/NSE.json.gz'
 GAP=float(os.getenv('MIN_VALUE_GAP','0.15'))
-MAX_GAP=float(os.getenv('MAX_VALUE_GAP','0.17'))
+BASE_MAX_GAP=float(os.getenv('BASE_MAX_VALUE_GAP','0.17'))
+MAX_GAP=float(os.getenv('MAX_VALUE_GAP','0.30'))
+EXTENDED_MIN_OI_LOTS=float(os.getenv('EXTENDED_MIN_OI_LOTS','2000'))
 MIN_DEPTH_LOTS=float(os.getenv('MIN_DEPTH_LOTS','3'))
-if not (0 < GAP < MAX_GAP < 1) or not math.isfinite(MIN_DEPTH_LOTS) or MIN_DEPTH_LOTS < 3:
-    raise ValueError('Require 0 < MIN_VALUE_GAP < MAX_VALUE_GAP < 1 and MIN_DEPTH_LOTS >= 3')
+if not (0 < GAP < BASE_MAX_GAP < MAX_GAP < 1) or not math.isfinite(MIN_DEPTH_LOTS) or MIN_DEPTH_LOTS < 3:
+    raise ValueError('Invalid gap bands or depth floor')
+if not math.isfinite(EXTENDED_MIN_OI_LOTS) or EXTENDED_MIN_OI_LOTS < 2000:
+    raise ValueError('EXTENDED_MIN_OI_LOTS must be at least 2000')
 MAX_SPREAD=float(os.getenv('MAX_SPREAD','0.05'))
 MIN_PREMIUM=float(os.getenv('MIN_PREMIUM','1'))
 MIN_OI_LOTS=float(os.getenv('MIN_OI_LOTS','20'))
@@ -54,6 +58,26 @@ def expiry_date(value):
     except (ValueError,TypeError,OverflowError):return None
 
 
+def stock_close(t):
+    day=t.date().isoformat()
+    return dt_time(15,45) if day>='2026-12-07' else (dt_time(15,40) if day>='2026-08-03' else dt_time(15,30))
+
+
+def close_at(t):
+    return t.replace(hour=stock_close(t).hour,minute=stock_close(t).minute,second=0,microsecond=0)
+
+
+def alert_cutoff(t):
+    return dt_time(15,20)
+
+
+def selected_expiry(expiries,day):
+    # Five calendar days; actual expiry dates come from the instrument master.
+    eligible=sorted(e for e in expiries if
+        (datetime.fromisoformat(e).date()-datetime.fromisoformat(day).date()).days>5)
+    return eligible[0] if eligible else None
+
+
 def universe_from_master(rows,date):
     equities={x['instrument_key']:x for x in rows if x.get('segment')=='NSE_EQ' and x.get('instrument_type')=='EQ'}
     grouped={};metadata={}
@@ -70,7 +94,10 @@ def universe_from_master(rows,date):
         grouped.setdefault(key,{'underlying':key,'symbol':symbol,'expiries':set()})['expiries'].add(expiry)
         metadata[row['instrument_key']]={'lot':int(row['lot_size']),'expiry':expiry,
             'strike':num(row['strike_price']),'side':row['instrument_type'],'underlying':key,'symbol':symbol}
-    universe=[{'underlying':g['underlying'],'symbol':g['symbol'],'expiry':min(g['expiries'])} for g in grouped.values()]
+    universe=[]
+    for g in grouped.values():
+        expiry=selected_expiry(g['expiries'],date)
+        if expiry:universe.append({'underlying':g['underlying'],'symbol':g['symbol'],'expiry':expiry})
     return sorted(universe,key=lambda x:x['symbol']),metadata
 
 
@@ -141,7 +168,7 @@ def candidate(c,band,spot,t):
     if not liquid(c):return None,'liquidity'
     if min(num(c['market'].get('bid_qty')),num(c['market'].get('ask_qty'))) < MIN_DEPTH_LOTS*c['lot']:
         return None,'depth_below_threshold'
-    expiry=datetime.fromisoformat(c['expiry']).replace(hour=15,minute=30,tzinfo=IST)
+    expiry=close_at(datetime.fromisoformat(c['expiry']).replace(tzinfo=IST))
     if (expiry-t).total_seconds()<1800:return None,'near_expiry'
     vol=peer_iv(c,band)
     if vol is None:return None,'insufficient_peer_iv'
@@ -156,8 +183,12 @@ def candidate(c,band,spot,t):
     # Explicit same-sign check: a crossed/stale LTP must not reverse the executable gap.
     if abs(gap)<GAP or gap*executable_gap<=0 or abs(executable_gap)<GAP:return None,'gap_below_threshold'
     if gap>=MAX_GAP:return None,'gap_above_band'
+    if gap>=BASE_MAX_GAP and num(m.get('oi')) < EXTENDED_MIN_OI_LOTS*c['lot']:
+        return None,'extended_gap_oi_below_threshold'
     return {'target':round(fair,4),'entry':ltp,'direction':'UP' if gap>0 else 'DOWN',
         'gap_pct':gap*100,'executable_gap_pct':executable_gap*100,'peer_iv':vol*100,
+        'entry_oi_lots':num(m.get('oi'))/c['lot'],
+        'gap_tier':'EXTENDED_OI' if gap>=BASE_MAX_GAP else 'BASE',
         'spot':spot,'years':years,'r':RISK_RATE,'q':div},None
 
 
@@ -306,7 +337,7 @@ class Scanner:
         if not options:return None
         underlying=options[0][0]['underlying']
         if any(w['day']==day['date'] and w['underlying']==underlying and
-               w.get('policy') in ('BUY_ATM_V1',FILTER_POLICY) and w['status']=='OPEN' for w in self.state['watches']):
+               w.get('policy') in ('BUY_ATM_V1','BUY_ATM_GAP_DEPTH_V2',FILTER_POLICY) and w['status']=='OPEN' for w in self.state['watches']):
             self.count(day,'existing_open_stock_watch');return None
         # If both ATM sides qualify, keep only the larger ask-based value gap.
         options.sort(key=lambda cv:(-cv[1]['executable_gap_pct'],cv[0]['side']))
@@ -356,7 +387,7 @@ class Scanner:
             band=select_band(chain,chain[0]['spot'])
             if not any(liquid(c) for c in band):self.count(day,'no_liquid_contracts');return
             quotes=self.api.quotes([u['underlying']]+[c['key'] for c in band]);checked=now()
-            if not dt_time(9,20)<=checked.time()<=dt_time(15,0):return
+            if not dt_time(9,20)<=checked.time()<=alert_cutoff(checked):return
             underlying_quote=quotes.get(u['underlying'],{})
             if not fresh(underlying_quote,checked):self.count(day,'stale_underlying');return
             spot=num(underlying_quote.get('last_price'))
@@ -395,7 +426,7 @@ class Scanner:
         # API batches all open keys; monitoring may take longer when many watches exist.
         if open_w:
             quotes=self.api.quotes([w['key'] for w in open_w]);observed=now()
-            if observed.date()!=t.date() or observed.time()>dt_time(15,30):return
+            if observed.date()!=t.date() or observed.time()>stock_close(observed):return
             for w in open_w:
                 q=quotes.get(w['key'],{})
                 if not fresh(q,observed):continue
@@ -418,7 +449,7 @@ class Scanner:
         valid_minutes=set()
         for bar in bars:
             bt=parse(bar[0])
-            if not dt_time(9,15)<=bt.time()<dt_time(15,30):continue
+            if not dt_time(9,15)<=bt.time()<stock_close(bt):continue
             if len(bar)<5 or any(num(x)<=0 for x in bar[1:5]):continue
             if num(bar[2])<max(num(bar[1]),num(bar[3]),num(bar[4])) or num(bar[3])>min(num(bar[1]),num(bar[4])):continue
             valid_minutes.add(bt)
@@ -429,9 +460,9 @@ class Scanner:
             hit=num(bar[2])>=w['target'] if w['direction']=='UP' else num(bar[3])<=w['target']
             if hit:
                 self.finish(w,bt+timedelta(minutes=1),w['target'],'completed 1m candle high/low; time is candle end',num(bar[4]));return
-        if t.time()>=dt_time(15,32) or w['day']<t.date().isoformat():
+        if t>=close_at(t)+timedelta(minutes=2) or w['day']<t.date().isoformat():
             expected=start
-            close=start.replace(hour=15,minute=30,second=0,microsecond=0)
+            close=close_at(start)
             while expected<close and expected in valid_minutes:expected+=timedelta(minutes=1)
             if expected==close:w['status']='NO_TOUCH_IN_MONITORED_BARS'
 
@@ -489,16 +520,16 @@ class Scanner:
     def tick(self,t):
         if t.weekday()>=5:return
         day=self.prepare(t)
-        self.emit('online-'+FILTER_POLICY+'-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]}\nBUY-ONLY ATM: CE or PE only when its premium must RISE to the target.\nUniverse: {len(self.universe)} NSE F&O stocks; nearest expiry. ATM ±2 supplies IV peers; only ATM can alert.\nOne active new-policy watch per stock; if both sides qualify, larger ask-based gap wins.\nStarting gap {GAP*100:g}% to below {MAX_GAP*100:g}%; ask gap at least {GAP*100:g}%. Best bid AND ask depth at least {MIN_DEPTH_LOTS:g} lots each. S3 only.\nFull sweeps take several minutes; report around 16:15 IST.')
+        self.emit('online-'+FILTER_POLICY+'-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]}\nBUY-ONLY ATM: CE or PE only when its premium must RISE to the target.\nUniverse: {len(self.universe)} NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM ±2 supplies IV peers; only ATM can alert.\nOne active new-policy watch per stock; if both sides qualify, larger ask-based gap wins.\nStarting gap {GAP*100:g}% to below {BASE_MAX_GAP*100:g}%; extended {BASE_MAX_GAP*100:g}% to below {MAX_GAP*100:g}% requires OI >= {EXTENDED_MIN_OI_LOTS:g} lots. Ask gap at least {GAP*100:g}%. Best bid AND ask depth at least {MIN_DEPTH_LOTS:g} lots each. S3 only.\nFull sweeps take several minutes; report around 16:15 IST.')
         # Finish interrupted prior days as unverified instead of inventing outcomes.
         for date,old in list(self.state['days'].items()):
             if date<day['date'] and not old.get('reported'):
                 self.report(old,t)
         if t.time()>=dt_time(16,15):self.report(day,t);return
         if not dt_time(9,20)<=t.time()<=dt_time(16,15):return
-        if t.time()<=dt_time(15,30):self.monitor_quotes(t)
-        self.monitor_candles(now(),budget=1 if t.time()<=dt_time(15,30) else 10)
-        if t.time()<=dt_time(15,0):self.scan_one(day,now())
+        if t.time()<=stock_close(t):self.monitor_quotes(t)
+        self.monitor_candles(now(),budget=1 if t.time()<=stock_close(t) else 10)
+        if t.time()<=alert_cutoff(t):self.scan_one(day,now())
 
 
 def main():
@@ -531,7 +562,7 @@ def main():
                 if failures>=20:raise RuntimeError('20 consecutive failures; check workflow logs') from None
                 time.sleep(15)
             if args.mode=='once' or now()>=end or t.weekday()>=5:break
-            time.sleep(2 if dt_time(9,20)<=now().time()<=dt_time(15,0) else 15)
+            time.sleep(2 if dt_time(9,20)<=now().time()<=alert_cutoff(now()) else 15)
     finally:scanner.sync(force=True)
 
 
