@@ -1,0 +1,26 @@
+S3 STOCK OPTIONS DAILY REPORT | 2026-11-23
+BUY-ONLY ATM: 0 alerts; 0 targets touched; touch rate N/A (not net win rate)
+Legacy watches from earlier rules: 0; included separately in the full totals below.
+Stocks in universe: 216; stocks with a successful latest chain check: 216
+Completed sweeps: 27; last completed sweep: 2026-11-23T15:09:58.560761+05:30
+Last sweep duration: 749 seconds
+Alerts: 0 | model targets touched: 0
+No touch in monitored full-minute bars: 0 | unverified: 0
+The partial entry minute is excluded from candle checks; its unobserved movements are unknown.
+A model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.
+
+BUY-ONLY ATM CE: 0/0 targets touched
+BUY-ONLY ATM PE: 0/0 targets touched
+
+WHY CONTRACTS WERE SKIPPED (checks, not unique contracts)
+atm_shift_during_request: 35
+chains_received: 6005
+depth_below_threshold: 6282
+gap_below_threshold: 238
+insufficient_peer_iv: 137
+liquidity: 307
+no_liquid_contracts: 124
+non_atm_excluded: 22007
+sell_direction_excluded: 254
+stale_option_or_missing_quote: 28831
+stale_underlying: 34

@@ -1794,7 +1794,8 @@
       "universe_count": 216,
       "sweep_started": "2026-11-23T15:09:58.560779+05:30",
       "last_sweep_finished": "2026-11-23T15:09:58.560761+05:30",
-      "last_sweep_seconds": 749
+      "last_sweep_seconds": 749,
+      "reported": true
     }
   },
   "watches": [
@@ -22152,6 +22153,11 @@
     {
       "id": "online-BUY_ATM_GAP_DEPTH_OI_V3-2026-11-23:0",
       "text": "S3 STOCK OPTIONS ONLINE | 2026-11-23\nBUY-ONLY ATM: CE or PE only when its premium must RISE to the target.\nUniverse: 216 NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM \u00b12 supplies IV peers; only ATM can alert.\nOne active new-policy watch per stock; if both sides qualify, larger ask-based gap wins.\nStarting gap 15% to below 17%; extended 17% to below 30% requires OI >= 2000 lots. Ask gap at least 15%. Best bid AND ask depth at least 3 lots each. S3 only.\nFull sweeps take several minutes; report around 16:15 IST.\n",
+      "sent": true
+    },
+    {
+      "id": "report-2026-11-23:0",
+      "text": "S3 STOCK OPTIONS DAILY REPORT | 2026-11-23\nBUY-ONLY ATM: 0 alerts; 0 targets touched; touch rate N/A (not net win rate)\nLegacy watches from earlier rules: 0; included separately in the full totals below.\nStocks in universe: 216; stocks with a successful latest chain check: 216\nCompleted sweeps: 27; last completed sweep: 2026-11-23T15:09:58.560761+05:30\nLast sweep duration: 749 seconds\nAlerts: 0 | model targets touched: 0\nNo touch in monitored full-minute bars: 0 | unverified: 0\nThe partial entry minute is excluded from candle checks; its unobserved movements are unknown.\nA model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.\n\nBUY-ONLY ATM CE: 0/0 targets touched\nBUY-ONLY ATM PE: 0/0 targets touched\n\nWHY CONTRACTS WERE SKIPPED (checks, not unique contracts)\natm_shift_during_request: 35\nchains_received: 6005\ndepth_below_threshold: 6282\ngap_below_threshold: 238\ninsufficient_peer_iv: 137\nliquidity: 307\nno_liquid_contracts: 124\nnon_atm_excluded: 22007\nsell_direction_excluded: 254\nstale_option_or_missing_quote: 28831\nstale_underlying: 34\n",
       "sent": true
     }
   ]
