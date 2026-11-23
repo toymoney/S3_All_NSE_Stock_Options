@@ -1796,6 +1796,15 @@
       "last_sweep_finished": "2026-11-23T15:09:58.560761+05:30",
       "last_sweep_seconds": 749,
       "reported": true
+    },
+    "2026-11-24": {
+      "date": "2026-11-24",
+      "cursor": 0,
+      "sweeps": 0,
+      "symbols": {},
+      "counts": {},
+      "last_error": null,
+      "universe_count": 216
     }
   },
   "watches": [
@@ -22158,6 +22167,11 @@
     {
       "id": "report-2026-11-23:0",
       "text": "S3 STOCK OPTIONS DAILY REPORT | 2026-11-23\nBUY-ONLY ATM: 0 alerts; 0 targets touched; touch rate N/A (not net win rate)\nLegacy watches from earlier rules: 0; included separately in the full totals below.\nStocks in universe: 216; stocks with a successful latest chain check: 216\nCompleted sweeps: 27; last completed sweep: 2026-11-23T15:09:58.560761+05:30\nLast sweep duration: 749 seconds\nAlerts: 0 | model targets touched: 0\nNo touch in monitored full-minute bars: 0 | unverified: 0\nThe partial entry minute is excluded from candle checks; its unobserved movements are unknown.\nA model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.\n\nBUY-ONLY ATM CE: 0/0 targets touched\nBUY-ONLY ATM PE: 0/0 targets touched\n\nWHY CONTRACTS WERE SKIPPED (checks, not unique contracts)\natm_shift_during_request: 35\nchains_received: 6005\ndepth_below_threshold: 6282\ngap_below_threshold: 238\ninsufficient_peer_iv: 137\nliquidity: 307\nno_liquid_contracts: 124\nnon_atm_excluded: 22007\nsell_direction_excluded: 254\nstale_option_or_missing_quote: 28831\nstale_underlying: 34\n",
+      "sent": true
+    },
+    {
+      "id": "online-BUY_ATM_RULELAB_V4-2026-11-24:0",
+      "text": "S3 STOCK OPTIONS ONLINE | 2026-11-24 | RULE LAB V4\nBUY-ONLY ATM: CE or PE, only when its premium must RISE to the target (no selling, no CE/PE restriction).\nUniverse: 216 NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM \u00b12 supplies IV peers; only ATM can alert.\nGap 15% to below 30%, ask gap at least 15%. Every candidate is scored on six rules; only candidates passing TOAVEI or P are sent here, the rest are recorded silently.\nRules: T=tier OI (gap 15-<17%: any; 17-<30%: >= 2000 lots) | D=depth >= 3 lots on best bid AND ask | O=OI >= 500 lots | A=last trade <= 10 s old | V=volume/OI <= 3 | G=gamma >= 0.006 | E=|delta| >= 0.35 | I=IV <= 28% | P=gap 15% to below 17% AND depth >= 3 lots on best bid and ask\nAlerts 09:20-15:20 IST, Mon-Fri. One active MAIN and one active SILENT record per stock. Daily report around 16:15 IST with a rule comparison.\n",
       "sent": true
     }
   ]
