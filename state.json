@@ -909,7 +909,7 @@
     },
     "2026-11-23": {
       "date": "2026-11-23",
-      "cursor": 92,
+      "cursor": 178,
       "sweeps": 9,
       "symbols": {
         "360ONE": {
@@ -1281,347 +1281,347 @@
           "status": "chain_received"
         },
         "IDFCFIRSTB": {
-          "checked_at": "2026-11-23T11:08:19.850531+05:30",
+          "checked_at": "2026-11-23T11:20:58.833151+05:30",
           "status": "chain_received"
         },
         "INDHOTEL": {
-          "checked_at": "2026-11-23T11:08:23.353913+05:30",
+          "checked_at": "2026-11-23T11:21:02.373694+05:30",
           "status": "chain_received"
         },
         "INDIANB": {
-          "checked_at": "2026-11-23T11:08:26.915133+05:30",
+          "checked_at": "2026-11-23T11:21:05.854358+05:30",
           "status": "chain_received"
         },
         "INDIGO": {
-          "checked_at": "2026-11-23T11:08:30.422954+05:30",
+          "checked_at": "2026-11-23T11:21:09.388272+05:30",
           "status": "chain_received"
         },
         "INDUSINDBK": {
-          "checked_at": "2026-11-23T11:08:33.943920+05:30",
+          "checked_at": "2026-11-23T11:21:12.903378+05:30",
           "status": "chain_received"
         },
         "INDUSTOWER": {
-          "checked_at": "2026-11-23T11:08:37.459116+05:30",
+          "checked_at": "2026-11-23T11:21:16.445591+05:30",
           "status": "chain_received"
         },
         "INFY": {
-          "checked_at": "2026-11-23T11:08:40.937687+05:30",
+          "checked_at": "2026-11-23T11:21:19.944876+05:30",
           "status": "chain_received"
         },
         "INOXWIND": {
-          "checked_at": "2026-11-23T11:08:44.463096+05:30",
+          "checked_at": "2026-11-23T11:21:23.481930+05:30",
           "status": "chain_received"
         },
         "IOC": {
-          "checked_at": "2026-11-23T11:08:48.006774+05:30",
+          "checked_at": "2026-11-23T11:21:26.960106+05:30",
           "status": "chain_received"
         },
         "IRFC": {
-          "checked_at": "2026-11-23T11:08:51.463267+05:30",
+          "checked_at": "2026-11-23T11:21:30.471812+05:30",
           "status": "chain_received"
         },
         "ITC": {
-          "checked_at": "2026-11-23T11:08:55.007939+05:30",
+          "checked_at": "2026-11-23T11:21:34.010902+05:30",
           "status": "chain_received"
         },
         "JINDALSTEL": {
-          "checked_at": "2026-11-23T11:08:58.502427+05:30",
+          "checked_at": "2026-11-23T11:21:37.507855+05:30",
           "status": "chain_received"
         },
         "JIOFIN": {
-          "checked_at": "2026-11-23T11:09:01.997438+05:30",
+          "checked_at": "2026-11-23T11:21:41.073505+05:30",
           "status": "chain_received"
         },
         "JSWENERGY": {
-          "checked_at": "2026-11-23T11:09:05.532924+05:30",
+          "checked_at": "2026-11-23T11:21:44.563029+05:30",
           "status": "chain_received"
         },
         "JSWSTEEL": {
-          "checked_at": "2026-11-23T11:09:09.029066+05:30",
+          "checked_at": "2026-11-23T11:21:48.093164+05:30",
           "status": "chain_received"
         },
         "JUBLFOOD": {
-          "checked_at": "2026-11-23T11:09:12.569033+05:30",
+          "checked_at": "2026-11-23T11:21:51.634077+05:30",
           "status": "chain_received"
         },
         "KALYANKJIL": {
-          "checked_at": "2026-11-23T11:09:16.097072+05:30",
+          "checked_at": "2026-11-23T11:21:55.149735+05:30",
           "status": "chain_received"
         },
         "KARURVYSYA": {
-          "checked_at": "2026-11-23T11:09:19.653406+05:30",
+          "checked_at": "2026-11-23T11:21:58.663358+05:30",
           "status": "chain_received"
         },
         "KAYNES": {
-          "checked_at": "2026-11-23T11:09:23.125417+05:30",
+          "checked_at": "2026-11-23T11:22:02.189965+05:30",
           "status": "chain_received"
         },
         "KEI": {
-          "checked_at": "2026-11-23T11:09:26.636873+05:30",
+          "checked_at": "2026-11-23T11:22:05.737243+05:30",
           "status": "chain_received"
         },
         "KFINTECH": {
-          "checked_at": "2026-11-23T11:09:30.114288+05:30",
+          "checked_at": "2026-11-23T11:22:09.268985+05:30",
           "status": "chain_received"
         },
         "KOTAKBANK": {
-          "checked_at": "2026-11-23T11:09:33.612230+05:30",
+          "checked_at": "2026-11-23T11:22:12.770395+05:30",
           "status": "chain_received"
         },
         "KPITTECH": {
-          "checked_at": "2026-11-23T11:09:37.168649+05:30",
+          "checked_at": "2026-11-23T11:22:16.293092+05:30",
           "status": "chain_received"
         },
         "LAURUSLABS": {
-          "checked_at": "2026-11-23T11:09:40.693982+05:30",
+          "checked_at": "2026-11-23T11:22:19.833093+05:30",
           "status": "chain_received"
         },
         "LICHSGFIN": {
-          "checked_at": "2026-11-23T11:09:44.220294+05:30",
+          "checked_at": "2026-11-23T11:22:23.317002+05:30",
           "status": "chain_received"
         },
         "LICI": {
-          "checked_at": "2026-11-23T11:09:47.749648+05:30",
+          "checked_at": "2026-11-23T11:22:26.846748+05:30",
           "status": "chain_received"
         },
         "LODHA": {
-          "checked_at": "2026-11-23T11:09:51.271617+05:30",
+          "checked_at": "2026-11-23T11:22:30.387904+05:30",
           "status": "chain_received"
         },
         "LT": {
-          "checked_at": "2026-11-23T11:09:55.233136+05:30",
+          "checked_at": "2026-11-23T11:22:34.319891+05:30",
           "status": "chain_received"
         },
         "LTF": {
-          "checked_at": "2026-11-23T11:09:58.704199+05:30",
+          "checked_at": "2026-11-23T11:22:37.840151+05:30",
           "status": "chain_received"
         },
         "LTM": {
-          "checked_at": "2026-11-23T11:10:02.233602+05:30",
+          "checked_at": "2026-11-23T11:22:41.380646+05:30",
           "status": "chain_received"
         },
         "LUPIN": {
-          "checked_at": "2026-11-23T11:10:05.760094+05:30",
+          "checked_at": "2026-11-23T11:22:44.885013+05:30",
           "status": "chain_received"
         },
         "M&M": {
-          "checked_at": "2026-11-23T11:10:09.274627+05:30",
+          "checked_at": "2026-11-23T11:22:48.401035+05:30",
           "status": "chain_received"
         },
         "MAHABANK": {
-          "checked_at": "2026-11-23T11:10:12.934962+05:30",
+          "checked_at": "2026-11-23T11:22:51.930821+05:30",
           "status": "chain_received"
         },
         "MANAPPURAM": {
-          "checked_at": "2026-11-23T11:10:16.351564+05:30",
+          "checked_at": "2026-11-23T11:22:55.464703+05:30",
           "status": "chain_received"
         },
         "MANKIND": {
-          "checked_at": "2026-11-23T11:10:18.666548+05:30",
+          "checked_at": "2026-11-23T11:22:57.795393+05:30",
           "status": "chain_received"
         },
         "MARICO": {
-          "checked_at": "2026-11-23T11:10:22.177573+05:30",
+          "checked_at": "2026-11-23T11:23:01.287240+05:30",
           "status": "chain_received"
         },
         "MARUTI": {
-          "checked_at": "2026-11-23T11:10:25.703688+05:30",
+          "checked_at": "2026-11-23T11:23:04.824192+05:30",
           "status": "chain_received"
         },
         "MAXHEALTH": {
-          "checked_at": "2026-11-23T11:10:29.205193+05:30",
+          "checked_at": "2026-11-23T11:23:08.386100+05:30",
           "status": "chain_received"
         },
         "MAZDOCK": {
-          "checked_at": "2026-11-23T11:10:32.723203+05:30",
+          "checked_at": "2026-11-23T11:23:11.922219+05:30",
           "status": "chain_received"
         },
         "MCX": {
-          "checked_at": "2026-11-23T11:10:36.194611+05:30",
+          "checked_at": "2026-11-23T11:23:15.426452+05:30",
           "status": "chain_received"
         },
         "MFSL": {
-          "checked_at": "2026-11-23T11:10:39.745732+05:30",
+          "checked_at": "2026-11-23T11:23:18.914108+05:30",
           "status": "chain_received"
         },
         "MOTHERSON": {
-          "checked_at": "2026-11-23T11:10:43.288206+05:30",
+          "checked_at": "2026-11-23T11:23:22.473318+05:30",
           "status": "chain_received"
         },
         "MOTILALOFS": {
-          "checked_at": "2026-11-23T11:10:46.816005+05:30",
+          "checked_at": "2026-11-23T11:23:26.011040+05:30",
           "status": "chain_received"
         },
         "MPHASIS": {
-          "checked_at": "2026-11-23T11:10:51.696596+05:30",
+          "checked_at": "2026-11-23T11:23:29.518421+05:30",
           "status": "chain_received"
         },
         "MUTHOOTFIN": {
-          "checked_at": "2026-11-23T11:10:55.200432+05:30",
+          "checked_at": "2026-11-23T11:23:33.042938+05:30",
           "status": "chain_received"
         },
         "NAM-INDIA": {
-          "checked_at": "2026-11-23T11:10:58.719691+05:30",
+          "checked_at": "2026-11-23T11:23:36.579769+05:30",
           "status": "chain_received"
         },
         "NATIONALUM": {
-          "checked_at": "2026-11-23T11:11:02.239952+05:30",
+          "checked_at": "2026-11-23T11:23:40.103029+05:30",
           "status": "chain_received"
         },
         "NAUKRI": {
-          "checked_at": "2026-11-23T11:11:05.787904+05:30",
+          "checked_at": "2026-11-23T11:23:43.616661+05:30",
           "status": "chain_received"
         },
         "NAVINFLUOR": {
-          "checked_at": "2026-11-23T11:11:09.305564+05:30",
+          "checked_at": "2026-11-23T11:23:47.132226+05:30",
           "status": "chain_received"
         },
         "NBCC": {
-          "checked_at": "2026-11-23T11:11:12.809517+05:30",
+          "checked_at": "2026-11-23T11:23:50.670593+05:30",
           "status": "chain_received"
         },
         "NESTLEIND": {
-          "checked_at": "2026-11-23T11:11:16.326901+05:30",
+          "checked_at": "2026-11-23T11:23:54.174573+05:30",
           "status": "chain_received"
         },
         "NHPC": {
-          "checked_at": "2026-11-23T11:11:19.843530+05:30",
+          "checked_at": "2026-11-23T11:23:57.728745+05:30",
           "status": "chain_received"
         },
         "NMDC": {
-          "checked_at": "2026-11-23T11:11:23.370327+05:30",
+          "checked_at": "2026-11-23T11:24:01.263045+05:30",
           "status": "chain_received"
         },
         "NTPC": {
-          "checked_at": "2026-11-23T11:11:26.925413+05:30",
+          "checked_at": "2026-11-23T11:24:04.761438+05:30",
           "status": "chain_received"
         },
         "NYKAA": {
-          "checked_at": "2026-11-23T11:11:30.399137+05:30",
+          "checked_at": "2026-11-23T11:24:08.284165+05:30",
           "status": "chain_received"
         },
         "OBEROIRLTY": {
-          "checked_at": "2026-11-23T11:11:33.958435+05:30",
+          "checked_at": "2026-11-23T11:24:11.825559+05:30",
           "status": "chain_received"
         },
         "OFSS": {
-          "checked_at": "2026-11-23T11:11:37.473408+05:30",
+          "checked_at": "2026-11-23T11:24:15.363270+05:30",
           "status": "chain_received"
         },
         "OIL": {
-          "checked_at": "2026-11-23T11:11:40.975310+05:30",
+          "checked_at": "2026-11-23T11:24:18.883254+05:30",
           "status": "chain_received"
         },
         "ONGC": {
-          "checked_at": "2026-11-23T11:11:44.498621+05:30",
+          "checked_at": "2026-11-23T11:24:22.364829+05:30",
           "status": "chain_received"
         },
         "PAGEIND": {
-          "checked_at": "2026-11-23T11:11:48.003141+05:30",
+          "checked_at": "2026-11-23T11:24:25.884924+05:30",
           "status": "chain_received"
         },
         "PATANJALI": {
-          "checked_at": "2026-11-23T11:11:51.526206+05:30",
+          "checked_at": "2026-11-23T11:24:29.404494+05:30",
           "status": "chain_received"
         },
         "PAYTM": {
-          "checked_at": "2026-11-23T11:11:55.044435+05:30",
+          "checked_at": "2026-11-23T11:24:32.918581+05:30",
           "status": "chain_received"
         },
         "PERSISTENT": {
-          "checked_at": "2026-11-23T11:11:58.510503+05:30",
+          "checked_at": "2026-11-23T11:24:36.452632+05:30",
           "status": "chain_received"
         },
         "PETRONET": {
-          "checked_at": "2026-11-23T11:12:02.037865+05:30",
+          "checked_at": "2026-11-23T11:24:39.938809+05:30",
           "status": "chain_received"
         },
         "PFC": {
-          "checked_at": "2026-11-23T11:12:05.507777+05:30",
+          "checked_at": "2026-11-23T11:24:43.454150+05:30",
           "status": "chain_received"
         },
         "PGEL": {
-          "checked_at": "2026-11-23T11:12:09.060695+05:30",
+          "checked_at": "2026-11-23T11:24:46.974279+05:30",
           "status": "chain_received"
         },
         "PHOENIXLTD": {
-          "checked_at": "2026-11-23T11:12:12.575165+05:30",
+          "checked_at": "2026-11-23T11:24:50.498134+05:30",
           "status": "chain_received"
         },
         "PIDILITIND": {
-          "checked_at": "2026-11-23T11:12:16.041519+05:30",
+          "checked_at": "2026-11-23T11:24:54.014360+05:30",
           "status": "chain_received"
         },
         "PIIND": {
-          "checked_at": "2026-11-23T11:12:19.581100+05:30",
+          "checked_at": "2026-11-23T11:24:57.640444+05:30",
           "status": "chain_received"
         },
         "PNB": {
-          "checked_at": "2026-11-23T11:12:23.114292+05:30",
+          "checked_at": "2026-11-23T11:25:01.156097+05:30",
           "status": "chain_received"
         },
         "PNBHOUSING": {
-          "checked_at": "2026-11-23T11:12:26.608596+05:30",
+          "checked_at": "2026-11-23T11:25:04.784845+05:30",
           "status": "chain_received"
         },
         "POLICYBZR": {
-          "checked_at": "2026-11-23T11:12:30.237906+05:30",
+          "checked_at": "2026-11-23T11:25:08.329930+05:30",
           "status": "chain_received"
         },
         "POLYCAB": {
-          "checked_at": "2026-11-23T11:12:33.796055+05:30",
+          "checked_at": "2026-11-23T11:25:11.835872+05:30",
           "status": "chain_received"
         },
         "POWERGRID": {
-          "checked_at": "2026-11-23T11:12:37.251306+05:30",
+          "checked_at": "2026-11-23T11:25:15.340378+05:30",
           "status": "chain_received"
         },
         "POWERINDIA": {
-          "checked_at": "2026-11-23T11:12:40.769129+05:30",
+          "checked_at": "2026-11-23T11:25:18.850006+05:30",
           "status": "chain_received"
         },
         "PREMIERENE": {
-          "checked_at": "2026-11-23T11:12:44.263896+05:30",
+          "checked_at": "2026-11-23T11:25:22.411326+05:30",
           "status": "chain_received"
         },
         "PRESTIGE": {
-          "checked_at": "2026-11-23T11:12:47.822284+05:30",
+          "checked_at": "2026-11-23T11:25:25.912841+05:30",
           "status": "chain_received"
         },
         "RADICO": {
-          "checked_at": "2026-11-23T11:12:51.318111+05:30",
+          "checked_at": "2026-11-23T11:25:29.443912+05:30",
           "status": "chain_received"
         },
         "RBLBANK": {
-          "checked_at": "2026-11-23T11:12:54.819703+05:30",
+          "checked_at": "2026-11-23T11:25:33.025777+05:30",
           "status": "chain_received"
         },
         "RECLTD": {
-          "checked_at": "2026-11-23T11:12:58.324097+05:30",
+          "checked_at": "2026-11-23T11:25:36.527807+05:30",
           "status": "chain_received"
         },
         "RELIANCE": {
-          "checked_at": "2026-11-23T11:13:01.845700+05:30",
+          "checked_at": "2026-11-23T11:25:40.071294+05:30",
           "status": "chain_received"
         },
         "RVNL": {
-          "checked_at": "2026-11-23T11:13:05.390119+05:30",
+          "checked_at": "2026-11-23T11:25:44.138519+05:30",
           "status": "chain_received"
         },
         "SAGILITY": {
-          "checked_at": "2026-11-23T11:13:08.901974+05:30",
+          "checked_at": "2026-11-23T11:25:47.224071+05:30",
           "status": "chain_received"
         },
         "SAIL": {
-          "checked_at": "2026-11-23T11:13:12.440111+05:30",
+          "checked_at": "2026-11-23T11:25:50.714797+05:30",
           "status": "chain_received"
         },
         "SBICARD": {
-          "checked_at": "2026-11-23T11:13:15.957097+05:30",
+          "checked_at": "2026-11-23T11:25:54.259182+05:30",
           "status": "chain_received"
         },
         "SBILIFE": {
-          "checked_at": "2026-11-23T11:13:19.474012+05:30",
+          "checked_at": "2026-11-23T11:25:57.781412+05:30",
           "status": "chain_received"
         },
         "SBIN": {
@@ -1778,16 +1778,16 @@
         }
       },
       "counts": {
-        "chains_received": 2036,
-        "stale_option_or_missing_quote": 8727,
-        "non_atm_excluded": 8247,
-        "depth_below_threshold": 2321,
-        "liquidity": 158,
-        "no_liquid_contracts": 55,
-        "insufficient_peer_iv": 38,
+        "chains_received": 2122,
+        "stale_option_or_missing_quote": 9168,
+        "non_atm_excluded": 8551,
+        "depth_below_threshold": 2413,
+        "liquidity": 162,
+        "no_liquid_contracts": 56,
+        "insufficient_peer_iv": 42,
         "atm_shift_during_request": 17,
-        "sell_direction_excluded": 81,
-        "gap_below_threshold": 68
+        "sell_direction_excluded": 82,
+        "gap_below_threshold": 72
       },
       "last_error": null,
       "universe_count": 216,
