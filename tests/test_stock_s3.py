@@ -8,11 +8,12 @@ import stock_s3_bot as b
 
 T=datetime(2026,11,19,10,0,30,tzinfo=b.IST)
 
-def contract(k=100,side='CE',iv=30):
+def contract(k=100,side='CE',iv=25):
     return {'key':f'FO|{k}{side}','symbol':'SAMPLE','underlying':'EQ|1','expiry':'2026-12-29',
             'strike':k,'side':side,'lot':100,'spot':100,
-            'market':{'ltp':10,'bid_price':9.9,'ask_price':10.1,'oi':10000,'volume':10000,'bid_qty':300,'ask_qty':300},
-            'greeks':{'iv':iv,'delta':.5,'gamma':.01,'theta':-.1,'vega':.2}}
+            'market':{'ltp':10,'bid_price':9.9,'ask_price':10.1,'oi':300000,'volume':10000,'bid_qty':300,'ask_qty':300},
+            'greeks':{'iv':iv,'delta':.5,'gamma':.01,'theta':-.1,'vega':.2},
+            'quote_time':T.isoformat(),'last_trade_time':str(int(T.timestamp()*1000))}
 
 class FakeAPI:
     bars=[]
@@ -22,6 +23,7 @@ class FakeAPI:
 class StockTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.api=FakeAPI();self.api.bars=[]
+        also=patch.object(b,'MAIN_ALSO_IF','');also.start();self.addCleanup(also.stop)  # P route has its own tests
         self.s=b.Scanner(self.api,self.tmp.name)
         self.day={'date':'2026-11-19','cursor':0,'sweeps':0,'symbols':{},'counts':{},'universe_count':2}
         self.s.state['days'][self.day['date']]=self.day
@@ -55,6 +57,8 @@ class StockTests(unittest.TestCase):
         c=contract();band=[contract(90),c,contract(110)]
         with patch.object(b,'bs',return_value=12):v,reason=b.candidate(c,band,100,T)
         self.assertIsNone(reason);self.assertEqual(v['direction'],'UP');self.assertEqual(v['target'],12)
+        self.assertEqual(v['channel'],'MAIN');self.assertEqual(v['rules_passed'],'TDOAVGEIP');self.assertEqual(v['rules_failed'],'')
+        self.assertIn('MAIN | T✓ D✓ O✓ A✓ V✓ G✓ E✓ I✓ P✓ | 9/9',v['header'])
     def test_candidate_above(self):
         c=contract();band=[contract(90),c,contract(110)]
         with patch.object(b,'bs',return_value=8):v,reason=b.candidate(c,band,100,T)
@@ -141,7 +145,8 @@ class StockTests(unittest.TestCase):
         chain=[contract(k,s) for k in [90,95,100,105,110] for s in ['CE','PE']]
         def values(c,peers,spot,t):
             self.assertEqual(len(peers),10)
-            return {'direction':'UP','entry':10,'target':13,'executable_gap_pct':20 if c['side']=='CE' else 25},None
+            return {'direction':'UP','entry':10,'target':13,'executable_gap_pct':20 if c['side']=='CE' else 25,
+                    'channel':'MAIN','rules_passed':'TDOAVGEIP'},None
         with patch.object(b,'candidate',side_effect=values) as mock:
             choice=self.s.choose_buy_atm(chain,chain,101,T,self.day)
         self.assertEqual(mock.call_count,2)
@@ -153,13 +158,13 @@ class StockTests(unittest.TestCase):
             self.assertIsNone(self.s.choose_buy_atm([c for c in chain if c['strike']!=100],chain,100,T,self.day))
         mock.assert_not_called()
     def test_active_stock_watch_blocks_other_side_and_new_atm(self):
-        w=self.watch();w['policy']=b.FILTER_POLICY
+        w=self.watch();w['policy']=b.FILTER_POLICY;w['channel']='MAIN'
         chain=[contract(k,'PE') for k in [90,95,100,105,110]]
         with patch.object(b,'bs',return_value=12):
             self.assertIsNone(self.s.choose_buy_atm(chain,chain,100,T,self.day))
         self.assertEqual(self.day['counts']['existing_open_stock_watch'],1)
     def test_resolved_watch_allows_new_contract(self):
-        w=self.watch();w['policy']=b.FILTER_POLICY;w['status']='VALUE_REACHED'
+        w=self.watch();w['policy']=b.FILTER_POLICY;w['channel']='MAIN';w['status']='VALUE_REACHED'
         chain=[contract(k,'PE') for k in [90,95,100,105,110]]
         with patch.object(b,'bs',return_value=12):choice=self.s.choose_buy_atm(chain,chain,100,T,self.day)
         self.assertEqual(choice[0]['side'],'PE')
@@ -174,27 +179,153 @@ class StockTests(unittest.TestCase):
             self.s.monitor_quotes(T.replace(hour=15,minute=29))
         self.assertEqual(w['status'],'OPEN')
     def test_report_separates_new_policy_from_legacy(self):
-        w=self.watch();w['policy']=b.FILTER_POLICY
+        w=self.watch();w['policy']=b.FILTER_POLICY;w['channel']='MAIN'
         self.s.finish(w,T,12,'fixture')
         self.s.report(self.day,T)
-        report=(self.s.directory/'reports/2026-11-19.txt').read_text()
-        self.assertIn('BUY-ONLY ATM: 1 alerts; 1 targets touched',report)
-        self.assertIn('BUY-ONLY ATM CE: 1/1',report)
-    def test_gap_band_and_both_depth_sides(self):
+        report=(self.s.directory/'reports/2026-11-19.txt').read_text(encoding='utf-8')
+        self.assertIn('MAIN ALERTS sent to Telegram (all of TOAVEI passed): 1; 1 targets touched',report)
+        self.assertIn('MAIN CE: 1/1',report)
+    def test_gap_band_boundaries(self):
         c=contract();band=[contract(90),c,contract(110)]
-        for gap,ask_gap,expected in [(0.15,0.15,None),(0.159,0.15,None),(0.16999,0.16,None),(0.17,0.16,'extended_gap_oi_below_threshold'),(0.18,0.17,'extended_gap_oi_below_threshold'),(0.149,0.149,'gap_below_threshold'),(0.16,0.149,'gap_below_threshold')]:
+        for gap,ask_gap,expected in [(0.15,0.15,None),(0.159,0.15,None),(0.16999,0.16,None),(0.149,0.149,'gap_below_threshold'),(0.16,0.149,'gap_below_threshold')]:
             c['market'].update(ltp=100*(1-gap),bid_price=100*(1-ask_gap)-.1,ask_price=100*(1-ask_gap))
             with patch.object(b,'bs',return_value=100):value,reason=b.candidate(c,band,100,T)
             self.assertEqual(reason,expected)
-        c=contract();band=[contract(90),c,contract(110)]
+    def test_depth_is_a_rule_not_a_rejection(self):
         for side in ['bid_qty','ask_qty']:
-            for quantity in [299,0,None]:
+            c=contract();band=[contract(90),c,contract(110)]
+            c['market'][side]=299
+            with patch.object(b,'bs',return_value=12):value,reason=b.candidate(c,band,100,T)
+            self.assertIsNone(reason);self.assertFalse(value['rules']['D']);self.assertEqual(value['channel'],'MAIN')  # depth is recorded, not required, by default
+            with patch.object(b,'MAIN_RULES','TOAVEID'),patch.object(b,'bs',return_value=12):self.assertEqual(b.candidate(c,band,100,T)[0]['channel'],'SILENT')
+            self.assertIn('D✗',value['header'])
+            for quantity in [0,None]:
                 c['market'][side]=quantity
                 with patch.object(b,'bs',return_value=12):value,reason=b.candidate(c,band,100,T)
                 self.assertIsNone(value)
-            c['market'][side]=300
-        with patch.object(b,'bs',return_value=12):value,reason=b.candidate(c,band,100,T)
-        self.assertIsNone(reason)
+    def test_each_rule_can_fail_alone(self):
+        def run(mutate,letter,failed=None):
+            c=contract();band=[contract(90),c,contract(110)];mutate(c)
+            with patch.object(b,'bs',return_value=12):v,reason=b.candidate(c,band,100,T)
+            self.assertIsNone(reason);self.assertEqual(v['rules_failed'],failed or letter,(letter,v['header']))
+            self.assertEqual(v['channel'],'MAIN' if letter not in b.MAIN_RULES else 'SILENT');self.assertIn(letter+'✗',v['header'])
+        run(lambda c:c['market'].update(bid_qty=299),'D','DP')  # P needs depth too
+        run(lambda c:c['market'].update(oi=499*100),'O')
+        run(lambda c:c.update(last_trade_time=str(int((T-timedelta(seconds=11)).timestamp()*1000))),'A')
+        run(lambda c:c['market'].update(volume=3.01*c['market']['oi']),'V')
+        run(lambda c:c['greeks'].update(gamma=.0059),'G')
+        # T needs a gap of 17% or more with OI below 2,000 lots; O still passes at 1,000 lots.
+        c=contract();band=[contract(90),c,contract(110)];c['market'].update(ltp=8,bid_price=7.9,ask_price=8.0,oi=1000*100)
+        with patch.object(b,'bs',return_value=10):v,reason=b.candidate(c,band,100,T)
+        self.assertIsNone(reason);self.assertEqual(v['rules_failed'],'TP')  # gap 20% is outside P's 15-17% band
+    def test_delta_and_iv_rules(self):
+        def run(mutate):
+            c=contract();band=[contract(90),c,contract(110)];mutate(c)
+            with patch.object(b,'bs',return_value=12):v,reason=b.candidate(c,band,100,T)
+            self.assertIsNone(reason);return v
+        self.assertEqual(run(lambda c:c['greeks'].update(delta=.349))['rules_failed'],'E')
+        self.assertEqual(run(lambda c:c['greeks'].update(delta=-.35))['rules_failed'],'')      # PE delta is negative
+        self.assertEqual(run(lambda c:c['greeks'].update(delta=-.34))['rules_failed'],'E')
+        self.assertEqual(run(lambda c:c['greeks'].update(iv=28))['rules_failed'],'')
+        v=run(lambda c:c['greeks'].update(iv=28.01));self.assertEqual(v['rules_failed'],'I');self.assertEqual(v['channel'],'SILENT')
+        v=run(lambda c:c['greeks'].pop('iv'));self.assertEqual(v['rules_failed'],'I')            # missing IV never passes
+        v=run(lambda c:c['greeks'].pop('delta'));self.assertEqual(v['rules_failed'],'E')
+    def test_rule_p_gap_band_and_depth(self):
+        def run(gap,bid_qty=300):
+            c=contract();band=[contract(90),c,contract(110)];premium=100*(1-gap)
+            c['market'].update(ltp=premium,bid_price=premium-.1,ask_price=premium,bid_qty=bid_qty)
+            with patch.object(b,'bs',return_value=100):return b.candidate(c,band,100,T)[0]
+        self.assertTrue(run(0.15)['rules']['P']);self.assertTrue(run(0.1699)['rules']['P'])
+        self.assertFalse(run(0.17)['rules']['P']);self.assertFalse(run(0.25)['rules']['P'])
+        v=run(0.16,bid_qty=299);self.assertFalse(v['rules']['P']);self.assertFalse(v['rules']['D'])
+    def test_p_route_to_main_and_switches(self):
+        def run(mutate,also='P',main=None):
+            c=contract();band=[contract(90),c,contract(110)];mutate(c)
+            with patch.object(b,'MAIN_ALSO_IF',also),patch.object(b,'bs',return_value=12):
+                if main:
+                    with patch.object(b,'MAIN_RULES',main):return b.candidate(c,band,100,T)[0]
+                return b.candidate(c,band,100,T)[0]
+        weak=lambda c:(c['greeks'].update(iv=40),c['market'].update(oi=100*100))    # I and O fail, P still passes
+        v=run(weak);self.assertEqual(v['channel'],'MAIN');self.assertTrue(v['header'].startswith('MAIN via P |'),v['header'])
+        v=run(lambda c:None);self.assertTrue(v['header'].startswith('MAIN |'),v['header'])  # all main rules passed: no 'via'
+        self.assertEqual(run(weak,also='')['channel'],'SILENT')                             # route switched off
+        thin=lambda c:(weak(c),c['market'].update(bid_qty=299))
+        self.assertEqual(run(thin)['channel'],'SILENT')                                     # P fails without depth
+        # P as an extra REQUIREMENT instead of an extra route
+        wide=lambda c:c['market'].update(ltp=80,bid_price=79.9,ask_price=80)
+        with patch.object(b,'MAIN_ALSO_IF',''):
+            c=contract();band=[contract(90),c,contract(110)];wide(c)
+            with patch.object(b,'bs',return_value=100),patch.object(b,'MAIN_RULES','TOAVEIP'):v=b.candidate(c,band,100,T)[0]
+            self.assertEqual(v['channel'],'SILENT');self.assertEqual(v['rules_failed'],'P')
+    def test_rule_boundaries_pass(self):
+        c=contract();band=[contract(90),c,contract(110)]
+        c['market'].update(oi=500*100,volume=3*500*100)
+        c['greeks']['gamma']=.006;c['last_trade_time']=str(int((T-timedelta(seconds=10)).timestamp()*1000))
+        with patch.object(b,'bs',return_value=12):v,reason=b.candidate(c,band,100,T)
+        self.assertIsNone(reason);self.assertEqual(v['rules_failed'],'');self.assertEqual(v['channel'],'MAIN')
+    def test_missing_data_fails_rules(self):
+        c=contract();band=[contract(90),c,contract(110)]
+        c.pop('last_trade_time');c['greeks'].pop('gamma')
+        with patch.object(b,'bs',return_value=12):v,reason=b.candidate(c,band,100,T)
+        self.assertIsNone(reason);self.assertEqual(v['rules_failed'],'AG');self.assertIsNone(v['metrics']['trade_age_s'])
+    def test_main_rules_setting_changes_channel(self):
+        c=contract();band=[contract(90),c,contract(110)];c['greeks']['gamma']=.001
+        with patch.object(b,'bs',return_value=12):v,_=b.candidate(c,band,100,T)
+        self.assertEqual(b.MAIN_RULES,'TOAVEI');self.assertEqual(v['channel'],'MAIN');self.assertEqual(v['rules_failed'],'G')
+        with patch.object(b,'MAIN_RULES','TOAVEIG'):
+            with patch.object(b,'bs',return_value=12):v,_=b.candidate(c,band,100,T)
+        self.assertEqual(v['channel'],'SILENT')
+    def test_silent_record_sends_nothing(self):
+        c=contract();v={'entry':10,'target':12,'direction':'UP','gap_pct':20,'peer_iv':30,'channel':'SILENT','policy':b.FILTER_POLICY,'header':'SILENT | T✓'}
+        w=self.s.add_watch(c,v,T,self.day);self.assertEqual(self.s.state['outbox'],[])
+        self.s.finish(w,T,12,'fixture');self.assertEqual(w['status'],'VALUE_REACHED');self.assertEqual(self.s.state['outbox'],[])
+    def test_main_alert_message_has_header_and_rule_values(self):
+        c=contract();band=[contract(90),c,contract(110)]
+        with patch.object(b,'bs',return_value=12):v,_=b.candidate(c,band,100,T)
+        v={**v,'policy':b.FILTER_POLICY};w=self.s.add_watch(c,v,T,self.day)
+        text=self.s.state['outbox'][0]['text']
+        self.assertIn('MAIN | T✓ D✓ O✓ A✓ V✓ G✓ E✓ I✓ P✓ | 9/9',text);self.assertIn('Rule values: OI 3000 lots',text)
+        self.s.finish(w,T,12,'fixture');self.assertIn('MAIN | T✓',self.s.state['outbox'][1]['text'])
+    def test_silent_and_main_do_not_block_each_other(self):
+        w=self.watch();w['policy']=b.FILTER_POLICY;w['channel']='SILENT'
+        chain=[contract(k,'PE') for k in [90,95,100,105,110]]
+        with patch.object(b,'bs',return_value=12):choice=self.s.choose_buy_atm(chain,chain,100,T,self.day)
+        self.assertEqual(choice[1]['channel'],'MAIN')
+        w['channel']='MAIN'
+        for c in chain:c['market']['oi']=499*100  # OI rule fails: now only a SILENT candidate exists
+        with patch.object(b,'bs',return_value=12):choice=self.s.choose_buy_atm(chain,chain,100,T,self.day)
+        self.assertEqual(choice[1]['channel'],'SILENT')
+        w['channel']='SILENT'
+        with patch.object(b,'bs',return_value=12):self.assertIsNone(self.s.choose_buy_atm(chain,chain,100,T,self.day))
+    def test_silent_contract_can_later_become_main(self):
+        chain=[contract(k,'PE') for k in [90,95,100,105,110]]
+        silent_chain=copy.deepcopy(chain)
+        for c in silent_chain:c['market']['oi']=499*100
+        with patch.object(b,'bs',return_value=12):
+            first=self.s.choose_buy_atm(silent_chain,silent_chain,100,T,self.day)
+            self.assertEqual(first[1]['channel'],'SILENT');a=self.s.add_watch(first[0],first[1],T,self.day)
+            self.assertIsNone(self.s.choose_buy_atm(silent_chain,silent_chain,100,T,self.day))  # silent repeat blocked
+            a['status']='NO_TOUCH_IN_MONITORED_BARS'
+            self.assertIsNone(self.s.choose_buy_atm(silent_chain,silent_chain,100,T,self.day))  # same contract, still silent
+            second=self.s.choose_buy_atm(chain,chain,100,T,self.day)
+        self.assertEqual(second[1]['channel'],'MAIN');m=self.s.add_watch(second[0],second[1],T,self.day)
+        self.assertNotEqual(a['id'],m['id'])
+    def test_report_rule_lab_counts(self):
+        def add(key,flags,status,last=10,channel=None):
+            c=contract(key);v={'entry':10,'target':12,'direction':'UP','gap_pct':20,'peer_iv':30,'policy':b.FILTER_POLICY,
+                'rules':flags,'channel':channel or ('MAIN' if all(flags.values()) else 'SILENT'),'header':'H'}
+            w=self.s.add_watch(c,v,T,self.day);w['status']=status;w['last_price']=last
+            if status=='VALUE_REACHED':w.update(hit_price=12,hit_time=b.iso(T),hit_evidence='fixture')
+            return w
+        good={k:True for k in b.RULE_ORDER};bad={**good,'O':False}
+        add(101,good,'VALUE_REACHED',12);add(102,good,'VALUE_REACHED',12);add(103,bad,'NO_TOUCH_IN_MONITORED_BARS',5)
+        add(104,bad,'VALUE_REACHED',12)
+        self.s.report(self.day,T)
+        report=(self.s.directory/'reports/2026-11-19.txt').read_text(encoding='utf-8')
+        self.assertIn('O pass 2/2 (100.0%)',report);self.assertIn('| fail 1/2 (50.0%)',report)
+        self.assertIn('misses end -50% vs entry',report);self.assertIn('MAIN channel (TOAVEI): 2/2 (100.0%)',report)
+        self.assertIn('All main rules except O passed: 3/4 (75.0%)',report);self.assertIn('8/9 rules passed: 1/2 (50.0%)',report)
+        self.assertIn('SILENT RECORDS (header shows each rule',report)
     def test_previous_policy_open_watch_still_blocks(self):
         w=self.watch();w['policy']='BUY_ATM_V1'
         chain=[contract(k,'PE') for k in [90,95,100,105,110]]
@@ -214,12 +345,14 @@ class StockTests(unittest.TestCase):
         self.assertEqual(b.alert_cutoff(T.replace(month=12,day=7)),b.dt_time(15,20))
     def test_extended_gap_oi_boundaries(self):
         c=contract();band=[contract(90),c,contract(110)]
-        for gap,oi,expected in [(0.1699,20,None),(0.17,1999,'extended_gap_oi_below_threshold'),(0.17,2000,None),(0.25,2000,None),(0.2999,2000,None),(0.30,2000,'gap_above_band')]:
+        for gap,oi,expected,tier_ok in [(0.1699,20,None,True),(0.17,1999,None,False),(0.17,2000,None,True),(0.25,2000,None,True),(0.2999,2000,None,True),(0.30,2000,'gap_above_band',None)]:
             premium=100*(1-gap)
             c['market'].update(ltp=premium,bid_price=premium-.1,ask_price=premium,oi=oi*c['lot'])
             with patch.object(b,'bs',return_value=100):value,reason=b.candidate(c,band,100,T)
             self.assertEqual(reason,expected)
-            if value:self.assertEqual(value['gap_tier'],'EXTENDED_OI' if gap>=.17 else 'BASE')
+            if value:
+                self.assertEqual(value['gap_tier'],'EXTENDED_OI' if gap>=.17 else 'BASE')
+                self.assertEqual(value['rules']['T'],tier_ok)
     def test_v2_open_watch_still_blocks(self):
         w=self.watch();w['policy']='BUY_ATM_GAP_DEPTH_V2'
         chain=[contract(k,'PE') for k in [90,95,100,105,110]]
