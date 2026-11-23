@@ -909,12 +909,115 @@
     },
     "2026-11-23": {
       "date": "2026-11-23",
-      "cursor": 0,
+      "cursor": 23,
       "sweeps": 0,
-      "symbols": {},
-      "counts": {},
+      "symbols": {
+        "360ONE": {
+          "checked_at": "2026-11-23T09:20:06.603702+05:30",
+          "status": "chain_received"
+        },
+        "ABB": {
+          "checked_at": "2026-11-23T09:20:09.957277+05:30",
+          "status": "chain_received"
+        },
+        "ABCAPITAL": {
+          "checked_at": "2026-11-23T09:20:13.446313+05:30",
+          "status": "chain_received"
+        },
+        "ADANIENSOL": {
+          "checked_at": "2026-11-23T09:20:16.938746+05:30",
+          "status": "chain_received"
+        },
+        "ADANIENT": {
+          "checked_at": "2026-11-23T09:20:20.421204+05:30",
+          "status": "chain_received"
+        },
+        "ADANIGREEN": {
+          "checked_at": "2026-11-23T09:20:23.905164+05:30",
+          "status": "chain_received"
+        },
+        "ADANIPORTS": {
+          "checked_at": "2026-11-23T09:20:27.386166+05:30",
+          "status": "chain_received"
+        },
+        "ADANIPOWER": {
+          "checked_at": "2026-11-23T09:20:30.863419+05:30",
+          "status": "chain_received"
+        },
+        "ALKEM": {
+          "checked_at": "2026-11-23T09:20:34.332386+05:30",
+          "status": "chain_received"
+        },
+        "AMBER": {
+          "checked_at": "2026-11-23T09:20:37.810095+05:30",
+          "status": "chain_received"
+        },
+        "AMBUJACEM": {
+          "checked_at": "2026-11-23T09:20:41.297460+05:30",
+          "status": "chain_received"
+        },
+        "ANANDRATHI": {
+          "checked_at": "2026-11-23T09:20:44.763620+05:30",
+          "status": "chain_received"
+        },
+        "ANGELONE": {
+          "checked_at": "2026-11-23T09:20:47.053137+05:30",
+          "status": "chain_received"
+        },
+        "APLAPOLLO": {
+          "checked_at": "2026-11-23T09:20:51.054242+05:30",
+          "status": "chain_received"
+        },
+        "APOLLOHOSP": {
+          "checked_at": "2026-11-23T09:20:54.529719+05:30",
+          "status": "chain_received"
+        },
+        "ASHOKLEY": {
+          "checked_at": "2026-11-23T09:20:58.056747+05:30",
+          "status": "chain_received"
+        },
+        "ASIANPAINT": {
+          "checked_at": "2026-11-23T09:21:01.489362+05:30",
+          "status": "chain_received"
+        },
+        "ASTRAL": {
+          "checked_at": "2026-11-23T09:21:04.965148+05:30",
+          "status": "chain_received"
+        },
+        "ATHERENERG": {
+          "checked_at": "2026-11-23T09:21:08.442393+05:30",
+          "status": "chain_received"
+        },
+        "AUBANK": {
+          "checked_at": "2026-11-23T09:21:11.925479+05:30",
+          "status": "chain_received"
+        },
+        "AUROPHARMA": {
+          "checked_at": "2026-11-23T09:21:15.385842+05:30",
+          "status": "chain_received"
+        },
+        "AXISBANK": {
+          "checked_at": "2026-11-23T09:21:18.860810+05:30",
+          "status": "chain_received"
+        },
+        "BAJAJ-AUTO": {
+          "checked_at": "2026-11-23T09:21:22.335881+05:30",
+          "status": "chain_received"
+        }
+      },
+      "counts": {
+        "chains_received": 23,
+        "stale_option_or_missing_quote": 83,
+        "non_atm_excluded": 93,
+        "depth_below_threshold": 29,
+        "liquidity": 4,
+        "no_liquid_contracts": 1,
+        "insufficient_peer_iv": 1,
+        "atm_shift_during_request": 1
+      },
       "last_error": null,
-      "universe_count": 216
+      "universe_count": 216,
+      "sweep_started": "2026-11-23T09:20:06.237690+05:30"
     }
   },
   "watches": [
