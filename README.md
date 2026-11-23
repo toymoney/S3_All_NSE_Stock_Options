@@ -2,6 +2,42 @@
 
 Python + Upstox + Telegram + GitHub Actions. Only S3 is included: no S1, S2, Kronos, training or orders.
 
+## V4 RULE LAB (supersedes the filter descriptions below where they differ)
+
+Every buy-direction ATM candidate that passes the hard gates is scored on nine rules. Only a candidate that passes **all** `MAIN_RULES` (default `TOAVEI`) is sent to Telegram (MAIN). A second route also sends it as MAIN when rule **P** passes on its own (`MAIN_ALSO_IF`, default `P`; see below). Every other candidate is recorded silently (SILENT): it is monitored for the target exactly like a MAIN alert, no Telegram message is sent when it is created or when it touches, and its outcome appears in the daily report.
+
+| Letter | Rule | Default |
+|---|---|---|
+| T | **Required.** Tier OI: gap 15% to below 17% needs no extra OI (the 20-lot floor still applies); gap 17% to below 30% needs OI >= 2,000 lots | `EXTENDED_MIN_OI_LOTS` 2000 |
+| D | Best bid AND best ask each >= 3 lots (scored and recorded; NOT required by default) | `MIN_DEPTH_LOTS` 3 |
+| O | **Required.** OI >= 500 lots | `RULE_MIN_OI_LOTS` 500 |
+| A | **Required.** Last trade at most 10 seconds old at quote time | `RULE_MAX_TRADE_AGE` 10 |
+| V | **Required.** Volume / OI <= 3 | `RULE_MAX_VOL_OI` 3 |
+| G | Gamma >= 0.006 (scored and recorded; NOT required by default, see below) | `RULE_MIN_GAMMA` 0.006 |
+| E | **Required.** Absolute delta >= 0.35 (works for CE and PE; the premium must follow the stock) | `RULE_MIN_ABS_DELTA` 0.35 |
+| I | **Required.** Implied volatility <= 28% (high-IV contracts missed more often) | `RULE_MAX_IV` 28 |
+| P | **Extra route to MAIN.** Gap 15% to below 17% AND best bid and best ask each >= 3 lots. Passing P alone is enough to send a MAIN alert | `MAIN_ALSO_IF` `P` (empty switches the route off) |
+
+Hard gates that still reject a candidate outright (nothing is recorded): buy direction only (model target above the premium, never a sell), no CE/PE restriction, ATM strike only, gap 15% to below 30% of model value, ask-based gap at least 15%, spread <= 5%, base liquidity (OI >= 20 lots, volume >= 5 lots, at least 1 lot on each side), valid peer IV, expiry more than 5 calendar days away, at least 30 minutes to expiry, and a quote no older than 180 seconds. Missing data (no last-trade time, no gamma, no depth) fails the rule instead of passing it.
+
+**Header on every record.** `MAIN | T✓ D✓ O✓ A✓ V✓ G✓ E✓ I✓ P✓ | 9/9 rules passed`, `MAIN via P | T✓ D✓ O✗ A✓ V✓ G✓ E✓ I✗ P✓ | 7/9 rules passed` (sent because of the P route), or `SILENT | T✓ D✗ O✓ A✓ V✓ G✓ E✓ I✗ P✗ | 6/9 rules passed` (recorded only, nothing sent). The same header is stored in the journal (`header`, `rules`, `rules_passed`, `rules_failed`, `channel`) together with the raw `metrics` (OI lots, volume lots, volume/OI, bid and ask lots, depth lots, last-trade age, gamma, delta, IV, theta, vega, spread %, gap %). Because the raw values are kept, any threshold can be re-tested later without re-running the scan.
+
+**Selection.** At most one active MAIN and one active SILENT record per stock. A SILENT record does not block a MAIN alert and the reverse. If several ATM candidates exist, MAIN comes first, then the most rules passed, then the larger ask-based gap. A contract already alerted as MAIN (or by an earlier policy) is never repeated that day; a contract recorded only as SILENT can still become a MAIN alert later in the day if it then passes every main rule.
+
+**Automatic rule comparison (Telegram only).** The daily report (about 16:15 IST) contains a RULE LAB block: for each rule, the touch rate when it passed versus failed, the average end move of the misses against entry, the result when all main rules passed, the result when all main rules passed except one (shows what each rule adds), and the result by number of rules passed. From the second day on a second block repeats the same table over all days so far. Nothing needs to be opened or operated by hand. `REPORT_SILENT_LINES=false` hides the one-per-record SILENT lines from the Telegram text (the saved JSON report on the state branch always has them).
+
+**The P route (gap 15-17% + depth).** On the 20 November data this combination alone gave 11 alerts, 11 reached target. Adding it as an extra route on top of the required rules gives 26 alerts, 26 reached (5 more than the required rules alone). Requiring it in addition (`MAIN_RULES: 'TOAVEIP'`, `MAIN_ALSO_IF: ''`) gives only 6 alerts and removes the whole 17-30% band. The 5 extra alerts from the route would have failed some required rules (one had a last trade 69 seconds old, one a volume/OI of 12.6) and still reached target, so the route admits alerts the other rules would stop; depth was not a separator of hits from misses in the wider data, so treat the 11 of 11 as a small sample. The rule comparison shows MAIN via P separately in the headers; if that route starts missing, set `MAIN_ALSO_IF` to empty.
+
+**Changing which rules gate the main alert later, with no code change.** Set `MAIN_RULES` in the workflow env, for example `MAIN_RULES: 'TOAVEIG'` to require gamma again, `MAIN_RULES: 'TDOAVEI'` to require depth again, or `MAIN_RULES: 'TOAVE'` to drop the IV rule. Thresholds can be changed with the `RULE_*` variables. `MIN_DEPTH_LOTS` cannot go below 3 and `EXTENDED_MIN_OI_LOTS` cannot go below 2000.
+
+**Why gamma is not required by default.** Absolute gamma mostly measures the stock price (correlation with 1/spot was 0.88 on 20 November) and the time left to expiry. Because this bot always trades an expiry more than 5 calendar days away, gamma is structurally lower than on 20 November (about 14% of alerts would pass 0.006 instead of 56%), so the filter would mostly keep cheap stocks. A price- and expiry-independent version of gamma did not separate touches from misses at all. G is therefore scored on every record, so the rule lab shows whether it ever helps, but it does not gate the main alert unless you add it to `MAIN_RULES`.
+
+**Important limits.** The other thresholds were tuned on one day (20 November), when the scanner was using the 23 November expiry. A touch rate is not a profit and says nothing about fills or stop-loss. Old watches stay labelled as legacy.
+
+**Why E and I were added.** On the 20 November data, 9 of the 70 alerts passing only O, A and V missed target. Six of the nine were PE buys, they had higher IV (about 29-30% against 22% for hits) and several had weak delta. IV <= 28 and absolute delta >= 0.35 together removed all nine (39 of 39 reached target); with tier added and depth not required, 21 of 21. These cut-offs were chosen after seeing those misses on a single day, so some of that is fitting, and IV levels on the December expiry may differ from the November contracts. Both rules are scored on every record so the rule comparison will show whether they hold.
+
+Verification: 55 offline tests pass, including each rule failing on its own, boundary values, missing data, silent and main not blocking each other, no Telegram message for silent records, and the rule-lab report counts. A simulated scan produced one MAIN alert (one Telegram message) and one SILENT record (no message). Authenticated Upstox, Telegram and GitHub scheduling were not tested here.
+
 ## Coverage
 
 Discovers all NSE stock-option underlyings from the current instrument master. The public master checked during development contained 218 eligible underlyings; the count can change. Indices and ordinary shares without listed options are excluded.

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """S3-only NSE stock-option value-gap research scanner. No orders or Kronos.
 Python 3.11+. See README for valuation, coverage and monitoring assumptions.
+V4 rule lab: every buy-direction ATM candidate is scored against nine rules (T D O A V G E I P).
+Only candidates passing all MAIN_RULES (default TOAVEI, or P on its own via MAIN_ALSO_IF; D and G are recorded, not required) are sent to Telegram; the rest are recorded silently
+with a header showing which rules passed, so the rules can be compared after a few days.
 """
 import argparse
 from collections import Counter
@@ -18,7 +21,8 @@ from zoneinfo import ZoneInfo
 import requests
 
 IST=ZoneInfo('Asia/Kolkata')
-FILTER_POLICY='BUY_ATM_GAP_DEPTH_OI_V3'
+FILTER_POLICY='BUY_ATM_RULELAB_V4'
+LEGACY_POLICIES=('BUY_ATM_V1','BUY_ATM_GAP_DEPTH_V2','BUY_ATM_GAP_DEPTH_OI_V3')
 ROOT=Path(__file__).resolve().parent
 STATE_DIR=Path(os.getenv('STATE_DIR',str(ROOT/'state_s3')))
 MASTER_URL='https://assets.upstox.com/market-quote/instruments/exchange/NSE.json.gz'
@@ -31,6 +35,21 @@ if not (0 < GAP < BASE_MAX_GAP < MAX_GAP < 1) or not math.isfinite(MIN_DEPTH_LOT
     raise ValueError('Invalid gap bands or depth floor')
 if not math.isfinite(EXTENDED_MIN_OI_LOTS) or EXTENDED_MIN_OI_LOTS < 2000:
     raise ValueError('EXTENDED_MIN_OI_LOTS must be at least 2000')
+# V4 rule thresholds. T (tier OI) and D (depth) reuse EXTENDED_MIN_OI_LOTS / MIN_DEPTH_LOTS above.
+RULE_MIN_OI_LOTS=float(os.getenv('RULE_MIN_OI_LOTS','500'))
+RULE_MAX_TRADE_AGE=float(os.getenv('RULE_MAX_TRADE_AGE','10'))
+RULE_MAX_VOL_OI=float(os.getenv('RULE_MAX_VOL_OI','3'))
+RULE_MIN_GAMMA=float(os.getenv('RULE_MIN_GAMMA','0.006'))
+RULE_MIN_ABS_DELTA=float(os.getenv('RULE_MIN_ABS_DELTA','0.35'))
+RULE_MAX_IV=float(os.getenv('RULE_MAX_IV','28'))
+RULE_ORDER='TDOAVGEIP'
+MAIN_RULES=os.getenv('MAIN_RULES','TOAVEI').strip().upper()  # D (depth) and G (gamma) are scored and recorded but not required by default
+MAIN_ALSO_IF=os.getenv('MAIN_ALSO_IF','P').strip().upper()  # extra route to MAIN: all these rules passing is enough on their own; empty disables
+REPORT_SILENT_LINES=os.getenv('REPORT_SILENT_LINES','true').strip().lower()!='false'
+if (not MAIN_RULES or any(k not in RULE_ORDER for k in MAIN_RULES) or len(set(MAIN_RULES))!=len(MAIN_RULES)
+        or any(k not in RULE_ORDER for k in MAIN_ALSO_IF) or len(set(MAIN_ALSO_IF))!=len(MAIN_ALSO_IF)
+        or not all(math.isfinite(x) and x>0 for x in (RULE_MIN_OI_LOTS,RULE_MAX_TRADE_AGE,RULE_MAX_VOL_OI,RULE_MIN_GAMMA,RULE_MIN_ABS_DELTA,RULE_MAX_IV))):
+    raise ValueError('Invalid MAIN_RULES (letters from TDOAVGEIP, no repeats; MAIN_ALSO_IF may be empty) or rule thresholds')
 MAX_SPREAD=float(os.getenv('MAX_SPREAD','0.05'))
 MIN_PREMIUM=float(os.getenv('MIN_PREMIUM','1'))
 MIN_OI_LOTS=float(os.getenv('MIN_OI_LOTS','20'))
@@ -142,6 +161,74 @@ def quote_contract(c,q):
         'quote_time':q.get('timestamp'),'last_trade_time':q.get('last_trade_time')}
 
 
+RULE_TEXT={'T':'tier OI (gap 15-<17%: any; 17-<30%: >= {oi:g} lots)'.format(oi=EXTENDED_MIN_OI_LOTS),
+    'D':f'depth >= {MIN_DEPTH_LOTS:g} lots on best bid AND ask',
+    'O':f'OI >= {RULE_MIN_OI_LOTS:g} lots','A':f'last trade <= {RULE_MAX_TRADE_AGE:g} s old',
+    'V':f'volume/OI <= {RULE_MAX_VOL_OI:g}','G':f'gamma >= {RULE_MIN_GAMMA:g}',
+    'E':f'|delta| >= {RULE_MIN_ABS_DELTA:g}','I':f'IV <= {RULE_MAX_IV:g}%',
+    'P':f'gap {GAP*100:g}% to below {BASE_MAX_GAP*100:g}% AND depth >= {MIN_DEPTH_LOTS:g} lots on best bid and ask'}
+
+
+def main_rule_text():
+    return MAIN_RULES+(f' or {MAIN_ALSO_IF}' if MAIN_ALSO_IF else '')
+
+
+def rule_legend():
+    return 'Rules: '+' | '.join(f'{k}={RULE_TEXT[k]}' for k in RULE_ORDER)
+
+
+def trade_age_seconds(c,t):
+    """Seconds between the quote timestamp (or check time) and the contract's last trade."""
+    ms=num(c.get('last_trade_time'))
+    if ms<=0:return None
+    try:traded=datetime.fromtimestamp(ms/1000,IST)
+    except (ValueError,OverflowError):return None
+    ref=t
+    if c.get('quote_time'):
+        try:ref=parse(str(c['quote_time']))
+        except (ValueError,TypeError):ref=t
+    return (ref-traded).total_seconds()
+
+
+def rule_metrics(c,gap,t):
+    m=c['market'];lot=c['lot'];g=c.get('greeks') or {}
+    oi=num(m.get('oi'));volume=num(m.get('volume'))
+    bid=num(m.get('bid_price'));ask=num(m.get('ask_price'));mid=(bid+ask)/2
+    bid_lots=num(m.get('bid_qty'))/lot;ask_lots=num(m.get('ask_qty'))/lot
+    age=trade_age_seconds(c,t)
+    return {'gap_pct':gap*100,'oi_lots':oi/lot,'volume_lots':volume/lot,
+        'vol_oi':volume/oi if oi>0 else None,'bid_lots':bid_lots,'ask_lots':ask_lots,
+        'depth_lots':min(bid_lots,ask_lots),'trade_age_s':age,'gamma':num(g.get('gamma')),
+        'delta':num(g.get('delta')),'iv':num(g.get('iv')),'theta':num(g.get('theta')),'vega':num(g.get('vega')),
+        'spread_pct':(ask-bid)/mid*100 if mid>0 else None}
+
+
+def evaluate_rules(metrics):
+    """True/False per rule letter. Missing data fails the rule (never passes by default)."""
+    gap=metrics['gap_pct']/100;age=metrics['trade_age_s'];ratio=metrics['vol_oi']
+    depth=metrics['depth_lots']>=MIN_DEPTH_LOTS
+    return {'T':gap<BASE_MAX_GAP or metrics['oi_lots']>=EXTENDED_MIN_OI_LOTS,
+        'D':depth,
+        'O':metrics['oi_lots']>=RULE_MIN_OI_LOTS,
+        'A':age is not None and -5<=age<=RULE_MAX_TRADE_AGE,
+        'V':ratio is not None and ratio<=RULE_MAX_VOL_OI,
+        'G':metrics['gamma']>=RULE_MIN_GAMMA,
+        'E':abs(metrics['delta'])>=RULE_MIN_ABS_DELTA,
+        'I':0<metrics['iv']<=RULE_MAX_IV,
+        'P':gap<BASE_MAX_GAP and depth}
+
+
+def rule_header(flags):
+    """Header shown on every record: channel, tick/cross per rule, count passed."""
+    via_rules=all(flags[k] for k in MAIN_RULES)
+    via_also=bool(MAIN_ALSO_IF) and all(flags[k] for k in MAIN_ALSO_IF)
+    channel='MAIN' if via_rules or via_also else 'SILENT'
+    label='MAIN' if via_rules or not via_also else f'MAIN via {MAIN_ALSO_IF}'
+    if channel=='SILENT':label='SILENT'
+    marks=' '.join(f'{k}{"✓" if flags[k] else "✗"}' for k in RULE_ORDER)
+    return channel,f'{label} | {marks} | {sum(flags.values())}/{len(RULE_ORDER)} rules passed'
+
+
 def peer_iv(c,band):
     peers=[p for p in band if p['side']==c['side'] and p['key']!=c['key'] and liquid(p)
            and 0<num(p['greeks'].get('iv'))<200]
@@ -166,8 +253,6 @@ def bs(s,k,years,vol,side,r=RISK_RATE,q=0.):
 
 def candidate(c,band,spot,t):
     if not liquid(c):return None,'liquidity'
-    if min(num(c['market'].get('bid_qty')),num(c['market'].get('ask_qty'))) < MIN_DEPTH_LOTS*c['lot']:
-        return None,'depth_below_threshold'
     expiry=close_at(datetime.fromisoformat(c['expiry']).replace(tzinfo=IST))
     if (expiry-t).total_seconds()<1800:return None,'near_expiry'
     vol=peer_iv(c,band)
@@ -183,12 +268,16 @@ def candidate(c,band,spot,t):
     # Explicit same-sign check: a crossed/stale LTP must not reverse the executable gap.
     if abs(gap)<GAP or gap*executable_gap<=0 or abs(executable_gap)<GAP:return None,'gap_below_threshold'
     if gap>=MAX_GAP:return None,'gap_above_band'
-    if gap>=BASE_MAX_GAP and num(m.get('oi')) < EXTENDED_MIN_OI_LOTS*c['lot']:
-        return None,'extended_gap_oi_below_threshold'
+    # Tier OI and depth are scored as rules (T, D) rather than hard rejections, so failing
+    # candidates can be recorded silently and compared with the ones that pass.
+    metrics=rule_metrics(c,gap,t);flags=evaluate_rules(metrics);channel,header=rule_header(flags)
     return {'target':round(fair,4),'entry':ltp,'direction':'UP' if gap>0 else 'DOWN',
         'gap_pct':gap*100,'executable_gap_pct':executable_gap*100,'peer_iv':vol*100,
         'entry_oi_lots':num(m.get('oi'))/c['lot'],
         'gap_tier':'EXTENDED_OI' if gap>=BASE_MAX_GAP else 'BASE',
+        'rules':flags,'rules_passed':''.join(k for k in RULE_ORDER if flags[k]),
+        'rules_failed':''.join(k for k in RULE_ORDER if not flags[k]),
+        'metrics':metrics,'channel':channel,'header':header,
         'spot':spot,'years':years,'r':RISK_RATE,'q':div},None
 
 
@@ -330,32 +419,47 @@ class Scanner:
         for c in verified:
             if c['strike']!=atm:
                 self.count(day,'non_atm_excluded');continue
-            if any(w['day']==day['date'] and w['key']==c['key'] for w in self.state['watches']):continue
             value,reason=candidate(c,verified,spot,t)
             if reason:self.count(day,reason);continue
+            prior=[w for w in self.state['watches'] if w['day']==day['date'] and w['key']==c['key']]
+            # A contract already alerted (MAIN or legacy) is never repeated. A SILENT record only
+            # blocks another SILENT record, so the same contract can still become a MAIN alert.
+            if any(w.get('channel')!='SILENT' for w in prior):continue
+            if prior and value['channel']=='SILENT':continue
             options.append((c,{**value,'policy':FILTER_POLICY,'atm_at_entry':atm}))
         if not options:return None
         underlying=options[0][0]['underlying']
-        if any(w['day']==day['date'] and w['underlying']==underlying and
-               w.get('policy') in ('BUY_ATM_V1','BUY_ATM_GAP_DEPTH_V2',FILTER_POLICY) and w['status']=='OPEN' for w in self.state['watches']):
+        def blocked(channel):
+            for w in self.state['watches']:
+                if w['day']!=day['date'] or w['underlying']!=underlying or w['status']!='OPEN':continue
+                if channel=='MAIN' and (w.get('policy') in LEGACY_POLICIES or
+                        (w.get('policy')==FILTER_POLICY and w.get('channel')=='MAIN')):return True
+                if channel=='SILENT' and w.get('policy')==FILTER_POLICY and w.get('channel')=='SILENT':return True
+            return False
+        # MAIN first, then most rules passed, then larger ask-based gap (CE wins an exact tie).
+        options.sort(key=lambda cv:(cv[1]['channel']!='MAIN',-len(cv[1]['rules_passed']),
+                                    -cv[1]['executable_gap_pct'],cv[0]['side']))
+        chosen=next((cv for cv in options if not blocked(cv[1]['channel'])),None)
+        if chosen is None:
             self.count(day,'existing_open_stock_watch');return None
-        # If both ATM sides qualify, keep only the larger ask-based value gap.
-        options.sort(key=lambda cv:(-cv[1]['executable_gap_pct'],cv[0]['side']))
         if len(options)>1:self.count(day,'other_atm_side_suppressed',len(options)-1)
-        return options[0]
+        return chosen
 
     def count(self,day,reason,n=1):day['counts'][reason]=day['counts'].get(reason,0)+n
 
     def add_watch(self,c,value,t,day):
-        id=hashlib.sha256(f'{day["date"]}:{c["key"]}'.encode()).hexdigest()[:16]
+        channel=value.get('channel','MAIN')
+        id=hashlib.sha256(f'{day["date"]}:{c["key"]}:{channel}'.encode()).hexdigest()[:16]
         if any(w['id']==id for w in self.state['watches']):return None
-        w={**c,**value,'id':id,'day':day['date'],'entered':iso(t),'status':'OPEN','last_price':value['entry'],
+        w={**c,**value,'channel':channel,'id':id,'day':day['date'],'entered':iso(t),'status':'OPEN','last_price':value['entry'],
            'last_observed_at':iso(t),'checked_until':iso(t),'last_candle_attempt':None,
            'hit_time':None,'hit_price':None,'hit_evidence':None,'hit_candle_close':None}
         self.state['watches'].append(w)
+        if channel=='SILENT':return w  # recorded for the rule lab; no Telegram alert
         label='BUY-ONLY ATM WATCH' if value.get('policy')==FILTER_POLICY else ('BELOW MODEL VALUE' if value['direction']=='UP' else 'ABOVE MODEL VALUE')
-        g=c['greeks'];m=c['market']
+        g=c['greeks'];m=c['market'];hdr=value.get('header')
         self.emit('entry-'+id,f'S3 STOCK OPTIONS | {c["symbol"]} {c["strike"]:g} {c["side"]}\n'
+            +(f'{hdr}\n' if hdr else '')+
             f'{label} | expiry {c["expiry"]}\nLTP ₹{value["entry"]:.2f} | fixed model target ₹{value["target"]:.2f}\n'
             f'Gap {abs(value["gap_pct"]):.1f}% of model value | direction {value["direction"]}\n'
             f'Bid ₹{num(m["bid_price"]):.2f} | ask ₹{num(m["ask_price"]):.2f}\n'
@@ -364,14 +468,24 @@ class Scanner:
             f'Delta {num(g.get("delta")):.3f} | Gamma {num(g.get("gamma")):.5f}\n'
             f'Theta {num(g.get("theta")):.2f} | Vega {num(g.get("vega")):.2f}\n'
             f'OI {num(m["oi"]):g} | volume {num(m["volume"]):g} | lot {c["lot"]}\n'
+            +(self.value_line(value)+'\n' if value.get('metrics') else '')+
             f'{t:%H:%M:%S} IST | ID {id}\nValuation watch only; no buy/sell execution or stop-loss.')
         return w
+
+    @staticmethod
+    def value_line(value):
+        x=value['metrics'];age=x.get('trade_age_s');ratio=x.get('vol_oi')
+        return (f'Rule values: OI {x["oi_lots"]:g} lots | last trade '
+                f'{"n/a" if age is None else f"{age:.1f}s"} ago | vol/OI '
+                f'{"n/a" if ratio is None else f"{ratio:.2f}"} | depth {x["depth_lots"]:g} lots | gamma {x["gamma"]:.5f}')
 
     def finish(self,w,t,price,evidence,candle_close=None):
         if w['status']!='OPEN':return
         w.update(status='VALUE_REACHED',hit_time=iso(t),hit_price=price,hit_evidence=evidence,hit_candle_close=candle_close)
+        if w.get('channel')=='SILENT':return  # silent record: outcome only appears in reports
         note=(f'\nTouching candle close: ₹{candle_close:.2f} (not the touch price)' if candle_close is not None else '')
         self.emit('hit-'+w['id'],f'S3 VALUE REACHED | {w["symbol"]} {w["strike"]:g} {w["side"]}\n'
+            +(f'{w["header"]}\n' if w.get('header') else '')+
             f'Direction {w["direction"]} | reference ₹{w["entry"]:.2f}\nFixed target ₹{w["target"]:.2f}\n'
             f'Touch/reference price ₹{price:.2f} | {t:%Y-%m-%d %H:%M:%S} IST\nEvidence: {evidence}'+note+
             f'\nID {w["id"]}\nModel-price convergence; not a guaranteed trade fill or profit.')
@@ -407,7 +521,8 @@ class Scanner:
             choice=self.choose_buy_atm(verified,chain,spot,checked,day)
             if choice:
                 c,value=choice
-                if self.add_watch(c,value,checked,day):self.count(day,'new_alerts')
+                if self.add_watch(c,value,checked,day):
+                    self.count(day,'new_alerts' if value['channel']=='MAIN' else 'new_silent_records')
         except AuthError:raise
         except APIError as e:
             day['symbols'][u['symbol']]={'checked_at':iso(now()),'status':'error','reason':str(e)}
@@ -472,55 +587,100 @@ class Scanner:
         watches.sort(key=lambda w:w['last_candle_attempt'] or '')
         for w in watches[:budget]:self.candle_check(w,t)
 
+    @staticmethod
+    def resolved(rows):
+        return [w for w in rows if w['status'] in ('VALUE_REACHED','NO_TOUCH_IN_MONITORED_BARS')]
+
+    @staticmethod
+    def rate(rows):
+        done=[w for w in rows if w['status'] in ('VALUE_REACHED','NO_TOUCH_IN_MONITORED_BARS')]
+        hits=sum(w['status']=='VALUE_REACHED' for w in done)
+        misses=[(w['last_price']/w['entry']-1)*100 for w in done if w['status']!='VALUE_REACHED' and num(w.get('entry'))>0]
+        text=f'{hits}/{len(done)} ({hits/len(done)*100:.1f}%)' if done else '0/0 (n/a)'
+        if misses:text+=f', misses end {sum(misses)/len(misses):+.0f}% vs entry on average'
+        return text
+
+    def rule_lab(self,rows,title):
+        lab=[w for w in rows if w.get('policy')==FILTER_POLICY and w.get('rules')]
+        lines=[title,rule_legend(),f'Records: {len(lab)}; resolved: {len(self.resolved(lab))} (touch rate counts only resolved records)']
+        if not self.resolved(lab):return lines+['No resolved records yet.']
+        for k in RULE_ORDER:
+            ok=[w for w in lab if w['rules'].get(k)];no=[w for w in lab if not w['rules'].get(k)]
+            lines.append(f'{k} pass {self.rate(ok)} | fail {self.rate(no)}')
+        lines.append(f'MAIN channel ({main_rule_text()}): {self.rate([w for w in lab if w.get("channel")=="MAIN"])}')
+        for k in MAIN_RULES:
+            others=[w for w in lab if all(w['rules'].get(j) for j in MAIN_RULES if j!=k)]
+            lines.append(f'All main rules except {k} passed: {self.rate(others)}')
+        for n in range(len(RULE_ORDER),-1,-1):
+            group=[w for w in lab if sum(bool(v) for v in w['rules'].values())==n]
+            if group:lines.append(f'{n}/{len(RULE_ORDER)} rules passed: {self.rate(group)}')
+        return lines
+
+    def record_line(self,w):
+        line=f'{w["symbol"]} {w["strike"]:g} {w["side"]} ({w["expiry"]}) | {w["direction"]} | {w["status"]}'
+        if w.get('header'):line=f'{w["header"]} | '+line
+        line+=f'\nReference ₹{w["entry"]:.2f}; fixed target ₹{w["target"]:.2f}'
+        if w.get('metrics'):line+='\n'+self.value_line(w)
+        if w['status']=='VALUE_REACHED':
+            line+=f'; touch ₹{w["hit_price"]:.2f} at {parse(w["hit_time"]):%H:%M:%S} IST ({w["hit_evidence"]})'
+            if w['hit_candle_close'] is not None:line+=f'; touching-candle close ₹{w["hit_candle_close"]:.2f}'
+        else:
+            gap=(w['target']-w['last_price'])/w['target']*100
+            line+=f'; last observed ₹{w["last_price"]:.2f} at {parse(w["last_observed_at"]):%H:%M:%S}; gap {gap:+.1f}%'
+        return line
+
     def report(self,day,t):
         if day.get('reported'):return
         rows=[w for w in self.state['watches'] if w['day']==day['date']]
         for w in rows:
             if w['status']=='OPEN':w['status']='UNVERIFIED_AT_REPORT'
         counts=Counter(w['status'] for w in rows)
-        cohort=[w for w in rows if w.get('policy')==FILTER_POLICY]
-        hits=sum(w['status']=='VALUE_REACHED' for w in cohort)
-        rate=f'{hits/len(cohort)*100:.1f}%' if cohort else 'N/A'
+        new=[w for w in rows if w.get('policy')==FILTER_POLICY]
+        main=[w for w in new if w.get('channel')=='MAIN'];silent=[w for w in new if w.get('channel')=='SILENT']
+        legacy=[w for w in rows if w.get('policy')!=FILTER_POLICY]
+        hits=lambda x:sum(w['status']=='VALUE_REACHED' for w in x)
         good=sum(x.get('status')=='chain_received' for x in day['symbols'].values())
         lines=[f'S3 STOCK OPTIONS DAILY REPORT | {day["date"]}',
-            f'BUY-ONLY ATM: {len(cohort)} alerts; {hits} targets touched; touch rate {rate} (not net win rate)',
-            f'Legacy watches from earlier rules: {len(rows)-len(cohort)}; included separately in the full totals below.',
+            f'MAIN ALERTS sent to Telegram (all of {main_rule_text()} passed): {len(main)}; {hits(main)} targets touched; '
+            f'touch rate {hits(main)/len(main)*100:.1f}%' if main else
+            f'MAIN ALERTS sent to Telegram (all of {main_rule_text()} passed): 0',
+            f'SILENT RECORDS (failed at least one main rule; no Telegram alert): {len(silent)}; {hits(silent)} targets touched'
+            +(f'; touch rate {hits(silent)/len(silent)*100:.1f}%' if silent else ''),
+            f'Legacy watches from earlier rules: {len(legacy)}; included separately in the full totals below.',
             f'Stocks in universe: {day["universe_count"]}; stocks with a successful latest chain check: {good}',
             f'Completed sweeps: {day["sweeps"]}; last completed sweep: {day.get("last_sweep_finished","none")}',
             f'Last sweep duration: {day.get("last_sweep_seconds","unknown")} seconds',
-            f'Alerts: {len(rows)} | model targets touched: {counts["VALUE_REACHED"]}',
+            f'All records: {len(rows)} | model targets touched: {counts["VALUE_REACHED"]}',
             f'No touch in monitored full-minute bars: {counts["NO_TOUCH_IN_MONITORED_BARS"]} | unverified: {counts["UNVERIFIED_AT_REPORT"]}',
             'The partial entry minute is excluded from candle checks; its unobserved movements are unknown.',
             'A model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.','']
-        for side in ('CE','PE'):
-            subset=[w for w in cohort if w['side']==side]
-            h=sum(w['status']=='VALUE_REACHED' for w in subset)
-            lines.append(f'BUY-ONLY ATM {side}: {h}/{len(subset)} targets touched')
-        for band in sorted({int(w['gap_pct']) for w in cohort}):
-            subset=[w for w in cohort if int(w['gap_pct'])==band]
-            h=sum(w['status']=='VALUE_REACHED' for w in subset)
-            lines.append(f'BUY-ONLY ATM gap {band}-{band+1}%: {h}/{len(subset)} touched ({h/len(subset)*100:.1f}%)')
-        for w in rows:
-            line=f'{w["symbol"]} {w["strike"]:g} {w["side"]} ({w["expiry"]}) | {w["direction"]} | {w["status"]}\nReference ₹{w["entry"]:.2f}; fixed target ₹{w["target"]:.2f}'
-            if w['status']=='VALUE_REACHED':
-                line+=f'; touch ₹{w["hit_price"]:.2f} at {parse(w["hit_time"]):%H:%M:%S} IST ({w["hit_evidence"]})'
-                if w['hit_candle_close'] is not None:line+=f'; touching-candle close ₹{w["hit_candle_close"]:.2f}'
-            else:
-                gap=(w['target']-w['last_price'])/w['target']*100
-                line+=f'; last observed ₹{w["last_price"]:.2f} at {parse(w["last_observed_at"]):%H:%M:%S}; gap {gap:+.1f}%'
-            lines.append(line)
+        for name,group in (('MAIN',main),('SILENT',silent)):
+            for side in ('CE','PE'):
+                subset=[w for w in group if w['side']==side]
+                lines.append(f'{name} {side}: {hits(subset)}/{len(subset)} targets touched')
+        lines.append('')
+        lines+=self.rule_lab(rows,'RULE LAB | THIS DAY')
+        every=[w for w in self.state['watches'] if w.get('policy')==FILTER_POLICY]
+        days=len({w['day'] for w in every})
+        if days>1:
+            lines+=['']+self.rule_lab(every,f'RULE LAB | ALL DAYS SO FAR ({days} days; this report includes today)')
+        lines+=['','MAIN ALERTS']+([self.record_line(w) for w in main] or ['none'])
+        if silent:
+            lines+=['','SILENT RECORDS (header shows each rule: ✓ passed, ✗ failed)']
+            lines+=[self.record_line(w) for w in silent] if REPORT_SILENT_LINES else ['(per-record lines hidden; set REPORT_SILENT_LINES=true to list them; the saved JSON report has all of them)']
+        if legacy:lines+=['','LEGACY WATCHES']+[self.record_line(w) for w in legacy]
         lines+=['','WHY CONTRACTS WERE SKIPPED (checks, not unique contracts)']
         lines += [f'{k}: {v}' for k,v in sorted(day['counts'].items())]
         if day.get('last_error'):lines.append('Last data issue: '+day['last_error'])
         text='\n'.join(lines);folder=self.directory/'reports'
-        (folder/f'{day["date"]}.txt').write_text(text)
-        (folder/f'{day["date"]}.json').write_text(json.dumps({'day':day,'watches':rows},indent=2))
+        (folder/f'{day["date"]}.txt').write_text(text,encoding='utf-8')
+        (folder/f'{day["date"]}.json').write_text(json.dumps({'day':day,'watches':rows},indent=2,ensure_ascii=False))
         self.emit('report-'+day['date'],text);day['reported']=True;self.save()
 
     def tick(self,t):
         if t.weekday()>=5:return
         day=self.prepare(t)
-        self.emit('online-'+FILTER_POLICY+'-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]}\nBUY-ONLY ATM: CE or PE only when its premium must RISE to the target.\nUniverse: {len(self.universe)} NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM ±2 supplies IV peers; only ATM can alert.\nOne active new-policy watch per stock; if both sides qualify, larger ask-based gap wins.\nStarting gap {GAP*100:g}% to below {BASE_MAX_GAP*100:g}%; extended {BASE_MAX_GAP*100:g}% to below {MAX_GAP*100:g}% requires OI >= {EXTENDED_MIN_OI_LOTS:g} lots. Ask gap at least {GAP*100:g}%. Best bid AND ask depth at least {MIN_DEPTH_LOTS:g} lots each. S3 only.\nFull sweeps take several minutes; report around 16:15 IST.')
+        self.emit('online-'+FILTER_POLICY+'-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]} | RULE LAB V4\nBUY-ONLY ATM: CE or PE, only when its premium must RISE to the target (no selling, no CE/PE restriction).\nUniverse: {len(self.universe)} NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM ±2 supplies IV peers; only ATM can alert.\nGap {GAP*100:g}% to below {MAX_GAP*100:g}%, ask gap at least {GAP*100:g}%. Every candidate is scored on six rules; only candidates passing {main_rule_text()} are sent here, the rest are recorded silently.\n{rule_legend()}\nAlerts 09:20-15:20 IST, Mon-Fri. One active MAIN and one active SILENT record per stock. Daily report around 16:15 IST with a rule comparison.')
         # Finish interrupted prior days as unverified instead of inventing outcomes.
         for date,old in list(self.state['days'].items()):
             if date<day['date'] and not old.get('reported'):
