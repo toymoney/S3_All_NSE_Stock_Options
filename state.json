@@ -909,7 +909,7 @@
     },
     "2026-11-23": {
       "date": "2026-11-23",
-      "cursor": 84,
+      "cursor": 99,
       "sweeps": 7,
       "symbols": {
         "360ONE": {
@@ -1249,63 +1249,63 @@
           "status": "chain_received"
         },
         "HINDPETRO": {
-          "checked_at": "2026-11-23T10:39:52.985224+05:30",
+          "checked_at": "2026-11-23T10:52:26.825120+05:30",
           "status": "chain_received"
         },
         "HINDUNILVR": {
-          "checked_at": "2026-11-23T10:39:56.468706+05:30",
+          "checked_at": "2026-11-23T10:52:30.307035+05:30",
           "status": "chain_received"
         },
         "HINDZINC": {
-          "checked_at": "2026-11-23T10:39:59.943066+05:30",
+          "checked_at": "2026-11-23T10:52:33.790543+05:30",
           "status": "chain_received"
         },
         "HYUNDAI": {
-          "checked_at": "2026-11-23T10:40:03.475977+05:30",
+          "checked_at": "2026-11-23T10:52:37.265629+05:30",
           "status": "chain_received"
         },
         "ICICIBANK": {
-          "checked_at": "2026-11-23T10:40:06.949579+05:30",
+          "checked_at": "2026-11-23T10:52:40.759994+05:30",
           "status": "chain_received"
         },
         "ICICIGI": {
-          "checked_at": "2026-11-23T10:40:10.425143+05:30",
+          "checked_at": "2026-11-23T10:52:44.243431+05:30",
           "status": "chain_received"
         },
         "ICICILIFE": {
-          "checked_at": "2026-11-23T10:40:13.928620+05:30",
+          "checked_at": "2026-11-23T10:52:47.735007+05:30",
           "status": "chain_received"
         },
         "IDEA": {
-          "checked_at": "2026-11-23T10:40:17.402177+05:30",
+          "checked_at": "2026-11-23T10:52:51.206510+05:30",
           "status": "chain_received"
         },
         "IDFCFIRSTB": {
-          "checked_at": "2026-11-23T10:40:20.875108+05:30",
+          "checked_at": "2026-11-23T10:52:54.695850+05:30",
           "status": "chain_received"
         },
         "INDHOTEL": {
-          "checked_at": "2026-11-23T10:40:24.361939+05:30",
+          "checked_at": "2026-11-23T10:52:58.181414+05:30",
           "status": "chain_received"
         },
         "INDIANB": {
-          "checked_at": "2026-11-23T10:40:27.844811+05:30",
+          "checked_at": "2026-11-23T10:53:01.672756+05:30",
           "status": "chain_received"
         },
         "INDIGO": {
-          "checked_at": "2026-11-23T10:40:31.339495+05:30",
+          "checked_at": "2026-11-23T10:53:05.151029+05:30",
           "status": "chain_received"
         },
         "INDUSINDBK": {
-          "checked_at": "2026-11-23T10:40:34.813619+05:30",
+          "checked_at": "2026-11-23T10:53:08.686606+05:30",
           "status": "chain_received"
         },
         "INDUSTOWER": {
-          "checked_at": "2026-11-23T10:40:38.298503+05:30",
+          "checked_at": "2026-11-23T10:53:12.119880+05:30",
           "status": "chain_received"
         },
         "INFY": {
-          "checked_at": "2026-11-23T10:40:41.790208+05:30",
+          "checked_at": "2026-11-23T10:53:15.717231+05:30",
           "status": "chain_received"
         },
         "INOXWIND": {
@@ -1778,15 +1778,15 @@
         }
       },
       "counts": {
-        "chains_received": 1596,
-        "stale_option_or_missing_quote": 6671,
-        "non_atm_excluded": 6569,
-        "depth_below_threshold": 1867,
-        "liquidity": 136,
+        "chains_received": 1611,
+        "stale_option_or_missing_quote": 6745,
+        "non_atm_excluded": 6628,
+        "depth_below_threshold": 1879,
+        "liquidity": 137,
         "no_liquid_contracts": 45,
-        "insufficient_peer_iv": 30,
+        "insufficient_peer_iv": 31,
         "atm_shift_during_request": 13,
-        "sell_direction_excluded": 56,
+        "sell_direction_excluded": 59,
         "gap_below_threshold": 51
       },
       "last_error": null,
