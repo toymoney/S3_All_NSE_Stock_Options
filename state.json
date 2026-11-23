@@ -906,6 +906,15 @@
       "last_sweep_finished": "2026-11-20T14:55:57.332978+05:30",
       "last_sweep_seconds": 3580,
       "reported": true
+    },
+    "2026-11-23": {
+      "date": "2026-11-23",
+      "cursor": 0,
+      "sweeps": 0,
+      "symbols": {},
+      "counts": {},
+      "last_error": null,
+      "universe_count": 216
     }
   },
   "watches": [
@@ -21258,6 +21267,11 @@
     {
       "id": "report-2026-11-20:15",
       "text": "ADANIENSOL 1480 PE (2026-11-23) | DOWN | VALUE_REACHED\nReference \u20b919.30; fixed target \u20b915.62; touch \u20b915.62 at 15:36:00 IST (completed 1m candle high/low; time is candle end); touching-candle close \u20b915.50\nAMBER 6800 PE (2026-11-23) | UP | NO_TOUCH_IN_MONITORED_BARS\nReference \u20b986.45; fixed target \u20b9104.72; last observed \u20b965.00 at 15:37:00; gap +37.9%\nBAJAJFINSV 1900 PE (2026-11-23) | DOWN | VALUE_REACHED\nReference \u20b99.90; fixed target \u20b98.55; touch \u20b98.55 at 15:04:00 IST (completed 1m candle high/low; time is candle end); touching-candle close \u20b98.30\n\nWHY CONTRACTS WERE SKIPPED (checks, not unique contracts)\natm_shift_during_request: 18\nchains_received: 3313\ngap_below_threshold: 4500\ninsufficient_peer_iv: 8895\nliquidity: 6677\nnew_alerts: 339\nno_liquid_contracts: 178\nstale_option_or_missing_quote: 8222\n",
+      "sent": true
+    },
+    {
+      "id": "online-BUY_ATM_GAP_DEPTH_OI_V3-2026-11-23:0",
+      "text": "S3 STOCK OPTIONS ONLINE | 2026-11-23\nBUY-ONLY ATM: CE or PE only when its premium must RISE to the target.\nUniverse: 216 NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM \u00b12 supplies IV peers; only ATM can alert.\nOne active new-policy watch per stock; if both sides qualify, larger ask-based gap wins.\nStarting gap 15% to below 17%; extended 17% to below 30% requires OI >= 2000 lots. Ask gap at least 15%. Best bid AND ask depth at least 3 lots each. S3 only.\nFull sweeps take several minutes; report around 16:15 IST.\n",
       "sent": true
     }
   ]
