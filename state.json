@@ -1799,7 +1799,7 @@
     },
     "2026-11-24": {
       "date": "2026-11-24",
-      "cursor": 141,
+      "cursor": 144,
       "sweeps": 15,
       "symbols": {
         "360ONE": {
@@ -2367,15 +2367,15 @@
           "status": "chain_received"
         },
         "NAUKRI": {
-          "checked_at": "2026-11-24T12:18:00.079085+05:30",
+          "checked_at": "2026-11-24T12:30:12.781042+05:30",
           "status": "chain_received"
         },
         "NAVINFLUOR": {
-          "checked_at": "2026-11-24T12:18:03.532431+05:30",
+          "checked_at": "2026-11-24T12:30:16.292638+05:30",
           "status": "chain_received"
         },
         "NBCC": {
-          "checked_at": "2026-11-24T12:18:05.870791+05:30",
+          "checked_at": "2026-11-24T12:30:18.623812+05:30",
           "status": "chain_received"
         },
         "NESTLEIND": {
@@ -2676,9 +2676,9 @@
         }
       },
       "counts": {
-        "chains_received": 3411,
-        "no_liquid_contracts": 529,
-        "stale_underlying": 2882
+        "chains_received": 3414,
+        "no_liquid_contracts": 530,
+        "stale_underlying": 2884
       },
       "last_error": null,
       "universe_count": 218,
