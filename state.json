@@ -2686,6 +2686,15 @@
       "last_sweep_finished": "2026-11-24T12:22:13.219660+05:30",
       "last_sweep_seconds": 731,
       "reported": true
+    },
+    "2026-11-25": {
+      "date": "2026-11-25",
+      "cursor": 0,
+      "sweeps": 0,
+      "symbols": {},
+      "counts": {},
+      "last_error": null,
+      "universe_count": 218
     }
   },
   "watches": [
@@ -23058,6 +23067,11 @@
     {
       "id": "report-2026-11-24:0",
       "text": "S3 STOCK OPTIONS DAILY REPORT | 2026-11-24\nMAIN ALERTS sent to Telegram (all of TOAVEI or P passed): 0\nSILENT RECORDS (failed at least one main rule; no Telegram alert): 0; 0 targets touched\nLegacy watches from earlier rules: 0; included separately in the full totals below.\nStocks in universe: 218; stocks with a successful latest chain check: 218\nCompleted sweeps: 15; last completed sweep: 2026-11-24T12:22:13.219660+05:30\nLast sweep duration: 731 seconds\nAll records: 0 | model targets touched: 0\nNo touch in monitored full-minute bars: 0 | unverified: 0\nThe partial entry minute is excluded from candle checks; its unobserved movements are unknown.\nA model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.\n\nMAIN CE: 0/0 targets touched\nMAIN PE: 0/0 targets touched\nSILENT CE: 0/0 targets touched\nSILENT PE: 0/0 targets touched\n\nRULE LAB | THIS DAY\nRules: T=tier OI (gap 15-<17%: any; 17-<30%: >= 2000 lots) | D=depth >= 3 lots on best bid AND ask | O=OI >= 500 lots | A=last trade <= 10 s old | V=volume/OI <= 3 | G=gamma >= 0.006 | E=|delta| >= 0.35 | I=IV <= 28% | P=gap 15% to below 17% AND depth >= 3 lots on best bid and ask\nRecords: 0; resolved: 0 (touch rate counts only resolved records)\nNo resolved records yet.\n\nMAIN ALERTS\nnone\n\nWHY CONTRACTS WERE SKIPPED (checks, not unique contracts)\nchains_received: 3414\nno_liquid_contracts: 530\nstale_underlying: 2884\n",
+      "sent": true
+    },
+    {
+      "id": "online-BUY_ATM_RULELAB_V4-2026-11-25:0",
+      "text": "S3 STOCK OPTIONS ONLINE | 2026-11-25 | RULE LAB V4\nBUY-ONLY ATM: CE or PE, only when its premium must RISE to the target (no selling, no CE/PE restriction).\nUniverse: 218 NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM \u00b12 supplies IV peers; only ATM can alert.\nGap 15% to below 30%, ask gap at least 15%. Every candidate is scored on six rules; only candidates passing TOAVEI or P are sent here, the rest are recorded silently.\nRules: T=tier OI (gap 15-<17%: any; 17-<30%: >= 2000 lots) | D=depth >= 3 lots on best bid AND ask | O=OI >= 500 lots | A=last trade <= 10 s old | V=volume/OI <= 3 | G=gamma >= 0.006 | E=|delta| >= 0.35 | I=IV <= 28% | P=gap 15% to below 17% AND depth >= 3 lots on best bid and ask\nAlerts 09:20-15:20 IST, Mon-Fri. One active MAIN and one active SILENT record per stock. Daily report around 16:15 IST with a rule comparison.\n",
       "sent": true
     }
   ]
