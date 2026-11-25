@@ -24,6 +24,7 @@ class StockTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.api=FakeAPI();self.api.bars=[]
         also=patch.object(b,'MAIN_ALSO_IF','');also.start();self.addCleanup(also.stop)  # P route has its own tests
+        gap=patch.object(b,'GAP',0.15);gap.start();self.addCleanup(gap.stop)            # most tests use the original 15% edge
         self.s=b.Scanner(self.api,self.tmp.name)
         self.day={'date':'2026-11-19','cursor':0,'sweeps':0,'symbols':{},'counts':{},'universe_count':2}
         self.s.state['days'][self.day['date']]=self.day
@@ -315,6 +316,20 @@ class StockTests(unittest.TestCase):
         folder=self.s.directory/'observations'
         self.assertFalse((folder/'2026-11-19.jsonl').exists())
         import gzip as gz;self.assertEqual(len(gz.open(folder/'2026-11-19.jsonl.gz','rt',encoding='utf-8').read().splitlines()),4)
+    def test_lower_gap_band_default_and_p_keeps_15_percent_edge(self):
+        self.assertEqual(b.RULE_P_MIN_GAP,0.15)
+        def run(gap,bid_qty=300):
+            c=contract();band=[contract(90),c,contract(110)];premium=100*(1-gap)
+            c['market'].update(ltp=premium,bid_price=premium-.1,ask_price=premium,bid_qty=bid_qty)
+            with patch.object(b,'GAP',0.05),patch.object(b,'bs',return_value=100):return b.candidate(c,band,100,T)
+        v,r=run(0.05);self.assertIsNone(r);self.assertTrue(v['rules']['T']);self.assertFalse(v['rules']['P'])    # 5% passes the gate; P does not apply
+        v,r=run(0.1499);self.assertIsNone(r);self.assertFalse(v['rules']['P'])
+        v,r=run(0.15);self.assertTrue(v['rules']['P']);v,r=run(0.1699);self.assertTrue(v['rules']['P'])
+        self.assertEqual(run(0.0499)[1],'gap_below_threshold')
+        with patch.object(b,'MAIN_ALSO_IF','P'):                                                              # no MAIN-via-P below 15%
+            c=contract();band=[contract(90),c,contract(110)];c['market'].update(ltp=92,bid_price=91.9,ask_price=92,oi=100*100)
+            with patch.object(b,'GAP',0.05),patch.object(b,'bs',return_value=100):v,_=b.candidate(c,band,100,T)
+            self.assertEqual(v['channel'],'SILENT')
     def test_rule_boundaries_pass(self):
         c=contract();band=[contract(90),c,contract(110)]
         c['market'].update(oi=500*100,volume=3*500*100)
@@ -381,7 +396,7 @@ class StockTests(unittest.TestCase):
         self.s.report(self.day,T)
         report=(self.s.directory/'reports/2026-11-19.txt').read_text(encoding='utf-8')
         self.assertIn('O pass 2/2 (100.0%)',report);self.assertIn('| fail 1/2 (50.0%)',report)
-        self.assertIn('misses end -50% vs entry',report);self.assertIn('MAIN channel (TOAVEI): 2/2 (100.0%)',report)
+        self.assertIn('misses end -50% vs entry',report);self.assertIn('MAIN channel (TOAVEI): 2/2 (100.0%)',report);self.assertIn('Gap 15-30%: all records 3/4 (75.0%)',report)
         self.assertIn('All main rules except O passed: 3/4 (75.0%)',report);self.assertIn('8/9 rules passed: 1/2 (50.0%)',report)
         self.assertIn('SILENT RECORDS (header shows each rule',report)
     def test_previous_policy_open_watch_still_blocks(self):
