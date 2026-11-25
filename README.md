@@ -8,7 +8,7 @@ Every buy-direction ATM candidate that passes the hard gates is scored on nine r
 
 | Letter | Rule | Default |
 |---|---|---|
-| T | **Required.** Tier OI: gap 15% to below 17% needs no extra OI (the 20-lot floor still applies); gap 17% to below 30% needs OI >= 2,000 lots | `EXTENDED_MIN_OI_LOTS` 2000 |
+| T | **Required.** Tier OI: a gap below 17% needs no extra OI (the 20-lot floor still applies); gap 17% to below 30% needs OI >= 2,000 lots | `EXTENDED_MIN_OI_LOTS` 2000 |
 | D | Best bid AND best ask each >= 3 lots (scored and recorded; NOT required by default) | `MIN_DEPTH_LOTS` 3 |
 | O | **Required.** OI >= 500 lots | `RULE_MIN_OI_LOTS` 500 |
 | A | **Required.** Last trade at most 10 seconds old at quote time | `RULE_MAX_TRADE_AGE` 10 |
@@ -18,13 +18,15 @@ Every buy-direction ATM candidate that passes the hard gates is scored on nine r
 | I | **Required.** Implied volatility <= 28% (high-IV contracts missed more often) | `RULE_MAX_IV` 28 |
 | P | **Extra route to MAIN.** Gap 15% to below 17% AND best bid and best ask each >= 3 lots. Passing P alone is enough to send a MAIN alert | `MAIN_ALSO_IF` `P` (empty switches the route off) |
 
-Hard gates that still reject a candidate outright (nothing is recorded): buy direction only (model target above the premium, never a sell), no CE/PE restriction, ATM strike only, gap 15% to below 30% of model value, ask-based gap at least 15%, spread <= 5%, base liquidity (OI >= 20 lots, volume >= 5 lots, at least 1 lot on each side), valid peer IV, expiry more than 5 calendar days away, at least 30 minutes to expiry, and a quote no older than 180 seconds. Missing data (no last-trade time, no gamma, no depth) fails the rule instead of passing it.
+Hard gates that still reject a candidate outright (nothing is recorded): buy direction only (model target above the premium, never a sell), no CE/PE restriction, ATM strike only, gap `MIN_VALUE_GAP` (default **5%**, lowered from 15%) to below 30% of model value, ask-based gap at least `MIN_VALUE_GAP`, spread <= 5%, base liquidity (OI >= 20 lots, volume >= 5 lots, at least 1 lot on each side), valid peer IV, expiry more than 5 calendar days away, at least 30 minutes to expiry, and a quote no older than 180 seconds. Missing data (no last-trade time, no gamma, no depth) fails the rule instead of passing it.
 
 **Header on every record.** `MAIN | T✓ D✓ O✓ A✓ V✓ G✓ E✓ I✓ P✓ | 9/9 rules passed`, `MAIN via P | T✓ D✓ O✗ A✓ V✓ G✓ E✓ I✗ P✓ | 7/9 rules passed` (sent because of the P route), or `SILENT | T✓ D✗ O✓ A✓ V✓ G✓ E✓ I✗ P✗ | 6/9 rules passed` (recorded only, nothing sent). The same header is stored in the journal (`header`, `rules`, `rules_passed`, `rules_failed`, `channel`) together with the raw `metrics` (OI lots, volume lots, volume/OI, bid and ask lots, depth lots, last-trade age, gamma, delta, IV, theta, vega, spread %, gap %). Because the raw values are kept, any threshold can be re-tested later without re-running the scan.
 
 **Selection.** At most one active MAIN and one active SILENT record per stock. A SILENT record does not block a MAIN alert and the reverse. If several ATM candidates exist, MAIN comes first, then the most rules passed, then the larger ask-based gap. A contract already alerted as MAIN (or by an earlier policy) is never repeated that day; a contract recorded only as SILENT can still become a MAIN alert later in the day if it then passes every main rule.
 
 **Automatic rule comparison (Telegram only).** The daily report (about 16:15 IST) contains a RULE LAB block: for each rule, the touch rate when it passed versus failed, the average end move of the misses against entry, the result when all main rules passed, the result when all main rules passed except one (shows what each rule adds), and the result by number of rules passed. From the second day on a second block repeats the same table over all days so far. Nothing needs to be opened or operated by hand. `REPORT_SILENT_LINES=false` hides the one-per-record SILENT lines from the Telegram text (the saved JSON report on the state branch always has them).
+
+**Gap band lowered to 5%.** The first scanned day on the next-month expiry (25 Nov, 09:56-12:27 IST) showed only 4 ATM contracts with a gap of 15% or more, out of 4,958 snapshots, because a contract with about a month to expiry rarely drifts that far from model value. The minimum gap is now 5% (`MIN_VALUE_GAP`); the upper limit stays at 30%. The ask-based gap must also be at least 5%. In the 5-15% band the required rules (O, A, V, E, I) still apply, T passes automatically, and the P route does not apply (it keeps its own 15% lower edge, `RULE_P_MIN_GAP`). Of 23 contracts first seen in the 5-10% band that morning, 3 would have passed all five required rules. A 5% target is thin: the spread is typically 1-2% and brokerage and charges are extra, so a touch in this band is worth much less than one at 15%. The daily rule comparison now shows touch rates by gap band (5-10%, 10-15%, 15-30%) so the bands can be compared after a few days.
 
 **The P route (gap 15-17% + depth).** On the 20 November data this combination alone gave 11 alerts, 11 reached target. Adding it as an extra route on top of the required rules gives 26 alerts, 26 reached (5 more than the required rules alone). Requiring it in addition (`MAIN_RULES: 'TOAVEIP'`, `MAIN_ALSO_IF: ''`) gives only 6 alerts and removes the whole 17-30% band. The 5 extra alerts from the route would have failed some required rules (one had a last trade 69 seconds old, one a volume/OI of 12.6) and still reached target, so the route admits alerts the other rules would stop; depth was not a separator of hits from misses in the wider data, so treat the 11 of 11 as a small sample. The rule comparison shows MAIN via P separately in the headers; if that route starts missing, set `MAIN_ALSO_IF` to empty.
 
@@ -36,7 +38,7 @@ Hard gates that still reject a candidate outright (nothing is recorded): buy dir
 
 **Why E and I were added.** On the 20 November data, 9 of the 70 alerts passing only O, A and V missed target. Six of the nine were PE buys, they had higher IV (about 29-30% against 22% for hits) and several had weak delta. IV <= 28 and absolute delta >= 0.35 together removed all nine (39 of 39 reached target); with tier added and depth not required, 21 of 21. These cut-offs were chosen after seeing those misses on a single day, so some of that is fitting, and IV levels on the December expiry may differ from the November contracts. Both rules are scored on every record so the rule comparison will show whether they hold.
 
-Verification: 61 offline tests pass, including each rule failing on its own, boundary values, missing data, silent and main not blocking each other, no Telegram message for silent records, and the rule-lab report counts. A simulated scan produced one MAIN alert (one Telegram message) and one SILENT record (no message). Authenticated Upstox, Telegram and GitHub scheduling were not tested here.
+Verification: 62 offline tests pass, including each rule failing on its own, boundary values, missing data, silent and main not blocking each other, no Telegram message for silent records, and the rule-lab report counts. A simulated scan produced one MAIN alert (one Telegram message) and one SILENT record (no message). Authenticated Upstox, Telegram and GitHub scheduling were not tested here.
 
 ## OBSERVATION LOG (every ATM contract scanned, alert or not)
 
@@ -56,7 +58,7 @@ Limits: rows exist only for contracts the bot actually fetched. A stock whose ch
 
 Discovers all NSE stock-option underlyings from the current instrument master. The public master checked during development contained 218 eligible underlyings; the count can change. Indices and ordinary shares without listed options are excluded.
 
-For each stock: nearest listed expiry more than five calendar days away. Only the actual ATM strike may produce a new alert, on CE or PE, and only when the model target is ABOVE the current premium. Starting LTP gap must be 15% inclusive to 30% exclusive of model value. The 17% to below 30% tier additionally requires OI >=2,000 lots; 15% to below 17% retains the 20-lot OI floor. The ask-based gap must still be at least 15%. Both best bid and best ask must display at least 3 lots each. Falling-premium targets are excluded.
+For each stock: nearest listed expiry more than five calendar days away. Only the actual ATM strike may produce a new alert, on CE or PE, and only when the model target is ABOVE the current premium. Starting LTP gap must be `MIN_VALUE_GAP` (now 5%) inclusive to 30% exclusive of model value. The 17% to below 30% tier additionally requires OI >=2,000 lots; gaps below 17% retain the 20-lot OI floor. The ask-based gap must still be at least 15%. Both best bid and best ask must display at least 3 lots each. Falling-premium targets are excluded.
 
 ATM ±2 still supplies up to 10 contracts for IV estimation; neighbouring strikes do not produce alerts. If ATM is missing, stale, illiquid, or has inadequate peer IV, skip that stock rather than substitute another strike. ATM ties choose the higher strike.
 
@@ -142,7 +144,7 @@ The target is FIXED when the watch is created. A later touch is a touch of that 
 
 | Filter | Default |
 |---|---:|
-| Minimum gap relative to model value | 15% |
+| Minimum gap relative to model value | 5% (`MIN_VALUE_GAP`; was 15% until 25 Nov 2026) |
 | Maximum bid–ask spread / midpoint | 5% |
 | Minimum premium and model value | ₹1 |
 | Minimum OI | 20 lots |

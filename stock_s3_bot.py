@@ -26,7 +26,7 @@ LEGACY_POLICIES=('BUY_ATM_V1','BUY_ATM_GAP_DEPTH_V2','BUY_ATM_GAP_DEPTH_OI_V3')
 ROOT=Path(__file__).resolve().parent
 STATE_DIR=Path(os.getenv('STATE_DIR',str(ROOT/'state_s3')))
 MASTER_URL='https://assets.upstox.com/market-quote/instruments/exchange/NSE.json.gz'
-GAP=float(os.getenv('MIN_VALUE_GAP','0.15'))
+GAP=float(os.getenv('MIN_VALUE_GAP','0.05'))  # lowered from 0.15: next-month expiry has a much narrower gap range than the 2-3 day expiry
 BASE_MAX_GAP=float(os.getenv('BASE_MAX_VALUE_GAP','0.17'))
 MAX_GAP=float(os.getenv('MAX_VALUE_GAP','0.30'))
 EXTENDED_MIN_OI_LOTS=float(os.getenv('EXTENDED_MIN_OI_LOTS','2000'))
@@ -42,15 +42,17 @@ RULE_MAX_VOL_OI=float(os.getenv('RULE_MAX_VOL_OI','3'))
 RULE_MIN_GAMMA=float(os.getenv('RULE_MIN_GAMMA','0.006'))
 RULE_MIN_ABS_DELTA=float(os.getenv('RULE_MIN_ABS_DELTA','0.35'))
 RULE_MAX_IV=float(os.getenv('RULE_MAX_IV','28'))
+RULE_P_MIN_GAP=float(os.getenv('RULE_P_MIN_GAP','0.15'))  # P (gap + depth route) keeps its own 15% lower edge
 RULE_ORDER='TDOAVGEIP'
 MAIN_RULES=os.getenv('MAIN_RULES','TOAVEI').strip().upper()  # D (depth) and G (gamma) are scored and recorded but not required by default
 MAIN_ALSO_IF=os.getenv('MAIN_ALSO_IF','P').strip().upper()  # extra route to MAIN: all these rules passing is enough on their own; empty disables
 OBSERVE_ALL=os.getenv('OBSERVE_ALL','true').strip().lower()!='false'      # log every ATM contract scanned, alert or not
 OBSERVE_BAND=os.getenv('OBSERVE_BAND','false').strip().lower()=='true'    # also log the non-ATM peer contracts
-OBS_MIN_GAP=float(os.getenv('OBSERVE_FUNNEL_MIN_GAP','0.10'))             # funnel counts contracts valued at least this far above price
+OBS_MIN_GAP=float(os.getenv('OBSERVE_FUNNEL_MIN_GAP','0.05'))             # funnel counts contracts valued at least this far above price
 REPORT_SILENT_LINES=os.getenv('REPORT_SILENT_LINES','true').strip().lower()!='false'
 if (not MAIN_RULES or any(k not in RULE_ORDER for k in MAIN_RULES) or len(set(MAIN_RULES))!=len(MAIN_RULES)
         or any(k not in RULE_ORDER for k in MAIN_ALSO_IF) or len(set(MAIN_ALSO_IF))!=len(MAIN_ALSO_IF)
+        or not (0<RULE_P_MIN_GAP<BASE_MAX_GAP)
         or not all(math.isfinite(x) and x>0 for x in (RULE_MIN_OI_LOTS,RULE_MAX_TRADE_AGE,RULE_MAX_VOL_OI,RULE_MIN_GAMMA,RULE_MIN_ABS_DELTA,RULE_MAX_IV))):
     raise ValueError('Invalid MAIN_RULES (letters from TDOAVGEIP, no repeats; MAIN_ALSO_IF may be empty) or rule thresholds')
 MAX_SPREAD=float(os.getenv('MAX_SPREAD','0.05'))
@@ -164,12 +166,12 @@ def quote_contract(c,q):
         'quote_time':q.get('timestamp'),'last_trade_time':q.get('last_trade_time')}
 
 
-RULE_TEXT={'T':'tier OI (gap 15-<17%: any; 17-<30%: >= {oi:g} lots)'.format(oi=EXTENDED_MIN_OI_LOTS),
+RULE_TEXT={'T':f'tier OI (gap below {BASE_MAX_GAP*100:g}%: any; {BASE_MAX_GAP*100:g}-<{MAX_GAP*100:g}%: >= {EXTENDED_MIN_OI_LOTS:g} lots)',
     'D':f'depth >= {MIN_DEPTH_LOTS:g} lots on best bid AND ask',
     'O':f'OI >= {RULE_MIN_OI_LOTS:g} lots','A':f'last trade <= {RULE_MAX_TRADE_AGE:g} s old',
     'V':f'volume/OI <= {RULE_MAX_VOL_OI:g}','G':f'gamma >= {RULE_MIN_GAMMA:g}',
     'E':f'|delta| >= {RULE_MIN_ABS_DELTA:g}','I':f'IV <= {RULE_MAX_IV:g}%',
-    'P':f'gap {GAP*100:g}% to below {BASE_MAX_GAP*100:g}% AND depth >= {MIN_DEPTH_LOTS:g} lots on best bid and ask'}
+    'P':f'gap {RULE_P_MIN_GAP*100:g}% to below {BASE_MAX_GAP*100:g}% AND depth >= {MIN_DEPTH_LOTS:g} lots on best bid and ask'}
 
 
 def main_rule_text():
@@ -218,7 +220,7 @@ def evaluate_rules(metrics):
         'G':metrics['gamma']>=RULE_MIN_GAMMA,
         'E':abs(metrics['delta'])>=RULE_MIN_ABS_DELTA,
         'I':0<metrics['iv']<=RULE_MAX_IV,
-        'P':gap<BASE_MAX_GAP and depth}
+        'P':RULE_P_MIN_GAP<=gap<BASE_MAX_GAP and depth}
 
 
 def rule_header(flags):
@@ -721,6 +723,10 @@ class Scanner:
             ok=[w for w in lab if w['rules'].get(k)];no=[w for w in lab if not w['rules'].get(k)]
             lines.append(f'{k} pass {self.rate(ok)} | fail {self.rate(no)}')
         lines.append(f'MAIN channel ({main_rule_text()}): {self.rate([w for w in lab if w.get("channel")=="MAIN"])}')
+        for lo,hi in ((GAP*100,10.0),(10.0,15.0),(15.0,MAX_GAP*100)):
+            if lo>=hi:continue
+            grp=[w for w in lab if lo<=num(w.get('gap_pct'))<hi]
+            if grp:lines.append(f'Gap {lo:g}-{hi:g}%: all records {self.rate(grp)} | MAIN channel {self.rate([w for w in grp if w.get("channel")=="MAIN"])}')
         for k in MAIN_RULES:
             others=[w for w in lab if all(w['rules'].get(j) for j in MAIN_RULES if j!=k)]
             lines.append(f'All main rules except {k} passed: {self.rate(others)}')
