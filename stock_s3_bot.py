@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """S3-only NSE stock-option value-gap research scanner. No orders or Kronos.
 Python 3.11+. See README for valuation, coverage and monitoring assumptions.
-V4 rule lab: every buy-direction ATM candidate is scored against nine rules (T D O A V G E I P).
-Only candidates passing all MAIN_RULES (default TOAVEI, or P on its own via MAIN_ALSO_IF; D and G are recorded, not required) are sent to Telegram; the rest are recorded silently
+V4 rule lab: every buy-direction ATM candidate is scored against ten rules (T D O A V G E I P S).
+Only candidates passing all MAIN_RULES (default S, or P on its own via MAIN_ALSO_IF; every other rule is recorded, not required) are sent to Telegram; the rest are recorded silently
 with a header showing which rules passed, so the rules can be compared after a few days.
 """
 import argparse
@@ -43,8 +43,14 @@ RULE_MIN_GAMMA=float(os.getenv('RULE_MIN_GAMMA','0.006'))
 RULE_MIN_ABS_DELTA=float(os.getenv('RULE_MIN_ABS_DELTA','0.35'))
 RULE_MAX_IV=float(os.getenv('RULE_MAX_IV','28'))
 RULE_P_MIN_GAP=float(os.getenv('RULE_P_MIN_GAP','0.15'))  # P (gap + depth route) keeps its own 15% lower edge
-RULE_ORDER='TDOAVGEIP'
-MAIN_RULES=os.getenv('MAIN_RULES','TOAVEI').strip().upper()  # D (depth) and G (gamma) are scored and recorded but not required by default
+RULE_S_MIN_GAP=float(os.getenv('RULE_S_MIN_GAP','0.05'))   # S: small gap band that hit 7 of 7 on 25 Nov 2026 ...
+RULE_S_MAX_GAP=float(os.getenv('RULE_S_MAX_GAP','0.08'))
+try:                                                          # ... and only for alerts before this time (IST, HH:MM)
+    _h,_m=os.getenv('RULE_S_CUTOFF','15:00').split(':');RULE_S_CUTOFF_MIN=int(_h)*60+int(_m)
+except ValueError:
+    raise ValueError('RULE_S_CUTOFF must look like 15:00')
+RULE_ORDER='TDOAVGEIPS'
+MAIN_RULES=os.getenv('MAIN_RULES','S').strip().upper()  # every other rule is scored and recorded but not required by default
 MAIN_ALSO_IF=os.getenv('MAIN_ALSO_IF','P').strip().upper()  # extra route to MAIN: all these rules passing is enough on their own; empty disables
 OBSERVE_ALL=os.getenv('OBSERVE_ALL','true').strip().lower()!='false'      # log every ATM contract scanned, alert or not
 OBSERVE_BAND=os.getenv('OBSERVE_BAND','false').strip().lower()=='true'    # also log the non-ATM peer contracts
@@ -52,7 +58,7 @@ OBS_MIN_GAP=float(os.getenv('OBSERVE_FUNNEL_MIN_GAP','0.05'))             # funn
 REPORT_SILENT_LINES=os.getenv('REPORT_SILENT_LINES','true').strip().lower()!='false'
 if (not MAIN_RULES or any(k not in RULE_ORDER for k in MAIN_RULES) or len(set(MAIN_RULES))!=len(MAIN_RULES)
         or any(k not in RULE_ORDER for k in MAIN_ALSO_IF) or len(set(MAIN_ALSO_IF))!=len(MAIN_ALSO_IF)
-        or not (0<RULE_P_MIN_GAP<BASE_MAX_GAP)
+        or not (0<RULE_P_MIN_GAP<BASE_MAX_GAP) or not (0<RULE_S_MIN_GAP<RULE_S_MAX_GAP<1) or not (0<=RULE_S_CUTOFF_MIN<=24*60)
         or not all(math.isfinite(x) and x>0 for x in (RULE_MIN_OI_LOTS,RULE_MAX_TRADE_AGE,RULE_MAX_VOL_OI,RULE_MIN_GAMMA,RULE_MIN_ABS_DELTA,RULE_MAX_IV))):
     raise ValueError('Invalid MAIN_RULES (letters from TDOAVGEIP, no repeats; MAIN_ALSO_IF may be empty) or rule thresholds')
 MAX_SPREAD=float(os.getenv('MAX_SPREAD','0.05'))
@@ -171,7 +177,8 @@ RULE_TEXT={'T':f'tier OI (gap below {BASE_MAX_GAP*100:g}%: any; {BASE_MAX_GAP*10
     'O':f'OI >= {RULE_MIN_OI_LOTS:g} lots','A':f'last trade <= {RULE_MAX_TRADE_AGE:g} s old',
     'V':f'volume/OI <= {RULE_MAX_VOL_OI:g}','G':f'gamma >= {RULE_MIN_GAMMA:g}',
     'E':f'|delta| >= {RULE_MIN_ABS_DELTA:g}','I':f'IV <= {RULE_MAX_IV:g}%',
-    'P':f'gap {RULE_P_MIN_GAP*100:g}% to below {BASE_MAX_GAP*100:g}% AND depth >= {MIN_DEPTH_LOTS:g} lots on best bid and ask'}
+    'P':f'gap {RULE_P_MIN_GAP*100:g}% to below {BASE_MAX_GAP*100:g}% AND depth >= {MIN_DEPTH_LOTS:g} lots on best bid and ask',
+    'S':f'gap {RULE_S_MIN_GAP*100:g}% to {RULE_S_MAX_GAP*100:g}% AND alert before {RULE_S_CUTOFF_MIN//60:02d}:{RULE_S_CUTOFF_MIN%60:02d} IST'}
 
 
 def main_rule_text():
@@ -201,7 +208,7 @@ def rule_metrics(c,gap,t):
     bid=num(m.get('bid_price'));ask=num(m.get('ask_price'));mid=(bid+ask)/2
     bid_lots=num(m.get('bid_qty'))/lot;ask_lots=num(m.get('ask_qty'))/lot
     age=trade_age_seconds(c,t)
-    return {'gap_pct':gap*100,'oi_lots':oi/lot,'volume_lots':volume/lot,
+    return {'gap_pct':gap*100,'minute':t.hour*60+t.minute,'oi_lots':oi/lot,'volume_lots':volume/lot,
         'vol_oi':volume/oi if oi>0 else None,'bid_lots':bid_lots,'ask_lots':ask_lots,
         'depth_lots':min(bid_lots,ask_lots),'trade_age_s':age,'gamma':num(g.get('gamma')),
         'delta':num(g.get('delta')),'iv':num(g.get('iv')),'theta':num(g.get('theta')),'vega':num(g.get('vega')),
@@ -220,7 +227,8 @@ def evaluate_rules(metrics):
         'G':metrics['gamma']>=RULE_MIN_GAMMA,
         'E':abs(metrics['delta'])>=RULE_MIN_ABS_DELTA,
         'I':0<metrics['iv']<=RULE_MAX_IV,
-        'P':RULE_P_MIN_GAP<=gap<BASE_MAX_GAP and depth}
+        'P':RULE_P_MIN_GAP<=gap<BASE_MAX_GAP and depth,
+        'S':RULE_S_MIN_GAP<=gap<=RULE_S_MAX_GAP and metrics['minute']<RULE_S_CUTOFF_MIN}
 
 
 def rule_header(flags):
@@ -723,7 +731,7 @@ class Scanner:
             ok=[w for w in lab if w['rules'].get(k)];no=[w for w in lab if not w['rules'].get(k)]
             lines.append(f'{k} pass {self.rate(ok)} | fail {self.rate(no)}')
         lines.append(f'MAIN channel ({main_rule_text()}): {self.rate([w for w in lab if w.get("channel")=="MAIN"])}')
-        for lo,hi in ((GAP*100,10.0),(10.0,15.0),(15.0,MAX_GAP*100)):
+        for lo,hi in ((GAP*100,RULE_S_MAX_GAP*100),(RULE_S_MAX_GAP*100,15.0),(15.0,MAX_GAP*100)):
             if lo>=hi:continue
             grp=[w for w in lab if lo<=num(w.get('gap_pct'))<hi]
             if grp:lines.append(f'Gap {lo:g}-{hi:g}%: all records {self.rate(grp)} | MAIN channel {self.rate([w for w in grp if w.get("channel")=="MAIN"])}')
