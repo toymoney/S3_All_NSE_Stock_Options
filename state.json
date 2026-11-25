@@ -2689,7 +2689,7 @@
     },
     "2026-11-25": {
       "date": "2026-11-25",
-      "cursor": 81,
+      "cursor": 85,
       "sweeps": 2,
       "symbols": {
         "360ONE": {
@@ -3017,19 +3017,19 @@
           "status": "chain_received"
         },
         "HDFCAMC": {
-          "checked_at": "2026-11-25T09:37:59.397825+05:30",
+          "checked_at": "2026-11-25T09:56:37.737984+05:30",
           "status": "chain_received"
         },
         "HDFCBANK": {
-          "checked_at": "2026-11-25T09:38:02.911078+05:30",
+          "checked_at": "2026-11-25T09:56:42.464855+05:30",
           "status": "chain_received"
         },
         "HDFCLIFE": {
-          "checked_at": "2026-11-25T09:38:06.433343+05:30",
+          "checked_at": "2026-11-25T09:56:47.186759+05:30",
           "status": "chain_received"
         },
         "HEROMOTOCO": {
-          "checked_at": "2026-11-25T09:38:11.129358+05:30",
+          "checked_at": "2026-11-25T09:56:50.717670+05:30",
           "status": "chain_received"
         },
         "HINDALCO": {
@@ -3566,13 +3566,13 @@
         }
       },
       "counts": {
-        "chains_received": 517,
-        "stale_option_or_missing_quote": 1429,
-        "non_atm_excluded": 2717,
-        "sell_direction_excluded": 327,
-        "insufficient_peer_iv": 191,
+        "chains_received": 521,
+        "stale_option_or_missing_quote": 1439,
+        "non_atm_excluded": 2741,
+        "sell_direction_excluded": 331,
+        "insufficient_peer_iv": 192,
         "no_liquid_contracts": 16,
-        "gap_below_threshold": 259,
+        "gap_below_threshold": 260,
         "liquidity": 49,
         "new_silent_records": 3,
         "atm_shift_during_request": 3,
@@ -3582,7 +3582,8 @@
       "universe_count": 218,
       "sweep_started": "2026-11-25T09:46:15.128584+05:30",
       "last_sweep_finished": "2026-11-25T09:46:15.128570+05:30",
-      "last_sweep_seconds": 790
+      "last_sweep_seconds": 790,
+      "observed_rows": 8
     }
   },
   "watches": [
@@ -20951,10 +20952,10 @@
       "day": "2026-11-25",
       "entered": "2026-11-25T09:23:01.061448+05:30",
       "status": "OPEN",
-      "last_price": 68.15,
-      "last_observed_at": "2026-11-25T09:50:05.553791+05:30",
-      "checked_until": "2026-11-25T09:47:00+05:30",
-      "last_candle_attempt": "2026-11-25T09:48:10.584693+05:30",
+      "last_price": 65.65,
+      "last_observed_at": "2026-11-25T09:56:35.951732+05:30",
+      "checked_until": "2026-11-25T09:55:00+05:30",
+      "last_candle_attempt": "2026-11-25T09:56:40.984905+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
@@ -21037,10 +21038,10 @@
       "day": "2026-11-25",
       "entered": "2026-11-25T09:25:26.326047+05:30",
       "status": "OPEN",
-      "last_price": 52.0,
-      "last_observed_at": "2026-11-25T09:50:05.553791+05:30",
-      "checked_until": "2026-11-25T09:49:00+05:30",
-      "last_candle_attempt": "2026-11-25T09:50:38.057126+05:30",
+      "last_price": 53.5,
+      "last_observed_at": "2026-11-25T09:56:35.951732+05:30",
+      "checked_until": "2026-11-25T09:55:00+05:30",
+      "last_candle_attempt": "2026-11-25T09:56:45.706757+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
@@ -21124,9 +21125,9 @@
       "entered": "2026-11-25T09:32:54.867403+05:30",
       "status": "OPEN",
       "last_price": 78.05,
-      "last_observed_at": "2026-11-25T09:50:05.553791+05:30",
-      "checked_until": "2026-11-25T09:47:00+05:30",
-      "last_candle_attempt": "2026-11-25T09:48:01.435488+05:30",
+      "last_observed_at": "2026-11-25T09:56:35.951732+05:30",
+      "checked_until": "2026-11-25T09:55:00+05:30",
+      "last_candle_attempt": "2026-11-25T09:56:35.951781+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
