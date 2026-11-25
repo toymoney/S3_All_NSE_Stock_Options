@@ -45,6 +45,9 @@ RULE_MAX_IV=float(os.getenv('RULE_MAX_IV','28'))
 RULE_ORDER='TDOAVGEIP'
 MAIN_RULES=os.getenv('MAIN_RULES','TOAVEI').strip().upper()  # D (depth) and G (gamma) are scored and recorded but not required by default
 MAIN_ALSO_IF=os.getenv('MAIN_ALSO_IF','P').strip().upper()  # extra route to MAIN: all these rules passing is enough on their own; empty disables
+OBSERVE_ALL=os.getenv('OBSERVE_ALL','true').strip().lower()!='false'      # log every ATM contract scanned, alert or not
+OBSERVE_BAND=os.getenv('OBSERVE_BAND','false').strip().lower()=='true'    # also log the non-ATM peer contracts
+OBS_MIN_GAP=float(os.getenv('OBSERVE_FUNNEL_MIN_GAP','0.10'))             # funnel counts contracts valued at least this far above price
 REPORT_SILENT_LINES=os.getenv('REPORT_SILENT_LINES','true').strip().lower()!='false'
 if (not MAIN_RULES or any(k not in RULE_ORDER for k in MAIN_RULES) or len(set(MAIN_RULES))!=len(MAIN_RULES)
         or any(k not in RULE_ORDER for k in MAIN_ALSO_IF) or len(set(MAIN_ALSO_IF))!=len(MAIN_ALSO_IF)
@@ -281,6 +284,38 @@ def candidate(c,band,spot,t):
         'spot':spot,'years':years,'r':RISK_RATE,'q':div},None
 
 
+def obs_value(c,band,spot,t):
+    """Model value and gap for a snapshot row, computed with no gating at all; {} when not computable."""
+    try:
+        expiry=close_at(datetime.fromisoformat(c['expiry']).replace(tzinfo=IST))
+        years=(expiry-t).total_seconds()/(365*86400)
+        vol=peer_iv(c,band)
+        if years<=0 or vol is None:return {}
+        div=num(DIVIDEND_YIELDS.get(c['symbol']),num(os.getenv('DIVIDEND_YIELD','0')))
+        fair=bs(spot,c['strike'],years,vol,c['side'],q=div)
+        m=c['market'];ltp=num(m.get('ltp'))
+        if fair<=0:return {}
+        gap=(fair-ltp)/fair;executable=num(m.get('ask_price')) if gap>0 else num(m.get('bid_price'))
+        return {'peer_iv':round(vol*100,3),'fair':round(fair,4),'gap_pct':round(gap*100,3),
+                'xgap_pct':round((fair-executable)/fair*100,3)}
+    except (ValueError,ZeroDivisionError,OverflowError,KeyError,TypeError):return {}
+
+
+def snapshot_row(c,band,spot,t,reason,value=None,source='quote'):
+    """One observation-log row: market data, greeks and model value as seen at scan time."""
+    m=c.get('market') or {};lot=c['lot'];bid=num(m.get('bid_price'));ask=num(m.get('ask_price'));mid=(bid+ask)/2
+    row={'t':iso(t),'sym':c['symbol'],'exp':c['expiry'],'k':c['strike'],'side':c['side'],'lot':lot,'spot':spot,'src':source,
+         'ltp':num(m.get('ltp')),'bid':bid,'ask':ask,'bid_lots':round(num(m.get('bid_qty'))/lot,2),
+         'ask_lots':round(num(m.get('ask_qty'))/lot,2),'oi_lots':round(num(m.get('oi'))/lot,1),
+         'vol_lots':round(num(m.get('volume'))/lot,1),'spread_pct':round((ask-bid)/mid*100,3) if mid>0 else None,
+         'qt':c.get('quote_time'),'ltt':c.get('last_trade_time'),
+         'age_s':trade_age_seconds(c,t) if c.get('last_trade_time') else None,
+         'greeks':c.get('greeks') or {},'reason':reason}
+    row.update(obs_value(c,band,spot,t))
+    if value:row.update({'chan':value.get('channel'),'passed':value.get('rules_passed'),'failed':value.get('rules_failed')})
+    return row
+
+
 class APIError(RuntimeError):pass
 class AuthError(APIError):pass
 
@@ -369,7 +404,7 @@ class Scanner:
             r=subprocess.run(['git','-C',str(self.directory),*args],capture_output=True,text=True)
             if r.returncode:raise RuntimeError('Cannot checkpoint state; check Actions write permission')
             return r.stdout
-        git('add','state.json','reports')
+        git('add','state.json','reports',*(['observations'] if any((self.directory/'observations').glob('*')) else []))
         if git('status','--porcelain').strip():git('commit','-m','Save S3 stock research state [skip ci]')
         git('push','origin','HEAD:s3-stock-state');self.last_sync=time.monotonic()
 
@@ -415,19 +450,26 @@ class Scanner:
 
     def choose_buy_atm(self,verified,chain,spot,t,day):
         atm=atm_strike(chain,spot)
-        options=[]
+        options=[];rows={}
+        def mark(c,action):
+            if c['key'] in rows:rows[c['key']]['action']=action
         for c in verified:
             if c['strike']!=atm:
-                self.count(day,'non_atm_excluded');continue
+                self.count(day,'non_atm_excluded')
+                if OBSERVE_ALL and OBSERVE_BAND:rows[c['key']]=snapshot_row(c,verified,spot,t,'non_atm')
+                continue
             value,reason=candidate(c,verified,spot,t)
+            if OBSERVE_ALL:rows[c['key']]=snapshot_row(c,verified,spot,t,reason or 'CANDIDATE',value)
             if reason:self.count(day,reason);continue
             prior=[w for w in self.state['watches'] if w['day']==day['date'] and w['key']==c['key']]
             # A contract already alerted (MAIN or legacy) is never repeated. A SILENT record only
             # blocks another SILENT record, so the same contract can still become a MAIN alert.
-            if any(w.get('channel')!='SILENT' for w in prior):continue
-            if prior and value['channel']=='SILENT':continue
+            if any(w.get('channel')!='SILENT' for w in prior) or (prior and value['channel']=='SILENT'):
+                mark(c,'DUPLICATE_CONTRACT');continue
             options.append((c,{**value,'policy':FILTER_POLICY,'atm_at_entry':atm}))
-        if not options:return None
+        def flush():
+            if rows:self.observe(day,list(rows.values()))
+        if not options:flush();return None
         underlying=options[0][0]['underlying']
         def blocked(channel):
             for w in self.state['watches']:
@@ -441,11 +483,69 @@ class Scanner:
                                     -cv[1]['executable_gap_pct'],cv[0]['side']))
         chosen=next((cv for cv in options if not blocked(cv[1]['channel'])),None)
         if chosen is None:
-            self.count(day,'existing_open_stock_watch');return None
+            for c,_ in options:mark(c,'BLOCKED_BY_OPEN_WATCH')
+            flush();self.count(day,'existing_open_stock_watch');return None
+        for c,_ in options:mark(c,'SELECTED' if c is chosen[0] else 'OTHER_SIDE_SUPPRESSED')
+        flush()
         if len(options)>1:self.count(day,'other_atm_side_suppressed',len(options)-1)
         return chosen
 
     def count(self,day,reason,n=1):day['counts'][reason]=day['counts'].get(reason,0)+n
+
+    def observe(self,day,rows):
+        """Append rows to observations/<date>.jsonl; never raises into the scan loop."""
+        if not OBSERVE_ALL or not rows:return
+        lines=[]
+        for r in rows:
+            try:lines.append(json.dumps(r,separators=(',',':'),allow_nan=False))
+            except (TypeError,ValueError):self.count(day,'observation_write_error')
+        if not lines:return
+        try:
+            folder=self.directory/'observations';folder.mkdir(exist_ok=True)
+            with open(folder/f'{day["date"]}.jsonl','a',encoding='utf-8') as f:f.write('\n'.join(lines)+'\n')
+            day['observed_rows']=day.get('observed_rows',0)+len(lines)
+        except OSError as e:day['last_error']=f'observation log: {e}'
+
+    def observation_summary(self,day):
+        if not OBSERVE_ALL:return ['OBSERVATION LOG | disabled (OBSERVE_ALL=false)']
+        path=self.directory/'observations'/f'{day["date"]}.jsonl'
+        if not path.exists():return ['OBSERVATION LOG | no snapshots were saved today']
+        rows=[]
+        for line in path.read_text(encoding='utf-8').splitlines():
+            try:rows.append(json.loads(line))
+            except ValueError:continue
+        by={}
+        for r in rows:by.setdefault((r['sym'],r['exp'],r['k'],r['side']),[]).append(r)
+        lines=[f'OBSERVATION LOG | {len(rows)} snapshots of {len(by)} ATM contracts in {len({r["sym"] for r in rows})} stocks, '
+               f'each with bid, ask, depth, OI, volume, last trade, IV, greeks and model value, saved to observations/{day["date"]}.jsonl.gz '
+               '(every contract scanned, whether or not an alert was sent)',
+               'Snapshots by result: '+', '.join(f'{k} {v}' for k,v in Counter(r['reason'] for r in rows).most_common())]
+        funnel=Counter();later=Counter()
+        for seq in by.values():
+            seq.sort(key=lambda r:r['t'])
+            for i,r in enumerate(seq):
+                gap=r.get('gap_pct');fair=r.get('fair')
+                if gap is None or not fair or gap<OBS_MIN_GAP*100:continue
+                if r['reason']!='CANDIDATE':cat=r['reason']
+                elif r.get('action')=='SELECTED':cat='MAIN alert' if r.get('chan')=='MAIN' else 'silent record'
+                else:cat='candidate not recorded ('+str(r.get('action','unknown')).lower()+')'
+                funnel[cat]+=1
+                if any(num(x.get('ltp'))>=fair for x in seq[i+1:]):later[cat]+=1
+                break
+        if funnel:
+            lines+=['',f'FILTER FUNNEL | first sighting of each contract valued at least {OBS_MIN_GAP*100:g}% above its price. '
+                    '"Later traded at/above value" is checked only at scan times, so it understates real touches']
+            lines+=[f'{cat}: {n} contracts, {later[cat]} later traded at/above the model value ({later[cat]/n*100:.0f}%)'
+                    for cat,n in funnel.most_common(14)]
+        return lines
+
+    def compress_observations(self,day):
+        path=self.directory/'observations'/f'{day["date"]}.jsonl'
+        if not path.exists():return
+        try:
+            with open(path,'rb') as src,gzip.open(path.with_suffix('.jsonl.gz'),'wb') as dst:dst.write(src.read())
+            path.unlink()
+        except OSError as e:day['last_error']=f'observation compress: {e}'
 
     def add_watch(self,c,value,t,day):
         channel=value.get('channel','MAIN')
@@ -498,18 +598,22 @@ class Scanner:
             checked=now();day['symbols'][u['symbol']]={'checked_at':iso(checked),'status':'chain_received'}
             self.count(day,'chains_received')
             if not chain:self.count(day,'empty_chain');return
-            band=select_band(chain,chain[0]['spot'])
-            if not any(liquid(c) for c in band):self.count(day,'no_liquid_contracts');return
+            spot0=chain[0]['spot'];band=select_band(chain,spot0);atm0=atm_strike(chain,spot0)
+            def drop(reason):
+                self.count(day,reason)
+                if OBSERVE_ALL and dt_time(9,20)<=checked.time()<=alert_cutoff(checked):
+                    self.observe(day,[snapshot_row(c,band,spot0,checked,reason,source='chain') for c in chain if c['strike']==atm0])
+            if not any(liquid(c) for c in band):drop('no_liquid_contracts');return
             quotes=self.api.quotes([u['underlying']]+[c['key'] for c in band]);checked=now()
             if not dt_time(9,20)<=checked.time()<=alert_cutoff(checked):return
             underlying_quote=quotes.get(u['underlying'],{})
-            if not fresh(underlying_quote,checked):self.count(day,'stale_underlying');return
+            if not fresh(underlying_quote,checked):drop('stale_underlying');return
             spot=num(underlying_quote.get('last_price'))
-            if spot<=0:self.count(day,'invalid_spot');return
+            if spot<=0:drop('invalid_spot');return
             # Recompute actual strike band if the spot moved while fetching quotes.
             desired=select_band(chain,spot)
             if {c['key'] for c in desired}!={c['key'] for c in band}:
-                self.count(day,'atm_shift_during_request');return
+                drop('atm_shift_during_request');return
             verified=[]
             for c in band:
                 q=quotes.get(c['key'],{})
@@ -517,7 +621,16 @@ class Scanner:
                 updated=quote_contract(c,q)
                 if updated:verified.append(updated)
             # Chain IV is only seconds older than the quote; reject a long request delay.
-            if (checked-t).total_seconds()>60:self.count(day,'chain_quote_delay');return
+            if OBSERVE_ALL:
+                vkeys={c['key'] for c in verified};atm=atm_strike(chain,spot)
+                self.observe(day,[snapshot_row(c,band,spot,checked,'stale_option_or_missing_quote',source='chain')
+                                  for c in chain if c['strike']==atm and c['key'] not in vkeys])
+            if (checked-t).total_seconds()>60:
+                self.count(day,'chain_quote_delay')
+                if OBSERVE_ALL:
+                    atm=atm_strike(chain,spot)
+                    self.observe(day,[snapshot_row(c,verified,spot,checked,'chain_quote_delay') for c in verified if c['strike']==atm])
+                return
             choice=self.choose_buy_atm(verified,chain,spot,checked,day)
             if choice:
                 c,value=choice
@@ -664,6 +777,7 @@ class Scanner:
         days=len({w['day'] for w in every})
         if days>1:
             lines+=['']+self.rule_lab(every,f'RULE LAB | ALL DAYS SO FAR ({days} days; this report includes today)')
+        lines+=['']+self.observation_summary(day)
         lines+=['','MAIN ALERTS']+([self.record_line(w) for w in main] or ['none'])
         if silent:
             lines+=['','SILENT RECORDS (header shows each rule: ✓ passed, ✗ failed)']
@@ -675,12 +789,13 @@ class Scanner:
         text='\n'.join(lines);folder=self.directory/'reports'
         (folder/f'{day["date"]}.txt').write_text(text,encoding='utf-8')
         (folder/f'{day["date"]}.json').write_text(json.dumps({'day':day,'watches':rows},indent=2,ensure_ascii=False))
+        self.compress_observations(day)
         self.emit('report-'+day['date'],text);day['reported']=True;self.save()
 
     def tick(self,t):
         if t.weekday()>=5:return
         day=self.prepare(t)
-        self.emit('online-'+FILTER_POLICY+'-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]} | RULE LAB V4\nBUY-ONLY ATM: CE or PE, only when its premium must RISE to the target (no selling, no CE/PE restriction).\nUniverse: {len(self.universe)} NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM ±2 supplies IV peers; only ATM can alert.\nGap {GAP*100:g}% to below {MAX_GAP*100:g}%, ask gap at least {GAP*100:g}%. Every candidate is scored on six rules; only candidates passing {main_rule_text()} are sent here, the rest are recorded silently.\n{rule_legend()}\nAlerts 09:20-15:20 IST, Mon-Fri. One active MAIN and one active SILENT record per stock. Daily report around 16:15 IST with a rule comparison.')
+        self.emit('online-'+FILTER_POLICY+'-'+day['date'],f'S3 STOCK OPTIONS ONLINE | {day["date"]} | RULE LAB V4\nBUY-ONLY ATM: CE or PE, only when its premium must RISE to the target (no selling, no CE/PE restriction).\nUniverse: {len(self.universe)} NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM ±2 supplies IV peers; only ATM can alert.\nGap {GAP*100:g}% to below {MAX_GAP*100:g}%, ask gap at least {GAP*100:g}%. Every candidate is scored on six rules; only candidates passing {main_rule_text()} are sent here, the rest are recorded silently.\n{rule_legend()}\nAlerts 09:20-15:20 IST, Mon-Fri. Every ATM contract scanned is also logged (bid, ask, depth, greeks, model value) for later filter checks. One active MAIN and one active SILENT record per stock. Daily report around 16:15 IST with a rule comparison.')
         # Finish interrupted prior days as unverified instead of inventing outcomes.
         for date,old in list(self.state['days'].items()):
             if date<day['date'] and not old.get('reported'):
@@ -701,7 +816,9 @@ def main():
         scanner.emit('test-'+iso(start),f'S3 stock scanner connection OK. Discovered {len(scanner.universe)} stock-option underlyings.\nSample API check {u["symbol"]}: {len(chain)} contracts in full chain; {len(select_band(chain,chain[0]["spot"])) if chain else 0} IV-support contracts at ATM ±2. New alerts: BUY-ONLY ATM CE or PE; no falling-premium watches.\nS3 only; no S1/S2. This verifies connectivity, not live signal quality.')
         for _ in range(3):scanner.flush()
         scanner.sync(force=True);return
-    end=start.replace(hour=14,minute=10,second=0,microsecond=0) if start.time()<dt_time(14,10) else start.replace(hour=16,minute=45,second=0,microsecond=0)
+    # A morning (or manually restarted) run ends at 14:10; anything started from 13:30 on runs to 16:45, so a late
+    # start of the afternoon run can never end after a few minutes.
+    end=start.replace(hour=14,minute=10,second=0,microsecond=0) if start.time()<dt_time(13,30) else start.replace(hour=16,minute=45,second=0,microsecond=0)
     end=min(end,start+timedelta(hours=5,minutes=15));failures=0
     try:
         while True:

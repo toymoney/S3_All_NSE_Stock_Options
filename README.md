@@ -36,7 +36,21 @@ Hard gates that still reject a candidate outright (nothing is recorded): buy dir
 
 **Why E and I were added.** On the 20 November data, 9 of the 70 alerts passing only O, A and V missed target. Six of the nine were PE buys, they had higher IV (about 29-30% against 22% for hits) and several had weak delta. IV <= 28 and absolute delta >= 0.35 together removed all nine (39 of 39 reached target); with tier added and depth not required, 21 of 21. These cut-offs were chosen after seeing those misses on a single day, so some of that is fitting, and IV levels on the December expiry may differ from the November contracts. Both rules are scored on every record so the rule comparison will show whether they hold.
 
-Verification: 55 offline tests pass, including each rule failing on its own, boundary values, missing data, silent and main not blocking each other, no Telegram message for silent records, and the rule-lab report counts. A simulated scan produced one MAIN alert (one Telegram message) and one SILENT record (no message). Authenticated Upstox, Telegram and GitHub scheduling were not tested here.
+Verification: 61 offline tests pass, including each rule failing on its own, boundary values, missing data, silent and main not blocking each other, no Telegram message for silent records, and the rule-lab report counts. A simulated scan produced one MAIN alert (one Telegram message) and one SILENT record (no message). Authenticated Upstox, Telegram and GitHub scheduling were not tested here.
+
+## OBSERVATION LOG (every ATM contract scanned, alert or not)
+
+To judge whether the filters are too tight, too loose or about right, the bot now saves a snapshot of **every ATM CE and PE it looks at on every visit to a stock**, including all the ones that fail a gate and send nothing. Alerts and silent records are unchanged; this is a separate log.
+
+Each snapshot row holds: time, stock, expiry, strike, side, lot, stock price; LTP, best bid and ask price, bid and ask lots, spread %, OI lots, volume lots, quote time, last-trade time and age; **all Greeks the API returns** (IV, delta, gamma, theta, vega and any others); peer IV, model value, gap % and ask/bid-based gap % (computed even when the contract is rejected); the reason it was rejected (`liquidity`, `gap_below_threshold`, `gap_above_band`, `insufficient_peer_iv`, `stale_option_or_missing_quote`, `no_liquid_contracts`, `stale_underlying`, ...) or `CANDIDATE`; for candidates, which rules passed and failed and the action (`SELECTED`, `DUPLICATE_CONTRACT`, `BLOCKED_BY_OPEN_WATCH`, `OTHER_SIDE_SUPPRESSED`). Rows from stocks that stopped early (no liquid contract, stale stock quote) use the option chain's own bid, ask and Greeks and are marked `src: chain`.
+
+Files: `observations/<date>.jsonl` while the day runs, compressed to `observations/<date>.jsonl.gz` at the report, committed to the `s3-stock-state` branch with the journal. Expect roughly 6,000-7,000 rows a day, about 3 MB raw and about 0.5 MB compressed (measured on synthetic rows of the real size, about 490 bytes each); 5 days is a few MB. No extra API calls are made.
+
+**Daily Telegram summary.** The report adds an OBSERVATION LOG block (snapshot, contract and stock counts, snapshots by result) and a FILTER FUNNEL: for the first sighting of each contract whose model value was at least 10% above its price, how many were stopped by each gate, how many became alerts, and how many of them later traded at or above the model value. That last check uses only the prices seen at later scans, so it understates real touches; use it to compare gates with each other, not as a touch rate.
+
+Settings: `OBSERVE_ALL` (default `true`, `false` turns the log off), `OBSERVE_BAND` (default `false`; `true` also logs the non-ATM peer contracts, about 5x the rows), `OBSERVE_FUNNEL_MIN_GAP` (default `0.10`).
+
+Limits: rows exist only for contracts the bot actually fetched. A stock whose chain request failed, or that was outside 09:20-15:20, has no row. Nifty VIX, sector and VWAP are not recorded. The price path after entry is still not stored.
 
 ## Coverage
 
