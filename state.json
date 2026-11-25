@@ -3587,6 +3587,15 @@
       "last_sweep_seconds": 822,
       "observed_rows": 7992,
       "reported": true
+    },
+    "2026-11-26": {
+      "date": "2026-11-26",
+      "cursor": 0,
+      "sweeps": 0,
+      "symbols": {},
+      "counts": {},
+      "last_error": null,
+      "universe_count": 218
     }
   },
   "watches": [
@@ -25633,6 +25642,11 @@
     {
       "id": "report-2026-11-25:3",
       "text": "Rule values: OI 1106 lots | last trade 9.2s ago | vol/OI 3.85 | depth 1 lots | gamma 0.00560; last observed \u20b929.85 at 15:40:00; gap +5.2%\n\nWHY CONTRACTS WERE SKIPPED (checks, not unique contracts)\natm_shift_during_request: 34\nchains_received: 4513\nexisting_open_stock_watch: 34\ngap_below_threshold: 1861\ninsufficient_peer_iv: 1918\nliquidity: 157\nnew_alerts: 2\nnew_silent_records: 17\nno_liquid_contracts: 82\nnon_atm_excluded: 19941\nsell_direction_excluded: 2337\nstale_option_or_missing_quote: 17358\nstale_underlying: 32\n",
+      "sent": true
+    },
+    {
+      "id": "online-BUY_ATM_RULELAB_V4-2026-11-26:0",
+      "text": "S3 STOCK OPTIONS ONLINE | 2026-11-26 | RULE LAB V4\nBUY-ONLY ATM: CE or PE, only when its premium must RISE to the target (no selling, no CE/PE restriction).\nUniverse: 218 NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM \u00b12 supplies IV peers; only ATM can alert.\nGap 5% to below 30%, ask gap at least 5%. Every candidate is scored on six rules; only candidates passing S or P are sent here, the rest are recorded silently.\nRules: T=tier OI (gap below 17%: any; 17-<30%: >= 2000 lots) | D=depth >= 3 lots on best bid AND ask | O=OI >= 500 lots | A=last trade <= 10 s old | V=volume/OI <= 3 | G=gamma >= 0.006 | E=|delta| >= 0.35 | I=IV <= 28% | P=gap 15% to below 17% AND depth >= 3 lots on best bid and ask | S=gap 5% to 8% AND alert before 15:00 IST\nAlerts 09:20-15:20 IST, Mon-Fri. Every ATM contract scanned is also logged (bid, ask, depth, greeks, model value) for later filter checks. One active MAIN and one active SILENT record per stock. Daily report around 16:15 IST with a rule comparison.\n",
       "sent": true
     }
   ]
