@@ -1,0 +1,131 @@
+S3 STOCK OPTIONS DAILY REPORT | 2026-11-25
+MAIN ALERTS sent to Telegram (all of TOAVEI or P passed): 2; 1 targets touched; touch rate 50.0%
+SILENT RECORDS (failed at least one main rule; no Telegram alert): 17; 8 targets touched; touch rate 47.1%
+Legacy watches from earlier rules: 0; included separately in the full totals below.
+Stocks in universe: 218; stocks with a successful latest chain check: 218
+Completed sweeps: 20; last completed sweep: 2026-11-25T14:08:55.665856+05:30
+Last sweep duration: 822 seconds
+All records: 19 | model targets touched: 9
+No touch in monitored full-minute bars: 10 | unverified: 0
+The partial entry minute is excluded from candle checks; its unobserved movements are unknown.
+A model-value touch is not a profitable buy trade. DOWN watches describe falling option premiums.
+
+MAIN CE: 1/2 targets touched
+MAIN PE: 0/0 targets touched
+SILENT CE: 7/16 targets touched
+SILENT PE: 1/1 targets touched
+
+RULE LAB | THIS DAY
+Rules: T=tier OI (gap below 17%: any; 17-<30%: >= 2000 lots) | D=depth >= 3 lots on best bid AND ask | O=OI >= 500 lots | A=last trade <= 10 s old | V=volume/OI <= 3 | G=gamma >= 0.006 | E=|delta| >= 0.35 | I=IV <= 28% | P=gap 15% to below 17% AND depth >= 3 lots on best bid and ask
+Records: 19; resolved: 19 (touch rate counts only resolved records)
+T pass 9/16 (56.2%), misses end -4% vs entry on average | fail 0/3 (0.0%), misses end -19% vs entry on average
+D pass 0/0 (n/a) | fail 9/19 (47.4%), misses end -8% vs entry on average
+O pass 8/13 (61.5%), misses end -8% vs entry on average | fail 1/6 (16.7%), misses end -8% vs entry on average
+A pass 5/9 (55.6%), misses end -11% vs entry on average | fail 4/10 (40.0%), misses end -6% vs entry on average
+V pass 5/14 (35.7%), misses end -9% vs entry on average | fail 4/5 (80.0%), misses end +2% vs entry on average
+G pass 2/4 (50.0%), misses end -4% vs entry on average | fail 7/15 (46.7%), misses end -9% vs entry on average
+E pass 9/19 (47.4%), misses end -8% vs entry on average | fail 0/0 (n/a)
+I pass 6/10 (60.0%), misses end -1% vs entry on average | fail 3/9 (33.3%), misses end -13% vs entry on average
+P pass 0/0 (n/a) | fail 9/19 (47.4%), misses end -8% vs entry on average
+MAIN channel (TOAVEI or P): 1/2 (50.0%), misses end -6% vs entry on average
+Gap 5-10%: all records 9/14 (64.3%), misses end -1% vs entry on average | MAIN channel 1/2 (50.0%), misses end -6% vs entry on average
+Gap 15-30%: all records 0/5 (0.0%), misses end -16% vs entry on average | MAIN channel 0/0 (n/a)
+All main rules except T passed: 1/2 (50.0%), misses end -6% vs entry on average
+All main rules except O passed: 1/2 (50.0%), misses end -6% vs entry on average
+All main rules except A passed: 3/5 (60.0%), misses end -2% vs entry on average
+All main rules except V passed: 4/6 (66.7%), misses end -2% vs entry on average
+All main rules except E passed: 1/2 (50.0%), misses end -6% vs entry on average
+All main rules except I passed: 1/3 (33.3%), misses end -3% vs entry on average
+7/9 rules passed: 0/1 (0.0%), misses end -6% vs entry on average
+6/9 rules passed: 2/2 (100.0%)
+5/9 rules passed: 5/9 (55.6%), misses end +1% vs entry on average
+4/9 rules passed: 1/2 (50.0%), misses end -42% vs entry on average
+3/9 rules passed: 1/3 (33.3%), misses end -11% vs entry on average
+2/9 rules passed: 0/2 (0.0%), misses end -8% vs entry on average
+
+OBSERVATION LOG | 7992 snapshots of 1076 ATM contracts in 218 stocks, each with bid, ask, depth, OI, volume, last trade, IV, greeks and model value, saved to observations/2026-11-25.jsonl.gz (every contract scanned, whether or not an alert was sent)
+Snapshots by result: stale_option_or_missing_quote 2217, sell_direction_excluded 2010, insufficient_peer_iv 1727, gap_below_threshold 1602, no_liquid_contracts 132, liquidity 108, CANDIDATE 70, stale_underlying 64, atm_shift_during_request 62
+
+FILTER FUNNEL | first sighting of each contract valued at least 5% above its price. "Later traded at/above value" is checked only at scan times, so it understates real touches
+stale_option_or_missing_quote: 53 contracts, 15 later traded at/above the model value (28%)
+gap_below_threshold: 39 contracts, 16 later traded at/above the model value (41%)
+silent record: 9 contracts, 2 later traded at/above the model value (22%)
+candidate not recorded (blocked_by_open_watch): 7 contracts, 0 later traded at/above the model value (0%)
+stale_underlying: 4 contracts, 0 later traded at/above the model value (0%)
+atm_shift_during_request: 3 contracts, 0 later traded at/above the model value (0%)
+
+MAIN ALERTS
+MAIN | T✓ D✗ O✓ A✓ V✓ G✓ E✓ I✓ P✗ | 7/9 rules passed | LICI 410 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹12.10; fixed target ₹13.32
+Rule values: OI 1370 lots | last trade 1.0s ago | vol/OI 0.59 | depth 2 lots | gamma 0.01320; last observed ₹11.40 at 15:40:00; gap +14.4%
+MAIN | T✓ D✗ O✓ A✓ V✓ G✗ E✓ I✓ P✗ | 6/9 rules passed | MARUTI 14100 CE (2026-12-29) | UP | VALUE_REACHED
+Reference ₹430.00; fixed target ₹459.45
+Rule values: OI 754 lots | last trade 0.4s ago | vol/OI 2.74 | depth 2 lots | gamma 0.00040; touch ₹461.00 at 13:59:11 IST (fresh polled LTP)
+
+SILENT RECORDS (header shows each rule: ✓ passed, ✗ failed)
+SILENT | T✗ D✗ O✓ A✓ V✓ G✗ E✓ I✗ P✗ | 4/9 rules passed | COFORGE 2140 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹81.20; fixed target ₹99.42
+Rule values: OI 1665 lots | last trade 2.1s ago | vol/OI 0.43 | depth 1 lots | gamma 0.00180; last observed ₹47.50 at 15:40:00; gap +52.2%
+SILENT | T✗ D✗ O✗ A✗ V✓ G✗ E✓ I✗ P✗ | 2/9 rules passed | HYUNDAI 2140 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹61.90; fixed target ₹87.41
+Rule values: OI 35 lots | last trade 10.2s ago | vol/OI 0.66 | depth 1 lots | gamma 0.00180; last observed ₹59.00 at 15:40:00; gap +32.5%
+SILENT | T✓ D✗ O✗ A✗ V✓ G✗ E✓ I✗ P✗ | 3/9 rules passed | WAAREEENER 2420 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹82.35; fixed target ₹98.30
+Rule values: OI 184 lots | last trade 27.5s ago | vol/OI 1.15 | depth 1 lots | gamma 0.00170; last observed ₹64.20 at 15:40:00; gap +34.7%
+SILENT | T✗ D✗ O✗ A✗ V✓ G✗ E✓ I✗ P✗ | 2/9 rules passed | KAYNES 2750 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹147.05; fixed target ₹178.40
+Rule values: OI 78 lots | last trade 76.5s ago | vol/OI 1.79 | depth 1 lots | gamma 0.00100; last observed ₹129.30 at 15:40:00; gap +27.5%
+SILENT | T✓ D✗ O✓ A✓ V✗ G✓ E✓ I✗ P✗ | 5/9 rules passed | DABUR 425 CE (2026-12-29) | UP | VALUE_REACHED
+Reference ₹16.00; fixed target ₹17.10
+Rule values: OI 515 lots | last trade 4.4s ago | vol/OI 5.53 | depth 1 lots | gamma 0.01070; touch ₹17.10 at 13:58:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹16.90
+SILENT | T✓ D✗ O✓ A✓ V✓ G✗ E✓ I✗ P✗ | 5/9 rules passed | DIXON 13000 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹509.00; fixed target ₹635.80
+Rule values: OI 2393 lots | last trade 3.8s ago | vol/OI 1.55 | depth 1 lots | gamma 0.00030; last observed ₹510.65 at 15:40:00; gap +19.7%
+SILENT | T✓ D✗ O✓ A✓ V✗ G✗ E✓ I✓ P✗ | 5/9 rules passed | EICHERMOT 8300 CE (2026-12-29) | UP | VALUE_REACHED
+Reference ₹254.90; fixed target ₹271.09
+Rule values: OI 773 lots | last trade 3.0s ago | vol/OI 3.35 | depth 1 lots | gamma 0.00060; touch ₹274.00 at 14:00:12 IST (fresh polled LTP)
+SILENT | T✓ D✗ O✓ A✗ V✓ G✓ E✓ I✓ P✗ | 6/9 rules passed | KOTAKBANK 505 CE (2026-12-29) | UP | VALUE_REACHED
+Reference ₹14.40; fixed target ₹15.59
+Rule values: OI 511 lots | last trade 35.2s ago | vol/OI 0.89 | depth 1 lots | gamma 0.01170; touch ₹15.95 at 13:28:00 IST (fresh polled LTP)
+SILENT | T✓ D✗ O✓ A✗ V✓ G✗ E✓ I✓ P✗ | 5/9 rules passed | SBILIFE 1820 CE (2026-12-29) | UP | VALUE_REACHED
+Reference ₹52.70; fixed target ₹55.60
+Rule values: OI 635 lots | last trade 18.4s ago | vol/OI 1.45 | depth 1 lots | gamma 0.00300; touch ₹55.65 at 13:29:09 IST (fresh polled LTP)
+SILENT | T✓ D✗ O✗ A✗ V✓ G✗ E✓ I✗ P✗ | 3/9 rules passed | ADANIGREEN 1360 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹57.60; fixed target ₹63.31
+Rule values: OI 89 lots | last trade 67.5s ago | vol/OI 1.52 | depth 1 lots | gamma 0.00280; last observed ₹57.85 at 15:40:00; gap +8.6%
+SILENT | T✓ D✗ O✓ A✓ V✗ G✗ E✓ I✓ P✗ | 5/9 rules passed | DMART 3550 CE (2026-12-29) | UP | VALUE_REACHED
+Reference ₹119.90; fixed target ₹128.13
+Rule values: OI 769 lots | last trade 3.7s ago | vol/OI 6.76 | depth 1 lots | gamma 0.00140; touch ₹128.13 at 14:48:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹125.95
+SILENT | T✓ D✗ O✗ A✗ V✓ G✗ E✓ I✗ P✗ | 3/9 rules passed | GODREJPROP 1900 PE (2026-12-29) | UP | VALUE_REACHED
+Reference ₹64.90; fixed target ₹68.44
+Rule values: OI 485 lots | last trade 22.2s ago | vol/OI 0.80 | depth 1 lots | gamma 0.00210; touch ₹70.00 at 13:37:26 IST (fresh polled LTP)
+SILENT | T✓ D✗ O✓ A✗ V✓ G✗ E✓ I✗ P✗ | 4/9 rules passed | PREMIERENE 820 CE (2026-12-29) | UP | VALUE_REACHED
+Reference ₹27.65; fixed target ₹30.71
+Rule values: OI 672 lots | last trade 27.5s ago | vol/OI 1.14 | depth 1 lots | gamma 0.00530; touch ₹30.71 at 14:25:00 IST (completed 1m candle high/low; time is candle end); touching-candle close ₹30.20
+SILENT | T✓ D✗ O✓ A✗ V✓ G✗ E✓ I✓ P✗ | 5/9 rules passed | BAJAJ-AUTO 10800 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹340.30; fixed target ₹368.30
+Rule values: OI 1252 lots | last trade 33.6s ago | vol/OI 2.08 | depth 1 lots | gamma 0.00050; last observed ₹348.60 at 15:40:00; gap +5.3%
+SILENT | T✓ D✗ O✓ A✓ V✗ G✗ E✓ I✓ P✗ | 5/9 rules passed | DMART 3600 CE (2026-12-29) | UP | VALUE_REACHED
+Reference ₹100.65; fixed target ₹108.54
+Rule values: OI 1274 lots | last trade 7.7s ago | vol/OI 7.00 | depth 1 lots | gamma 0.00140; touch ₹108.60 at 15:37:54 IST (fresh polled LTP)
+SILENT | T✓ D✗ O✗ A✗ V✓ G✓ E✓ I✓ P✗ | 5/9 rules passed | GAIL 187.5 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹5.30; fixed target ₹5.66
+Rule values: OI 110 lots | last trade 27.7s ago | vol/OI 2.90 | depth 1 lots | gamma 0.03090; last observed ₹5.17 at 15:40:00; gap +8.7%
+SILENT | T✓ D✗ O✓ A✓ V✗ G✗ E✓ I✓ P✗ | 5/9 rules passed | GODREJCP 960 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS
+Reference ₹29.25; fixed target ₹31.50
+Rule values: OI 1106 lots | last trade 9.2s ago | vol/OI 3.85 | depth 1 lots | gamma 0.00560; last observed ₹29.85 at 15:40:00; gap +5.2%
+
+WHY CONTRACTS WERE SKIPPED (checks, not unique contracts)
+atm_shift_during_request: 34
+chains_received: 4513
+existing_open_stock_watch: 34
+gap_below_threshold: 1861
+insufficient_peer_iv: 1918
+liquidity: 157
+new_alerts: 2
+new_silent_records: 17
+no_liquid_contracts: 82
+non_atm_excluded: 19941
+sell_direction_excluded: 2337
+stale_option_or_missing_quote: 17358
+stale_underlying: 32
