@@ -257,6 +257,64 @@ class StockTests(unittest.TestCase):
             c=contract();band=[contract(90),c,contract(110)];wide(c)
             with patch.object(b,'bs',return_value=100),patch.object(b,'MAIN_RULES','TOAVEIP'):v=b.candidate(c,band,100,T)[0]
             self.assertEqual(v['channel'],'SILENT');self.assertEqual(v['rules_failed'],'P')
+    def scan_api(self,ltp=10,stale_underlying=False):
+        class API:
+            def chain(s,u,meta):return [{**contract(k,'CE'),'spot':100,'market':{**contract(k,'CE')['market'],'ltp':ltp}} for k in [90,95,100,105,110]]
+            def quotes(s,keys):
+                old=str(int((T-timedelta(minutes=30)).timestamp()*1000))
+                out={}
+                for k in keys:
+                    if k=='EQ|1':out[k]={'instrument_token':k,'last_price':100,'last_trade_time':old if stale_underlying else str(int(T.timestamp()*1000))}
+                    else:out[k]={'instrument_token':k,'last_price':ltp,'oi':300000,'volume':10000,'timestamp':T.isoformat(),
+                        'last_trade_time':str(int(T.timestamp()*1000)),'depth':{'buy':[{'price':ltp-.1,'quantity':300}],'sell':[{'price':ltp+.1,'quantity':300}]}}
+                return out
+        return API()
+    def run_scan(self,api,bs_value=12):
+        self.s.api=api;self.s.universe=[{'underlying':'EQ|1','symbol':'SAMPLE','expiry':'2026-12-29'}]
+        self.day['cursor']=0
+        with patch.object(b,'now',return_value=T),patch.object(b,'bs',return_value=bs_value):self.s.scan_one(self.day,T)
+    def obs_rows(self):
+        path=self.s.directory/'observations'/f'{self.day["date"]}.jsonl'
+        return [json.loads(x) for x in path.read_text(encoding='utf-8').splitlines()] if path.exists() else []
+    def test_observation_log_keeps_rejected_contracts_with_bid_ask_and_greeks(self):
+        self.run_scan(self.scan_api(),bs_value=10.5)   # model value only ~5% above price: rejected by the gap gate
+        rows=self.obs_rows();self.assertEqual(len(rows),1)       # ATM contract only; peers are not logged by default
+        r=rows[0];self.assertEqual(r['reason'],'gap_below_threshold');self.assertEqual(r['k'],100)
+        self.assertEqual((r['bid'],r['ask'],r['bid_lots'],r['ask_lots']),(9.9,10.1,3,3))
+        self.assertEqual(r['greeks']['delta'],.5);self.assertEqual(r['greeks']['iv'],25);self.assertEqual(r['oi_lots'],3000)
+        self.assertAlmostEqual(r['fair'],10.5);self.assertAlmostEqual(r['gap_pct'],4.762,places=2);self.assertEqual(r['src'],'quote')
+        self.assertEqual(self.s.state['watches'],[]);self.assertEqual(self.s.state['outbox'],[])    # nothing alerted
+    def test_observation_log_marks_selected_candidate(self):
+        self.run_scan(self.scan_api())
+        r=self.obs_rows()[0];self.assertEqual(r['reason'],'CANDIDATE');self.assertEqual(r['action'],'SELECTED')
+        self.assertEqual(r['chan'],'MAIN');self.assertEqual(len(self.s.state['watches']),1)
+    def test_observation_log_early_exit_uses_chain_data(self):
+        self.run_scan(self.scan_api(stale_underlying=True))
+        r=self.obs_rows()[0];self.assertEqual(r['reason'],'stale_underlying');self.assertEqual(r['src'],'chain')
+        self.assertEqual(r['bid'],9.9);self.assertEqual(r['greeks']['gamma'],.01)
+    def test_observation_band_and_switch(self):
+        with patch.object(b,'OBSERVE_BAND',True):self.run_scan(self.scan_api(),bs_value=10.5)
+        rows=self.obs_rows();self.assertEqual(len(rows),5);self.assertEqual(sum(r['reason']=='non_atm' for r in rows),4)
+        path=self.s.directory/'observations'/f'{self.day["date"]}.jsonl';path.unlink()
+        with patch.object(b,'OBSERVE_ALL',False):self.run_scan(self.scan_api(),bs_value=10.5)
+        self.assertFalse(path.exists())
+    def test_observation_write_error_never_raises(self):
+        self.s.observe(self.day,[{'t':'x','greeks':{'iv':float('nan')}},{'t':'y','greeks':{'iv':1}}])
+        self.assertEqual(self.day['counts']['observation_write_error'],1);self.assertEqual(len(self.obs_rows()),1)
+    def test_report_summarises_and_compresses_observations(self):
+        def row(minute,ltp,reason,gap=20,fair=12):
+            return {'t':f'2026-11-19T10:{minute:02d}:00+05:30','sym':'AAA','exp':'2026-12-29','k':100,'side':'CE','ltp':ltp,'reason':reason,'gap_pct':gap,'fair':fair}
+        other={**row(0,10,'liquidity'),'sym':'BBB'}
+        self.s.observe(self.day,[row(0,10,'spread'),row(10,12.5,'spread'),other,{**row(0,10,'CANDIDATE'),'sym':'CCC','chan':'SILENT','action':'SELECTED'}])
+        self.s.report(self.day,T)
+        report=(self.s.directory/'reports/2026-11-19.txt').read_text(encoding='utf-8')
+        self.assertIn('OBSERVATION LOG | 4 snapshots of 3 ATM contracts in 3 stocks',report)
+        self.assertIn('spread: 1 contracts, 1 later traded at/above the model value (100%)',report)
+        self.assertIn('liquidity: 1 contracts, 0 later traded at/above the model value (0%)',report)
+        self.assertIn('silent record: 1 contracts, 0 later',report)
+        folder=self.s.directory/'observations'
+        self.assertFalse((folder/'2026-11-19.jsonl').exists())
+        import gzip as gz;self.assertEqual(len(gz.open(folder/'2026-11-19.jsonl.gz','rt',encoding='utf-8').read().splitlines()),4)
     def test_rule_boundaries_pass(self):
         c=contract();band=[contract(90),c,contract(110)]
         c['market'].update(oi=500*100,volume=3*500*100)
