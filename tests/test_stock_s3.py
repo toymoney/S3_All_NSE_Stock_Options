@@ -25,6 +25,8 @@ class StockTests(unittest.TestCase):
         self.tmp=tempfile.TemporaryDirectory();self.api=FakeAPI();self.api.bars=[]
         also=patch.object(b,'MAIN_ALSO_IF','');also.start();self.addCleanup(also.stop)  # P route has its own tests
         gap=patch.object(b,'GAP',0.15);gap.start();self.addCleanup(gap.stop)            # most tests use the original 15% edge
+        for name,val in (('MAIN_RULES','TOAVEI'),('RULE_S_MAX_GAP',0.30)):               # S/main defaults have their own tests
+            pp=patch.object(b,name,val);pp.start();self.addCleanup(pp.stop)
         self.s=b.Scanner(self.api,self.tmp.name)
         self.day={'date':'2026-11-19','cursor':0,'sweeps':0,'symbols':{},'counts':{},'universe_count':2}
         self.s.state['days'][self.day['date']]=self.day
@@ -58,8 +60,8 @@ class StockTests(unittest.TestCase):
         c=contract();band=[contract(90),c,contract(110)]
         with patch.object(b,'bs',return_value=12):v,reason=b.candidate(c,band,100,T)
         self.assertIsNone(reason);self.assertEqual(v['direction'],'UP');self.assertEqual(v['target'],12)
-        self.assertEqual(v['channel'],'MAIN');self.assertEqual(v['rules_passed'],'TDOAVGEIP');self.assertEqual(v['rules_failed'],'')
-        self.assertIn('MAIN | T✓ D✓ O✓ A✓ V✓ G✓ E✓ I✓ P✓ | 9/9',v['header'])
+        self.assertEqual(v['channel'],'MAIN');self.assertEqual(v['rules_passed'],'TDOAVGEIPS');self.assertEqual(v['rules_failed'],'')
+        self.assertIn('MAIN | T✓ D✓ O✓ A✓ V✓ G✓ E✓ I✓ P✓ S✓ | 10/10',v['header'])
     def test_candidate_above(self):
         c=contract();band=[contract(90),c,contract(110)]
         with patch.object(b,'bs',return_value=8):v,reason=b.candidate(c,band,100,T)
@@ -147,7 +149,7 @@ class StockTests(unittest.TestCase):
         def values(c,peers,spot,t):
             self.assertEqual(len(peers),10)
             return {'direction':'UP','entry':10,'target':13,'executable_gap_pct':20 if c['side']=='CE' else 25,
-                    'channel':'MAIN','rules_passed':'TDOAVGEIP'},None
+                    'channel':'MAIN','rules_passed':'TDOAVGEIPS'},None
         with patch.object(b,'candidate',side_effect=values) as mock:
             choice=self.s.choose_buy_atm(chain,chain,101,T,self.day)
         self.assertEqual(mock.call_count,2)
@@ -330,6 +332,26 @@ class StockTests(unittest.TestCase):
             c=contract();band=[contract(90),c,contract(110)];c['market'].update(ltp=92,bid_price=91.9,ask_price=92,oi=100*100)
             with patch.object(b,'GAP',0.05),patch.object(b,'bs',return_value=100):v,_=b.candidate(c,band,100,T)
             self.assertEqual(v['channel'],'SILENT')
+    def test_rule_s_gap_band_and_alert_time(self):
+        def run(gap,when=T):
+            c=contract();band=[contract(90),c,contract(110)];premium=100*(1-gap)
+            c['market'].update(ltp=premium,bid_price=premium-.1,ask_price=premium)
+            with patch.object(b,'GAP',0.05),patch.object(b,'RULE_S_MAX_GAP',0.08),patch.object(b,'bs',return_value=100):return b.candidate(c,band,100,when)
+        self.assertEqual(run(0.0499)[1],'gap_below_threshold')
+        for gap,ok in [(0.05,True),(0.0799,True),(0.08,True),(0.0801,False),(0.12,False),(0.20,False)]:
+            self.assertEqual(run(gap)[0]['rules']['S'],ok,gap)
+        self.assertTrue(run(0.06,T.replace(hour=14,minute=59))[0]['rules']['S'])
+        self.assertFalse(run(0.06,T.replace(hour=15,minute=0))[0]['rules']['S'])
+        with patch.object(b,'MAIN_RULES','S'):
+            v=run(0.06)[0];self.assertEqual(v['channel'],'MAIN');self.assertTrue(v['header'].startswith('MAIN |'))
+            self.assertEqual(run(0.10)[0]['channel'],'SILENT')                                        # still recorded, not sent
+            self.assertEqual(run(0.06,T.replace(hour=15,minute=5))[0]['channel'],'SILENT')
+    def test_shipped_defaults_make_s_the_main_rule(self):
+        import os,subprocess,sys
+        env={k:v for k,v in os.environ.items() if k not in ('MAIN_RULES','MAIN_ALSO_IF','MIN_VALUE_GAP','RULE_S_MIN_GAP','RULE_S_MAX_GAP','RULE_S_CUTOFF','RULE_P_MIN_GAP')}
+        out=subprocess.run([sys.executable,'-c','import stock_s3_bot as b;print(b.MAIN_RULES,b.MAIN_ALSO_IF,b.GAP,b.RULE_S_MIN_GAP,b.RULE_S_MAX_GAP,b.RULE_S_CUTOFF_MIN,b.RULE_ORDER)'],
+                           capture_output=True,text=True,env=env,cwd=os.path.dirname(os.path.abspath(b.__file__)))
+        self.assertEqual(out.stdout.split(),['S','P','0.05','0.05','0.08','900','TDOAVGEIPS'],out.stderr)
     def test_rule_boundaries_pass(self):
         c=contract();band=[contract(90),c,contract(110)]
         c['market'].update(oi=500*100,volume=3*500*100)
@@ -357,7 +379,7 @@ class StockTests(unittest.TestCase):
         with patch.object(b,'bs',return_value=12):v,_=b.candidate(c,band,100,T)
         v={**v,'policy':b.FILTER_POLICY};w=self.s.add_watch(c,v,T,self.day)
         text=self.s.state['outbox'][0]['text']
-        self.assertIn('MAIN | T✓ D✓ O✓ A✓ V✓ G✓ E✓ I✓ P✓ | 9/9',text);self.assertIn('Rule values: OI 3000 lots',text)
+        self.assertIn('MAIN | T✓ D✓ O✓ A✓ V✓ G✓ E✓ I✓ P✓ S✓ | 10/10',text);self.assertIn('Rule values: OI 3000 lots',text)
         self.s.finish(w,T,12,'fixture');self.assertIn('MAIN | T✓',self.s.state['outbox'][1]['text'])
     def test_silent_and_main_do_not_block_each_other(self):
         w=self.watch();w['policy']=b.FILTER_POLICY;w['channel']='SILENT'
@@ -397,7 +419,7 @@ class StockTests(unittest.TestCase):
         report=(self.s.directory/'reports/2026-11-19.txt').read_text(encoding='utf-8')
         self.assertIn('O pass 2/2 (100.0%)',report);self.assertIn('| fail 1/2 (50.0%)',report)
         self.assertIn('misses end -50% vs entry',report);self.assertIn('MAIN channel (TOAVEI): 2/2 (100.0%)',report);self.assertIn('Gap 15-30%: all records 3/4 (75.0%)',report)
-        self.assertIn('All main rules except O passed: 3/4 (75.0%)',report);self.assertIn('8/9 rules passed: 1/2 (50.0%)',report)
+        self.assertIn('All main rules except O passed: 3/4 (75.0%)',report);self.assertIn('9/10 rules passed: 1/2 (50.0%)',report)
         self.assertIn('SILENT RECORDS (header shows each rule',report)
     def test_previous_policy_open_watch_still_blocks(self):
         w=self.watch();w['policy']='BUY_ATM_V1'
