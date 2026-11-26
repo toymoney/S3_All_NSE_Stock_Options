@@ -4501,6 +4501,28 @@
         "max_trade_age_s": 40.0,
         "min_depth_lots": 1.0
       }
+    },
+    "2026-11-27": {
+      "date": "2026-11-27",
+      "cursor": 0,
+      "sweeps": 0,
+      "symbols": {},
+      "counts": {},
+      "last_error": null,
+      "universe_count": 218,
+      "filter_policy": "BUY_ATM_QUALITY_V5",
+      "filter_settings": {
+        "gap_min_pct": 5.0,
+        "gap_max_exclusive_pct": 7.0,
+        "min_ask_upside_pct": 5.0,
+        "min_abs_delta": 0.5,
+        "max_iv_pct": 28.0,
+        "min_oi_lots": 500.0,
+        "min_volume_lots": 100.0,
+        "max_spread_pct": 1.0,
+        "max_trade_age_s": 40.0,
+        "min_depth_lots": 1.0
+      }
     }
   },
   "watches": [
@@ -30282,6 +30304,11 @@
     {
       "id": "test-2026-11-26T22:09:18.827315+05:30:0",
       "text": "S3 stock scanner connection OK. Discovered 218 stock-option underlyings.\nSample API check 360ONE: 38 contracts in full chain; 10 IV-support contracts at ATM \u00b12.\nNew alerts: BUY-ONLY ATM CE or PE.\nQ filter: 5<=gap<7%; ask upside>=5%; |delta|>=0.50; IV<=28%; OI>=500 lots; volume>=100 lots; spread<=1%; trade age 0..40s; depth>=1 lot each\nThis verifies connectivity, not signal quality.\n",
+      "sent": true
+    },
+    {
+      "id": "online-BUY_ATM_QUALITY_V5-2026-11-27:0",
+      "text": "S3 STOCK OPTIONS ONLINE | 2026-11-27 | QUALITY V5\nBUY-ONLY ATM: CE or PE, only when its premium must RISE to the target.\nUniverse: 218 NSE F&O stocks; expiry more than 5 calendar days away (automatic rollover). ATM \u00b12 supplies IV peers; only ATM can alert.\nQ alert filter: 5<=gap<7%; ask upside>=5%; |delta|>=0.50; IV<=28%; OI>=500 lots; volume>=100 lots; spread<=1%; trade age 0..40s; depth>=1 lot each\nBroader research candidate gap: 5% to below 30%. Candidates failing Q are recorded silently.\nRules: T=tier OI (gap below 17%: any; 17-<30%: >= 2000 lots) | D=depth >= 3 lots on best bid AND ask | O=OI >= 500 lots | A=last trade <= 10 s old | V=volume/OI <= 3 | G=gamma >= 0.006 | E=|delta| >= 0.35 | I=IV <= 28% | P=gap 15% to below 17% AND depth >= 3 lots on best bid and ask | S=gap 5% to 8% AND alert before 15:00 IST | Q=5<=gap<7%; ask upside>=5%; |delta|>=0.50; IV<=28%; OI>=500 lots; volume>=100 lots; spread<=1%; trade age 0..40s; depth>=1 lot each\nAlerts 09:20-15:20 IST, Mon-Fri. Every ATM contract and available peer band scanned is logged for later filter checks. One active MAIN and one active SILENT record per stock. Daily report around 16:15 IST.\n",
       "sent": true
     }
   ]
