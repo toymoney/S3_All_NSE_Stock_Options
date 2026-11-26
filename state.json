@@ -4487,7 +4487,20 @@
       "observed_rows": 9768,
       "last_sweep_finished": "2026-11-26T15:14:10.497865+05:30",
       "last_sweep_seconds": 866,
-      "reported": true
+      "reported": true,
+      "filter_policy": "BUY_ATM_QUALITY_V5",
+      "filter_settings": {
+        "gap_min_pct": 5.0,
+        "gap_max_exclusive_pct": 7.0,
+        "min_ask_upside_pct": 5.0,
+        "min_abs_delta": 0.5,
+        "max_iv_pct": 28.0,
+        "min_oi_lots": 500.0,
+        "min_volume_lots": 100.0,
+        "max_spread_pct": 1.0,
+        "max_trade_age_s": 40.0,
+        "min_depth_lots": 1.0
+      }
     }
   },
   "watches": [
@@ -30264,6 +30277,11 @@
     {
       "id": "report-2026-11-26:5",
       "text": "SILENT | T\u2713 D\u2717 O\u2713 A\u2717 V\u2713 G\u2717 E\u2713 I\u2717 P\u2717 S\u2717 | 4/10 rules passed | AMBER 7000 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS\nReference \u20b9275.00; fixed target \u20b9301.99\nRule values: OI 735 lots | last trade 43.1s ago | vol/OI 0.77 | depth 1 lots | gamma 0.00050; last observed \u20b9211.00 at 15:40:00; gap +30.1%\nSILENT | T\u2713 D\u2717 O\u2717 A\u2717 V\u2713 G\u2713 E\u2713 I\u2713 P\u2717 S\u2717 | 5/10 rules passed | DABUR 425 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS\nReference \u20b912.35; fixed target \u20b913.93\nRule values: OI 357 lots | last trade 28.1s ago | vol/OI 2.54 | depth 2 lots | gamma 0.01140; last observed \u20b910.15 at 15:40:00; gap +27.1%\nSILENT | T\u2713 D\u2717 O\u2717 A\u2717 V\u2713 G\u2713 E\u2713 I\u2713 P\u2717 S\u2717 | 5/10 rules passed | OIL 430 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS\nReference \u20b914.35; fixed target \u20b915.61\nRule values: OI 180 lots | last trade 37.0s ago | vol/OI 1.17 | depth 1 lots | gamma 0.01150; last observed \u20b912.70 at 15:40:00; gap +18.7%\nSILENT | T\u2713 D\u2717 O\u2717 A\u2713 V\u2713 G\u2717 E\u2713 I\u2717 P\u2717 S\u2717 | 4/10 rules passed | 360ONE 1200 CE (2026-12-29) | UP | VALUE_REACHED\nReference \u20b940.25; fixed target \u20b944.74\nRule values: OI 430 lots | last trade 5.7s ago | vol/OI 1.14 | depth 1 lots | gamma 0.00370; touch \u20b944.75 at 12:40:09 IST (fresh polled LTP)\nSILENT | T\u2713 D\u2717 O\u2717 A\u2713 V\u2717 G\u2717 E\u2713 I\u2713 P\u2717 S\u2717 | 4/10 rules passed | GODREJCP 940 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS\nReference \u20b929.00; fixed target \u20b931.50\nRule values: OI 295 lots | last trade 6.5s ago | vol/OI 3.15 | depth 1 lots | gamma 0.00570; last observed \u20b928.70 at 15:40:00; gap +8.9%\nSILENT | T\u2713 D\u2713 O\u2717 A\u2713 V\u2713 G\u2713 E\u2713 I\u2713 P\u2717 S\u2717 | 7/10 rules passed | POWERGRID 267.5 CE (2026-12-29) | UP | NO_TOUCH_IN_MONITORED_BARS\nReference \u20b97.75; fixed target \u20b98.21\nRule values: OI 465 lots | last trade 0.3s ago | vol/OI 1.12 | depth 8 lots | gamma 0.02150; last observed \u20b97.90 at 15:40:00; gap +3.8%\nSILENT | T\u2713 D\u2717 O\u2717 A\u2717 V\u2713 G\u2713 E\u2713 I\u2717 P\u2717 S\u2717 | 4/10 rules passed | CONCOR 420 PE (2026-12-29) | UP | VALUE_REACHED\nReference \u20b911.90; fixed target \u20b912.93\nRule values: OI 278 lots | last trade 28.3s ago | vol/OI 0.64 | depth 1 lots | gamma 0.01060; touch \u20b913.25 at 15:25:31 IST (fresh polled LTP)\n\nWHY CONTRACTS WERE SKIPPED (checks, not unique contracts)\natm_shift_during_request: 30\nchains_received: 4884\nexisting_open_stock_watch: 45\ngap_below_threshold: 1857\ninsufficient_peer_iv: 2329\nliquidity: 162\nnew_alerts: 23\nnew_silent_records: 17\nno_liquid_contracts: 39\nnon_atm_excluded: 20381\nsell_direction_excluded: 2307\nstale_option_or_missing_quote: 20599\nstale_underlying: 36\n",
+      "sent": true
+    },
+    {
+      "id": "test-2026-11-26T22:09:18.827315+05:30:0",
+      "text": "S3 stock scanner connection OK. Discovered 218 stock-option underlyings.\nSample API check 360ONE: 38 contracts in full chain; 10 IV-support contracts at ATM \u00b12.\nNew alerts: BUY-ONLY ATM CE or PE.\nQ filter: 5<=gap<7%; ask upside>=5%; |delta|>=0.50; IV<=28%; OI>=500 lots; volume>=100 lots; spread<=1%; trade age 0..40s; depth>=1 lot each\nThis verifies connectivity, not signal quality.\n",
       "sent": true
     }
   ]
