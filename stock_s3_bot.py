@@ -1173,7 +1173,7 @@ class Scanner:
         self.metadata = {}
         self.master_day = None
         self.last_sync = 0.0
-        self.last_quotes = 0.0
+        self.last_quotes = float("-inf")
 
     def save(self):
         temporary = self.path.with_suffix(".tmp")
