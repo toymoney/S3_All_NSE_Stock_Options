@@ -4504,7 +4504,7 @@
     },
     "2026-11-27": {
       "date": "2026-11-27",
-      "cursor": 119,
+      "cursor": 186,
       "sweeps": 17,
       "symbols": {
         "360ONE": {
@@ -4984,271 +4984,271 @@
           "status": "chain_received"
         },
         "LICI": {
-          "checked_at": "2026-11-27T13:31:59.032463+05:30",
+          "checked_at": "2026-11-27T13:48:17.476386+05:30",
           "status": "chain_received"
         },
         "LODHA": {
-          "checked_at": "2026-11-27T13:32:02.628308+05:30",
+          "checked_at": "2026-11-27T13:48:23.465315+05:30",
           "status": "chain_received"
         },
         "LT": {
-          "checked_at": "2026-11-27T13:32:06.290167+05:30",
+          "checked_at": "2026-11-27T13:48:28.234829+05:30",
           "status": "chain_received"
         },
         "LTF": {
-          "checked_at": "2026-11-27T13:32:09.841520+05:30",
+          "checked_at": "2026-11-27T13:48:33.035883+05:30",
           "status": "chain_received"
         },
         "LTM": {
-          "checked_at": "2026-11-27T13:32:13.376665+05:30",
+          "checked_at": "2026-11-27T13:48:37.819050+05:30",
           "status": "chain_received"
         },
         "LUPIN": {
-          "checked_at": "2026-11-27T13:32:16.963717+05:30",
+          "checked_at": "2026-11-27T13:48:42.614931+05:30",
           "status": "chain_received"
         },
         "M&M": {
-          "checked_at": "2026-11-27T13:32:20.593868+05:30",
+          "checked_at": "2026-11-27T13:48:47.411695+05:30",
           "status": "chain_received"
         },
         "MAHABANK": {
-          "checked_at": "2026-11-27T13:32:24.201489+05:30",
+          "checked_at": "2026-11-27T13:48:52.195770+05:30",
           "status": "chain_received"
         },
         "MANAPPURAM": {
-          "checked_at": "2026-11-27T13:32:27.724004+05:30",
+          "checked_at": "2026-11-27T13:48:56.998023+05:30",
           "status": "chain_received"
         },
         "MANKIND": {
-          "checked_at": "2026-11-27T13:32:30.138897+05:30",
+          "checked_at": "2026-11-27T13:49:00.609627+05:30",
           "status": "chain_received"
         },
         "MARICO": {
-          "checked_at": "2026-11-27T13:32:33.742441+05:30",
+          "checked_at": "2026-11-27T13:49:05.402975+05:30",
           "status": "chain_received"
         },
         "MARUTI": {
-          "checked_at": "2026-11-27T13:32:38.544551+05:30",
+          "checked_at": "2026-11-27T13:49:10.192031+05:30",
           "status": "chain_received"
         },
         "MAXHEALTH": {
-          "checked_at": "2026-11-27T13:32:42.126355+05:30",
+          "checked_at": "2026-11-27T13:49:15.373702+05:30",
           "status": "chain_received"
         },
         "MAZDOCK": {
-          "checked_at": "2026-11-27T13:32:52.483993+05:30",
+          "checked_at": "2026-11-27T13:49:19.774654+05:30",
           "status": "chain_received"
         },
         "MCX": {
-          "checked_at": "2026-11-27T13:32:57.226070+05:30",
+          "checked_at": "2026-11-27T13:49:25.770705+05:30",
           "status": "chain_received"
         },
         "MFSL": {
-          "checked_at": "2026-11-27T13:33:02.604434+05:30",
+          "checked_at": "2026-11-27T13:49:30.587523+05:30",
           "status": "chain_received"
         },
         "MOTHERSON": {
-          "checked_at": "2026-11-27T13:33:07.406215+05:30",
+          "checked_at": "2026-11-27T13:49:35.386931+05:30",
           "status": "chain_received"
         },
         "MOTILALOFS": {
-          "checked_at": "2026-11-27T13:33:12.202775+05:30",
+          "checked_at": "2026-11-27T13:49:40.199401+05:30",
           "status": "chain_received"
         },
         "MPHASIS": {
-          "checked_at": "2026-11-27T13:33:16.989396+05:30",
+          "checked_at": "2026-11-27T13:49:44.971234+05:30",
           "status": "chain_received"
         },
         "MUTHOOTFIN": {
-          "checked_at": "2026-11-27T13:33:21.794672+05:30",
+          "checked_at": "2026-11-27T13:49:49.774964+05:30",
           "status": "chain_received"
         },
         "NAM-INDIA": {
-          "checked_at": "2026-11-27T13:33:26.575694+05:30",
+          "checked_at": "2026-11-27T13:49:54.558498+05:30",
           "status": "chain_received"
         },
         "NATIONALUM": {
-          "checked_at": "2026-11-27T13:33:31.368912+05:30",
+          "checked_at": "2026-11-27T13:49:59.363167+05:30",
           "status": "chain_received"
         },
         "NAUKRI": {
-          "checked_at": "2026-11-27T13:33:36.099938+05:30",
+          "checked_at": "2026-11-27T13:50:04.168786+05:30",
           "status": "chain_received"
         },
         "NAVINFLUOR": {
-          "checked_at": "2026-11-27T13:33:42.147685+05:30",
+          "checked_at": "2026-11-27T13:50:09.115676+05:30",
           "status": "chain_received"
         },
         "NBCC": {
-          "checked_at": "2026-11-27T13:33:46.939131+05:30",
+          "checked_at": "2026-11-27T13:50:13.783708+05:30",
           "status": "chain_received"
         },
         "NESTLEIND": {
-          "checked_at": "2026-11-27T13:33:51.716413+05:30",
+          "checked_at": "2026-11-27T13:50:18.636516+05:30",
           "status": "chain_received"
         },
         "NHPC": {
-          "checked_at": "2026-11-27T13:33:56.541770+05:30",
+          "checked_at": "2026-11-27T13:50:23.423185+05:30",
           "status": "chain_received"
         },
         "NMDC": {
-          "checked_at": "2026-11-27T13:34:01.339002+05:30",
+          "checked_at": "2026-11-27T13:50:29.422704+05:30",
           "status": "chain_received"
         },
         "NTPC": {
-          "checked_at": "2026-11-27T13:34:06.130116+05:30",
+          "checked_at": "2026-11-27T13:50:37.999840+05:30",
           "status": "chain_received"
         },
         "NYKAA": {
-          "checked_at": "2026-11-27T13:34:10.800916+05:30",
+          "checked_at": "2026-11-27T13:50:42.790970+05:30",
           "status": "chain_received"
         },
         "OBEROIRLTY": {
-          "checked_at": "2026-11-27T13:34:15.655389+05:30",
+          "checked_at": "2026-11-27T13:50:47.588309+05:30",
           "status": "chain_received"
         },
         "OFSS": {
-          "checked_at": "2026-11-27T13:34:20.376615+05:30",
+          "checked_at": "2026-11-27T13:50:52.390859+05:30",
           "status": "chain_received"
         },
         "OIL": {
-          "checked_at": "2026-11-27T13:34:25.171134+05:30",
+          "checked_at": "2026-11-27T13:50:57.126241+05:30",
           "status": "chain_received"
         },
         "ONGC": {
-          "checked_at": "2026-11-27T13:34:29.912727+05:30",
+          "checked_at": "2026-11-27T13:51:01.999168+05:30",
           "status": "chain_received"
         },
         "PAGEIND": {
-          "checked_at": "2026-11-27T13:34:34.702045+05:30",
+          "checked_at": "2026-11-27T13:51:06.793912+05:30",
           "status": "chain_received"
         },
         "PATANJALI": {
-          "checked_at": "2026-11-27T13:34:39.433733+05:30",
+          "checked_at": "2026-11-27T13:51:11.586534+05:30",
           "status": "chain_received"
         },
         "PAYTM": {
-          "checked_at": "2026-11-27T13:34:45.480384+05:30",
+          "checked_at": "2026-11-27T13:51:16.396632+05:30",
           "status": "chain_received"
         },
         "PERSISTENT": {
-          "checked_at": "2026-11-27T13:34:50.216258+05:30",
+          "checked_at": "2026-11-27T13:51:21.179759+05:30",
           "status": "chain_received"
         },
         "PETRONET": {
-          "checked_at": "2026-11-27T13:34:54.949820+05:30",
+          "checked_at": "2026-11-27T13:51:25.970525+05:30",
           "status": "chain_received"
         },
         "PFC": {
-          "checked_at": "2026-11-27T13:34:59.746108+05:30",
+          "checked_at": "2026-11-27T13:51:31.976256+05:30",
           "status": "chain_received"
         },
         "PGEL": {
-          "checked_at": "2026-11-27T13:35:04.525879+05:30",
+          "checked_at": "2026-11-27T13:51:36.770142+05:30",
           "status": "chain_received"
         },
         "PHOENIXLTD": {
-          "checked_at": "2026-11-27T13:35:09.315447+05:30",
+          "checked_at": "2026-11-27T13:51:41.501625+05:30",
           "status": "chain_received"
         },
         "PIDILITIND": {
-          "checked_at": "2026-11-27T13:35:14.114053+05:30",
+          "checked_at": "2026-11-27T13:51:45.095784+05:30",
           "status": "chain_received"
         },
         "PIIND": {
-          "checked_at": "2026-11-27T13:35:18.901402+05:30",
+          "checked_at": "2026-11-27T13:51:48.679132+05:30",
           "status": "chain_received"
         },
         "PNB": {
-          "checked_at": "2026-11-27T13:35:23.809146+05:30",
+          "checked_at": "2026-11-27T13:51:52.300622+05:30",
           "status": "chain_received"
         },
         "PNBHOUSING": {
-          "checked_at": "2026-11-27T13:35:28.508215+05:30",
+          "checked_at": "2026-11-27T13:51:55.891359+05:30",
           "status": "chain_received"
         },
         "POLICYBZR": {
-          "checked_at": "2026-11-27T13:35:33.699112+05:30",
+          "checked_at": "2026-11-27T13:51:59.476453+05:30",
           "status": "chain_received"
         },
         "POLYCAB": {
-          "checked_at": "2026-11-27T13:35:38.371293+05:30",
+          "checked_at": "2026-11-27T13:52:03.074689+05:30",
           "status": "chain_received"
         },
         "POWERGRID": {
-          "checked_at": "2026-11-27T13:35:43.196517+05:30",
+          "checked_at": "2026-11-27T13:52:06.621915+05:30",
           "status": "chain_received"
         },
         "POWERINDIA": {
-          "checked_at": "2026-11-27T13:35:49.123696+05:30",
+          "checked_at": "2026-11-27T13:52:10.274552+05:30",
           "status": "chain_received"
         },
         "PREMIERENE": {
-          "checked_at": "2026-11-27T13:35:53.893867+05:30",
+          "checked_at": "2026-11-27T13:52:13.862052+05:30",
           "status": "chain_received"
         },
         "PRESTIGE": {
-          "checked_at": "2026-11-27T13:35:58.615994+05:30",
+          "checked_at": "2026-11-27T13:52:17.464621+05:30",
           "status": "chain_received"
         },
         "RADICO": {
-          "checked_at": "2026-11-27T13:36:03.479870+05:30",
+          "checked_at": "2026-11-27T13:52:21.067105+05:30",
           "status": "chain_received"
         },
         "RBLBANK": {
-          "checked_at": "2026-11-27T13:36:07.014194+05:30",
+          "checked_at": "2026-11-27T13:52:24.656451+05:30",
           "status": "chain_received"
         },
         "RECLTD": {
-          "checked_at": "2026-11-27T13:36:11.810017+05:30",
+          "checked_at": "2026-11-27T13:52:29.447054+05:30",
           "status": "chain_received"
         },
         "RELIANCE": {
-          "checked_at": "2026-11-27T13:36:15.414834+05:30",
+          "checked_at": "2026-11-27T13:52:34.282455+05:30",
           "status": "chain_received"
         },
         "RVNL": {
-          "checked_at": "2026-11-27T13:36:19.015644+05:30",
+          "checked_at": "2026-11-27T13:52:37.862537+05:30",
           "status": "chain_received"
         },
         "SAGILITY": {
-          "checked_at": "2026-11-27T13:36:22.622033+05:30",
+          "checked_at": "2026-11-27T13:52:41.446968+05:30",
           "status": "chain_received"
         },
         "SAIL": {
-          "checked_at": "2026-11-27T13:36:26.215613+05:30",
+          "checked_at": "2026-11-27T13:52:45.048660+05:30",
           "status": "chain_received"
         },
         "SBICARD": {
-          "checked_at": "2026-11-27T13:36:29.805016+05:30",
+          "checked_at": "2026-11-27T13:52:48.578218+05:30",
           "status": "chain_received"
         },
         "SBILIFE": {
-          "checked_at": "2026-11-27T13:36:33.407236+05:30",
+          "checked_at": "2026-11-27T13:52:53.341389+05:30",
           "status": "chain_received"
         },
         "SBIN": {
-          "checked_at": "2026-11-27T13:36:36.990095+05:30",
+          "checked_at": "2026-11-27T13:52:56.934223+05:30",
           "status": "chain_received"
         },
         "SHREECEM": {
-          "checked_at": "2026-11-27T13:36:40.578388+05:30",
+          "checked_at": "2026-11-27T13:53:00.531781+05:30",
           "status": "chain_received"
         },
         "SHRIRAMFIN": {
-          "checked_at": "2026-11-27T13:36:44.055288+05:30",
+          "checked_at": "2026-11-27T13:53:04.129841+05:30",
           "status": "chain_received"
         },
         "SIEMENS": {
-          "checked_at": "2026-11-27T13:36:48.923205+05:30",
+          "checked_at": "2026-11-27T13:53:07.719457+05:30",
           "status": "chain_received"
         },
         "SOLARINDS": {
-          "checked_at": "2026-11-27T13:36:52.471132+05:30",
+          "checked_at": "2026-11-27T13:53:11.316233+05:30",
           "status": "chain_received"
         },
         "SONACOMS": {
-          "checked_at": "2026-11-27T13:36:56.089912+05:30",
+          "checked_at": "2026-11-27T13:53:14.914943+05:30",
           "status": "chain_received"
         },
         "SRF": {
@@ -5381,18 +5381,18 @@
         }
       },
       "counts": {
-        "chains_received": 3825,
-        "stale_option_or_missing_quote": 15738,
-        "non_atm_excluded": 16568,
-        "new_silent_records": 38,
-        "gap_below_threshold": 1449,
-        "sell_direction_excluded": 1878,
-        "liquidity": 118,
-        "insufficient_peer_iv": 1800,
-        "no_liquid_contracts": 34,
+        "chains_received": 3892,
+        "stale_option_or_missing_quote": 16093,
+        "non_atm_excluded": 16793,
+        "new_silent_records": 39,
+        "gap_below_threshold": 1466,
+        "sell_direction_excluded": 1900,
+        "liquidity": 119,
+        "insufficient_peer_iv": 1835,
+        "no_liquid_contracts": 35,
         "atm_shift_during_request": 17,
         "new_alerts": 5,
-        "existing_open_stock_watch": 41
+        "existing_open_stock_watch": 42
       },
       "last_error": null,
       "universe_count": 218,
@@ -5410,8 +5410,8 @@
         "min_depth_lots": 1.0
       },
       "sweep_started": "2026-11-27T13:39:21.640462+05:30",
-      "recorded_events": 13037,
-      "observed_rows": 24218,
+      "recorded_events": 13366,
+      "observed_rows": 24577,
       "last_sweep_finished": "2026-11-27T13:39:21.640455+05:30",
       "last_sweep_seconds": 982
     }
@@ -27964,14 +27964,14 @@
       "last_price": 49.0,
       "last_observed_at": "2026-11-27T10:00:00+05:30",
       "checked_until": "2026-11-27T09:59:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:09.951764+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:18.261580+05:30",
       "hit_time": "2026-11-27T10:00:00+05:30",
       "hit_price": 48.7664,
       "hit_evidence": "completed 1m candle high/low; time is candle end",
       "hit_candle_close": 49.0,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
-      "sampled_ltp_max_return_pct": 12.82051282051282,
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
+      "sampled_ltp_max_return_pct": 19.843924191750272,
       "sampled_ltp_min_return_pct": -10.70234113712375,
       "fixed_5pct_ltp_touch": {
         "t": "2026-11-27T09:58:33.458852+05:30",
@@ -28078,16 +28078,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T09:20:27.449475+05:30",
       "status": "OPEN",
-      "last_price": 40.7,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:43:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:20.422202+05:30",
+      "last_price": 40.0,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:48:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:29.078835+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": -2.175805047867707,
       "sampled_ltp_min_return_pct": -31.15752828546563
     },
@@ -28194,15 +28194,15 @@
       "entered": "2026-11-27T09:20:42.765468+05:30",
       "status": "OPEN",
       "last_price": 233.5,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:43:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:44.416617+05:30",
+      "last_observed_at": "2026-11-27T13:49:23.379244+05:30",
+      "checked_until": "2026-11-27T13:48:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:53.037970+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": 6.619937694704059,
       "sampled_ltp_min_return_pct": -12.383177570093462,
       "fixed_5pct_ltp_touch": {
@@ -28313,13 +28313,13 @@
       "last_price": 88.25,
       "last_observed_at": "2026-11-27T09:34:38.419163+05:30",
       "checked_until": "2026-11-27T09:32:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:52.715395+05:30",
+      "last_candle_attempt": "2026-11-27T13:51:10.070618+05:30",
       "hit_time": "2026-11-27T09:34:38.419163+05:30",
       "hit_price": 88.25,
       "hit_evidence": "fresh polled LTP",
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:50:00+05:30",
       "sampled_ltp_max_return_pct": 28.46534653465347,
       "sampled_ltp_min_return_pct": -3.4653465346534573,
       "fixed_5pct_ltp_touch": {
@@ -28430,15 +28430,15 @@
       "entered": "2026-11-27T09:23:30.798756+05:30",
       "status": "OPEN",
       "last_price": 12.25,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:18.065426+05:30",
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:47:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:26.732996+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30",
       "sampled_ltp_max_return_pct": 2.9850746268656803,
       "sampled_ltp_min_return_pct": -9.701492537313438
     },
@@ -28545,15 +28545,15 @@
       "entered": "2026-11-27T09:26:55.693767+05:30",
       "status": "OPEN",
       "last_price": 135.35,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:44:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:13.534548+05:30",
+      "last_observed_at": "2026-11-27T13:50:00+05:30",
+      "checked_until": "2026-11-27T13:49:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:21.915027+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
       "sampled_ltp_max_return_pct": 5.949498443445167,
       "sampled_ltp_min_return_pct": -9.373919059149094,
       "fixed_5pct_ltp_touch": {
@@ -28663,13 +28663,13 @@
       "last_price": 12.9,
       "last_observed_at": "2026-11-27T09:45:00.486170+05:30",
       "checked_until": "2026-11-27T09:41:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:28.798728+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:46.067767+05:30",
       "hit_time": "2026-11-27T09:45:00.486170+05:30",
       "hit_price": 12.9,
       "hit_evidence": "fresh polled LTP",
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
       "sampled_ltp_max_return_pct": 11.688311688311682,
       "sampled_ltp_min_return_pct": -19.913419913419915,
       "fixed_5pct_ltp_touch": {
@@ -28781,13 +28781,13 @@
       "last_price": 15.3,
       "last_observed_at": "2026-11-27T09:43:59.132978+05:30",
       "checked_until": "2026-11-27T09:39:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:39.631124+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:48.251394+05:30",
       "hit_time": "2026-11-27T09:43:59.132978+05:30",
       "hit_price": 15.3,
       "hit_evidence": "fresh polled LTP",
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": 23.571428571428577,
       "sampled_ltp_min_return_pct": -27.142857142857146,
       "fixed_5pct_ltp_touch": {
@@ -28898,13 +28898,13 @@
       "last_price": 532.5,
       "last_observed_at": "2026-11-27T10:01:38.481798+05:30",
       "checked_until": "2026-11-27T09:58:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:24.004033+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:36.472516+05:30",
       "hit_time": "2026-11-27T09:59:00+05:30",
       "hit_price": 546.6948,
       "hit_evidence": "completed 1m candle high/low; time is candle end",
       "hit_candle_close": 541.25,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
       "sampled_ltp_max_return_pct": 38.060567690197324,
       "sampled_ltp_min_return_pct": -1.0024269283528509,
       "fixed_5pct_ltp_touch": {
@@ -29016,16 +29016,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T09:39:09.301330+05:30",
       "status": "OPEN",
-      "last_price": 63.25,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:55.195466+05:30",
+      "last_price": 63.85,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:48:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:03.879699+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": 1.7964071856287456,
       "sampled_ltp_min_return_pct": -20.65868263473054
     },
@@ -29128,16 +29128,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T09:41:13.376863+05:30",
       "status": "OPEN",
-      "last_price": 7.5,
-      "last_observed_at": "2026-11-27T13:44:09.947322+05:30",
-      "checked_until": "2026-11-27T13:43:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:54.014886+05:30",
+      "last_price": 7.46,
+      "last_observed_at": "2026-11-27T13:51:29.562302+05:30",
+      "checked_until": "2026-11-27T13:49:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:02.644062+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
       "sampled_ltp_max_return_pct": 0.4516711833784992,
       "sampled_ltp_min_return_pct": -35.862691960252945
     },
@@ -29246,14 +29246,14 @@
       "last_price": 14.05,
       "last_observed_at": "2026-11-27T13:28:28.181136+05:30",
       "checked_until": "2026-11-27T13:25:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:47.922743+05:30",
+      "last_candle_attempt": "2026-11-27T13:51:05.283659+05:30",
       "hit_time": "2026-11-27T13:26:00+05:30",
       "hit_price": 14.1143,
       "hit_evidence": "completed 1m candle high/low; time is candle end",
       "hit_candle_close": 14.25,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
-      "sampled_ltp_max_return_pct": 10.861423220973787,
+      "recorded_candle_until": "2026-11-27T13:50:00+05:30",
+      "sampled_ltp_max_return_pct": 11.23595505617978,
       "sampled_ltp_min_return_pct": -9.737827715355795,
       "fixed_5pct_ltp_touch": {
         "t": "2026-11-27T13:25:23.543833+05:30",
@@ -29358,16 +29358,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T09:44:05.060179+05:30",
       "status": "OPEN",
-      "last_price": 7.1,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:45.597844+05:30",
+      "last_price": 6.85,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:47:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:55.475247+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30",
       "sampled_ltp_max_return_pct": 4.516129032258065,
       "sampled_ltp_min_return_pct": -18.709677419354843
     },
@@ -29473,13 +29473,13 @@
       "last_price": 14.1,
       "last_observed_at": "2026-11-27T10:03:47.695310+05:30",
       "checked_until": "2026-11-27T10:02:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:59.992909+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:08.676090+05:30",
       "hit_time": "2026-11-27T10:03:00+05:30",
       "hit_price": 14.1743,
       "hit_evidence": "completed 1m candle high/low; time is candle end",
       "hit_candle_close": 13.85,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": 15.175097276264605,
       "sampled_ltp_min_return_pct": -35.019455252918284,
       "fixed_5pct_ltp_touch": {
@@ -29585,18 +29585,18 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T09:46:31.452650+05:30",
       "status": "OPEN",
-      "last_price": 214.0,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:44:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:08.404059+05:30",
+      "last_price": 210.2,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:49:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:17.121455+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
       "sampled_ltp_max_return_pct": 2.7344353468252924,
-      "sampled_ltp_min_return_pct": -34.34265410165301
+      "sampled_ltp_min_return_pct": -35.56310829599876
     },
     {
       "key": "NSE_FO|153451",
@@ -29699,10 +29699,10 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T09:47:05.649697+05:30",
       "status": "OPEN",
-      "last_price": 65.0,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:44:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:19.204703+05:30",
+      "last_price": 64.95,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:49:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:27.077520+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
@@ -29710,7 +29710,7 @@
       "sampled_ltp_max_return_pct": -0.6052454606590318,
       "sampled_ltp_min_return_pct": -19.77135171486214,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30"
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30"
     },
     {
       "key": "NSE_FO|84829",
@@ -29809,16 +29809,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T09:48:56.216029+05:30",
       "status": "OPEN",
-      "last_price": 207.0,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:26.454743+05:30",
+      "last_price": 204.0,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:47:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:36.305402+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30",
       "sampled_ltp_max_return_pct": 3.5805626598465423,
       "sampled_ltp_min_return_pct": -36.38107416879796
     },
@@ -29924,13 +29924,13 @@
       "last_price": 91.5,
       "last_observed_at": "2026-11-27T12:42:25.174069+05:30",
       "checked_until": "2026-11-27T12:41:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:15.626395+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:23.383567+05:30",
       "hit_time": "2026-11-27T12:42:00+05:30",
       "hit_price": 91.6641,
       "hit_evidence": "completed 1m candle high/low; time is candle end",
       "hit_candle_close": 91.4,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": 10.099823840281852,
       "sampled_ltp_min_return_pct": -14.268937169700536,
       "fixed_5pct_ltp_touch": {
@@ -30037,13 +30037,13 @@
       "last_price": 423.85,
       "last_observed_at": "2026-11-27T10:05:52.581467+05:30",
       "checked_until": "2026-11-27T10:00:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:29.945163+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:38.670922+05:30",
       "hit_time": "2026-11-27T10:01:00+05:30",
       "hit_price": 443.0176,
       "hit_evidence": "completed 1m candle high/low; time is candle end",
       "hit_candle_close": 433.55,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": 9.856140768041843,
       "sampled_ltp_min_return_pct": -27.00035667578171,
       "fixed_5pct_ltp_touch": {
@@ -30153,13 +30153,13 @@
       "last_price": 57.8,
       "last_observed_at": "2026-11-27T10:14:11.442104+05:30",
       "checked_until": "2026-11-27T10:09:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:31.256477+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:41.097917+05:30",
       "hit_time": "2026-11-27T10:10:00+05:30",
       "hit_price": 60.134,
       "hit_evidence": "completed 1m candle high/low; time is candle end",
       "hit_candle_close": 59.55,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30",
       "sampled_ltp_max_return_pct": 5.762411347517737,
       "sampled_ltp_min_return_pct": -8.333333333333325,
       "fixed_5pct_ltp_touch": {
@@ -30266,16 +30266,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T10:04:19.724913+05:30",
       "status": "OPEN",
-      "last_price": 123.4,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:50.394047+05:30",
+      "last_price": 124.95,
+      "last_observed_at": "2026-11-27T13:51:29.562302+05:30",
+      "checked_until": "2026-11-27T13:47:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:59.079652+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30",
       "sampled_ltp_max_return_pct": 6.083038300611543,
       "sampled_ltp_min_return_pct": -28.709365947859666,
       "fixed_5pct_ltp_touch": {
@@ -30384,15 +30384,15 @@
       "entered": "2026-11-27T10:07:50.676418+05:30",
       "status": "OPEN",
       "last_price": 41.85,
-      "last_observed_at": "2026-11-27T13:45:00+05:30",
-      "checked_until": "2026-11-27T13:44:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:33.593221+05:30",
+      "last_observed_at": "2026-11-27T13:50:00+05:30",
+      "checked_until": "2026-11-27T13:49:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:50.870735+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
       "sampled_ltp_max_return_pct": 0.10204081632652073,
       "sampled_ltp_min_return_pct": -17.3469387755102
     },
@@ -30498,15 +30498,15 @@
       "entered": "2026-11-27T10:21:35.657453+05:30",
       "status": "OPEN",
       "last_price": 32.55,
-      "last_observed_at": "2026-11-27T13:45:13.530196+05:30",
-      "checked_until": "2026-11-27T13:44:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:03.603326+05:30",
+      "last_observed_at": "2026-11-27T13:50:00+05:30",
+      "checked_until": "2026-11-27T13:49:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:12.323327+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
       "sampled_ltp_max_return_pct": 1.0101010101010166,
       "sampled_ltp_min_return_pct": -10.822510822510822
     },
@@ -30607,16 +30607,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T10:23:55.167852+05:30",
       "status": "OPEN",
-      "last_price": 12.9,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:45:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:46:11.905953+05:30",
+      "last_price": 12.4,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:50:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:51:29.566868+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:45:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:50:00+05:30",
       "sampled_ltp_max_return_pct": -0.7692307692307665,
       "sampled_ltp_min_return_pct": -13.076923076923075
     },
@@ -30718,16 +30718,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T10:28:31.201976+05:30",
       "status": "OPEN",
-      "last_price": 135.5,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:44:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:57.512673+05:30",
+      "last_price": 135.0,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:50:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:51:14.864175+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:50:00+05:30",
       "sampled_ltp_max_return_pct": 0.18018018018017834,
       "sampled_ltp_min_return_pct": -13.441441441441448
     },
@@ -30830,16 +30830,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T10:35:03.110641+05:30",
       "status": "OPEN",
-      "last_price": 488.25,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:43:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:04.728059+05:30",
+      "last_price": 484.35,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:48:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:13.474231+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": 4.5544554455445585,
       "sampled_ltp_min_return_pct": -11.792079207920791
     },
@@ -30940,16 +30940,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T10:39:30.641508+05:30",
       "status": "OPEN",
-      "last_price": 91.0,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:35.994239+05:30",
+      "last_price": 89.0,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:47:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:45.890941+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30",
       "sampled_ltp_max_return_pct": 1.780558229066398,
       "sampled_ltp_min_return_pct": -19.489894128970164
     },
@@ -31048,10 +31048,10 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T10:51:34.880795+05:30",
       "status": "OPEN",
-      "last_price": 27.5,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:43:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:49.212380+05:30",
+      "last_price": 27.3,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:48:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:57.838213+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
@@ -31059,7 +31059,7 @@
       "sampled_ltp_max_return_pct": 2.5044722719141266,
       "sampled_ltp_min_return_pct": -6.082289803220031,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30"
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30"
     },
     {
       "key": "NSE_FO|136421",
@@ -31156,16 +31156,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T10:54:35.632228+05:30",
       "status": "OPEN",
-      "last_price": 91.0,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:21.658270+05:30",
+      "last_price": 89.0,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:47:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:31.518696+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30",
       "sampled_ltp_max_return_pct": -0.5308880308880326,
       "sampled_ltp_min_return_pct": -19.256756756756744
     },
@@ -31272,13 +31272,13 @@
       "last_price": 70.45,
       "last_observed_at": "2026-11-27T11:38:35.888680+05:30",
       "checked_until": "2026-11-27T11:35:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:34.745420+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:43.465244+05:30",
       "hit_time": "2026-11-27T11:38:35.888680+05:30",
       "hit_price": 70.45,
       "hit_evidence": "fresh polled LTP",
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": 10.316265060240948,
       "sampled_ltp_min_return_pct": -5.120481927710852,
       "fixed_5pct_ltp_touch": {
@@ -31384,10 +31384,10 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T10:58:59.618797+05:30",
       "status": "OPEN",
-      "last_price": 38.2,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:45:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:46:07.110716+05:30",
+      "last_price": 37.95,
+      "last_observed_at": "2026-11-27T13:51:29.562302+05:30",
+      "checked_until": "2026-11-27T13:50:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:51:24.458086+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
@@ -31395,7 +31395,7 @@
       "sampled_ltp_max_return_pct": 3.248259860788849,
       "sampled_ltp_min_return_pct": -18.21345707656613,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:45:00+05:30"
+      "recorded_candle_until": "2026-11-27T13:50:00+05:30"
     },
     {
       "key": "NSE_FO|86725",
@@ -31498,15 +31498,15 @@
       "entered": "2026-11-27T11:18:31.693121+05:30",
       "status": "OPEN",
       "last_price": 6.15,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:44:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:43.127458+05:30",
+      "last_observed_at": "2026-11-27T13:51:00+05:30",
+      "checked_until": "2026-11-27T13:50:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:51:00.478383+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:50:00+05:30",
       "sampled_ltp_max_return_pct": 1.5789473684210575,
       "sampled_ltp_min_return_pct": -21.052631578947366
     },
@@ -31610,9 +31610,9 @@
       "entered": "2026-11-27T11:24:58.976047+05:30",
       "status": "OPEN",
       "last_price": 11.75,
-      "last_observed_at": "2026-11-27T13:46:17.025322+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:13.264065+05:30",
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:47:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:21.085777+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
@@ -31620,7 +31620,7 @@
       "sampled_ltp_max_return_pct": 3.292181069958855,
       "sampled_ltp_min_return_pct": -5.76131687242799,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30"
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30"
     },
     {
       "key": "NSE_FO|112726",
@@ -31720,16 +31720,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T11:41:34.233765+05:30",
       "status": "OPEN",
-      "last_price": 373.0,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:43:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:25.156884+05:30",
+      "last_price": 372.3,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:48:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:49:33.867297+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:48:00+05:30",
       "sampled_ltp_max_return_pct": 1.0379008746355556,
       "sampled_ltp_min_return_pct": -18.36734693877551
     },
@@ -31831,16 +31831,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T11:44:59.556024+05:30",
       "status": "OPEN",
-      "last_price": 43.1,
-      "last_observed_at": "2026-11-27T13:46:00+05:30",
-      "checked_until": "2026-11-27T13:45:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:46:17.029728+05:30",
+      "last_price": 42.85,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:50:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:51:35.247565+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:45:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:50:00+05:30",
       "sampled_ltp_max_return_pct": 0.6423982869379063,
       "sampled_ltp_min_return_pct": -10.0642398286938
     },
@@ -31944,14 +31944,14 @@
       "last_price": 123.2,
       "last_observed_at": "2026-11-27T12:35:08.870767+05:30",
       "checked_until": "2026-11-27T12:33:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:45:38.387867+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:55.676040+05:30",
       "hit_time": "2026-11-27T12:35:08.870767+05:30",
       "hit_price": 123.2,
       "hit_evidence": "fresh polled LTP",
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:44:00+05:30",
-      "sampled_ltp_max_return_pct": 20.40725984949092,
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
+      "sampled_ltp_max_return_pct": 21.29260734838423,
       "sampled_ltp_min_return_pct": -0.8410801239486565,
       "fixed_5pct_ltp_touch": {
         "t": "2026-11-27T12:34:05.347887+05:30",
@@ -32060,18 +32060,18 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T12:26:50.676836+05:30",
       "status": "OPEN",
-      "last_price": 3.35,
-      "last_observed_at": "2026-11-27T13:43:00+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:40.796446+05:30",
+      "last_price": 3.3,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:47:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:50.679484+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30",
       "sampled_ltp_max_return_pct": 4.105571847507328,
-      "sampled_ltp_min_return_pct": -4.692082111436957
+      "sampled_ltp_min_return_pct": -5.278592375366575
     },
     {
       "key": "NSE_FO|85890",
@@ -32172,18 +32172,18 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T13:09:01.921534+05:30",
       "status": "OPEN",
-      "last_price": 39.0,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:43:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:44:58.815177+05:30",
+      "last_price": 37.2,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:49:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:07.584638+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:43:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
       "sampled_ltp_max_return_pct": -1.2345679012345734,
-      "sampled_ltp_min_return_pct": -7.4074074074074066
+      "sampled_ltp_min_return_pct": -8.148148148148138
     },
     {
       "key": "NSE_FO|135755",
@@ -32284,16 +32284,16 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T13:20:20.300638+05:30",
       "status": "OPEN",
-      "last_price": 20.55,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:45:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:46:02.312353+05:30",
+      "last_price": 20.75,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:50:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:51:19.663445+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:45:00+05:30",
+      "recorded_candle_until": "2026-11-27T13:50:00+05:30",
       "sampled_ltp_max_return_pct": 0.9280742459396807,
       "sampled_ltp_min_return_pct": -6.264501160092816
     },
@@ -32391,19 +32391,24 @@
       "id": "0fedab2a8b7d5ec7",
       "day": "2026-11-27",
       "entered": "2026-11-27T13:27:33.225390+05:30",
-      "status": "OPEN",
-      "last_price": 102.75,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:42:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:43:07.598220+05:30",
-      "hit_time": null,
-      "hit_price": null,
-      "hit_evidence": null,
+      "status": "VALUE_REACHED",
+      "last_price": 108.0,
+      "last_observed_at": "2026-11-27T13:50:27.044644+05:30",
+      "checked_until": "2026-11-27T13:47:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:48:15.947464+05:30",
+      "hit_time": "2026-11-27T13:50:27.044644+05:30",
+      "hit_price": 108.0,
+      "hit_evidence": "fresh polled LTP",
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:42:00+05:30",
-      "sampled_ltp_max_return_pct": 4.129793510324475,
-      "sampled_ltp_min_return_pct": -1.3765978367748288
+      "recorded_candle_until": "2026-11-27T13:47:00+05:30",
+      "sampled_ltp_max_return_pct": 7.472959685349068,
+      "sampled_ltp_min_return_pct": -1.3765978367748288,
+      "fixed_5pct_ltp_touch": {
+        "t": "2026-11-27T13:50:27.044644+05:30",
+        "price": 108.0,
+        "evidence": "fresh polled LTP"
+      }
     },
     {
       "key": "NSE_FO|143993",
@@ -32503,18 +32508,18 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T13:36:08.202268+05:30",
       "status": "OPEN",
-      "last_price": 13.3,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:45:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:46:22.689113+05:30",
+      "last_price": 13.25,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:50:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:51:39.983454+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:45:00+05:30",
-      "sampled_ltp_max_return_pct": 0.37735849056603765,
-      "sampled_ltp_min_return_pct": -1.132075471698113
+      "recorded_candle_until": "2026-11-27T13:50:00+05:30",
+      "sampled_ltp_max_return_pct": 0.7547169811320753,
+      "sampled_ltp_min_return_pct": -2.264150943396237
     },
     {
       "key": "NSE_FO|147846",
@@ -32613,18 +32618,18 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T13:37:47.564527+05:30",
       "status": "OPEN",
-      "last_price": 131.4,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:46:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:47:51.290699+05:30",
+      "last_price": 134.7,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:51:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:52:51.830941+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
-      "sampled_ltp_max_return_pct": 3.1493001555209954,
+      "sampled_ltp_max_return_pct": 4.743390357698285,
       "sampled_ltp_min_return_pct": -1.0108864696734,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:46:00+05:30"
+      "recorded_candle_until": "2026-11-27T13:51:00+05:30"
     },
     {
       "key": "NSE_FO|92467",
@@ -32721,18 +32726,128 @@
       "day": "2026-11-27",
       "entered": "2026-11-27T13:42:17.875185+05:30",
       "status": "OPEN",
-      "last_price": 147.8,
-      "last_observed_at": "2026-11-27T13:47:18.025153+05:30",
-      "checked_until": "2026-11-27T13:46:00+05:30",
-      "last_candle_attempt": "2026-11-27T13:47:26.158146+05:30",
+      "last_price": 148.35,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:51:00+05:30",
+      "last_candle_attempt": "2026-11-27T13:52:27.933325+05:30",
       "hit_time": null,
       "hit_price": null,
       "hit_evidence": null,
       "hit_candle_close": null,
       "candle_error": false,
-      "recorded_candle_until": "2026-11-27T13:46:00+05:30",
-      "sampled_ltp_max_return_pct": 3.4542916957431835,
+      "recorded_candle_until": "2026-11-27T13:51:00+05:30",
+      "sampled_ltp_max_return_pct": 4.640614096301454,
       "sampled_ltp_min_return_pct": 0.2442428471737479
+    },
+    {
+      "key": "NSE_FO|139977",
+      "symbol": "NTPC",
+      "underlying": "NSE_EQ|INE733E01010",
+      "expiry": "2026-12-29",
+      "strike": 320.0,
+      "side": "CE",
+      "lot": 1500,
+      "spot": 320.5,
+      "market": {
+        "ltp": 8.3,
+        "oi": 3018000.0,
+        "volume": 1839000.0,
+        "bid_price": 8.2,
+        "ask_price": 8.3,
+        "bid_qty": 7500.0,
+        "ask_qty": 3000.0
+      },
+      "greeks": {
+        "vega": 0.3781,
+        "theta": -0.118,
+        "gamma": 0.0208,
+        "delta": 0.5401,
+        "iv": 20.02,
+        "pop": 34.82
+      },
+      "quote_time": "2026-11-27T13:50:39.063+05:30",
+      "last_trade_time": "1795767611243",
+      "target": 8.9064,
+      "entry": 8.3,
+      "direction": "UP",
+      "gap_pct": 6.8084633363682245,
+      "executable_gap_pct": 6.8084633363682245,
+      "peer_iv": 20.561197455123512,
+      "entry_oi_lots": 2012.0,
+      "gap_tier": "BASE",
+      "rules": {
+        "T": true,
+        "D": false,
+        "O": true,
+        "A": false,
+        "V": true,
+        "G": true,
+        "E": true,
+        "I": true,
+        "P": false,
+        "S": true,
+        "Q": false
+      },
+      "rules_passed": "TOVGEIS",
+      "rules_failed": "DAPQ",
+      "metrics": {
+        "gap_pct": 6.8084633363682245,
+        "minute": 830,
+        "oi_lots": 2012.0,
+        "volume_lots": 1226.0,
+        "vol_oi": 0.6093439363817097,
+        "bid_lots": 5.0,
+        "ask_lots": 2.0,
+        "depth_lots": 2.0,
+        "trade_age_s": 27.82,
+        "gamma": 0.0208,
+        "delta": 0.5401,
+        "iv": 20.02,
+        "theta": -0.118,
+        "vega": 0.3781,
+        "spread_pct": 1.2121212121212293,
+        "ask_upside_pct": 7.305881606977775
+      },
+      "channel": "SILENT",
+      "header": "SILENT | T\u2713 D\u2717 O\u2713 A\u2717 V\u2713 G\u2713 E\u2713 I\u2713 P\u2717 S\u2713 Q\u2717 | 7/11 rules passed",
+      "quality_failures": [
+        "spread_up_to_1_pct"
+      ],
+      "filter_settings": {
+        "gap_min_pct": 5.0,
+        "gap_max_exclusive_pct": 7.0,
+        "min_ask_upside_pct": 5.0,
+        "min_abs_delta": 0.5,
+        "max_iv_pct": 28.0,
+        "min_oi_lots": 500.0,
+        "min_volume_lots": 100.0,
+        "max_spread_pct": 1.0,
+        "max_trade_age_s": 40.0,
+        "min_depth_lots": 1.0
+      },
+      "entry_ask": 8.3,
+      "fixed_5pct_target": 8.715,
+      "years": 0.08788878784005581,
+      "r": 0.06,
+      "q": 0.0,
+      "policy": "BUY_ATM_QUALITY_V5",
+      "atm_at_entry": 320.0,
+      "id": "dd14c38c9dfe8be7",
+      "day": "2026-11-27",
+      "entered": "2026-11-27T13:50:39.186676+05:30",
+      "status": "OPEN",
+      "last_price": 8.3,
+      "last_observed_at": "2026-11-27T13:52:33.084455+05:30",
+      "checked_until": "2026-11-27T13:50:39.186676+05:30",
+      "last_candle_attempt": "2026-11-27T13:50:41.270044+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false,
+      "recorded_candle_until": "2026-11-27T13:49:00+05:30",
+      "sampled_ltp_max_return_pct": 0.0,
+      "sampled_ltp_min_return_pct": 0.0
     }
   ],
   "outbox": [
@@ -36104,6 +36219,11 @@
     {
       "id": "entry-c87f8794c8a3648d:0",
       "text": "S3 STOCK OPTIONS | BRITANNIA 5100 CE\nMAIN | T\u2713 D\u2717 O\u2713 A\u2713 V\u2713 G\u2717 E\u2713 I\u2713 P\u2717 S\u2713 Q\u2713 | 8/11 rules passed\nBUY-ONLY ATM WATCH | expiry 2026-12-29\nLTP \u20b9143.30 | fixed model target \u20b9154.01\nGap 7.0% of model value | direction UP\nBid \u20b9142.00 | ask \u20b9143.30\nEntry ask reference \u20b9143.30 | separate +5% study target \u20b9150.47\nBest-level depth: bid 3 lots | ask 1 lots\nIV 24.03% | peer IV 23.72%\nDelta 0.510 | Gamma 0.00110\nTheta -2.26 | Vega 6.03\nOI 206875 | volume 90000 | lot 125\nRule values: OI 1655 lots | last trade 2.5s ago | vol/OI 0.44 | depth 1 lots | gamma 0.00110\n13:42:17 IST | ID c87f8794c8a3648d\nValuation watch only; no buy/sell execution or stop-loss.\n",
+      "sent": true
+    },
+    {
+      "id": "hit-0fedab2a8b7d5ec7:0",
+      "text": "S3 VALUE REACHED | DMART 3550 CE\nMAIN | T\u2713 D\u2717 O\u2713 A\u2717 V\u2713 G\u2717 E\u2713 I\u2713 P\u2717 S\u2713 Q\u2713 | 7/11 rules passed\nDirection UP | reference \u20b9100.80\nFixed target \u20b9106.98\nTouch/reference price \u20b9108.00 | 2026-11-27 13:50:27 IST\nEvidence: fresh polled LTP\nID 0fedab2a8b7d5ec7\nModel-price touch; execution and costs are not verified.\n",
       "sent": true
     }
   ]
