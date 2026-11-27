@@ -4504,10 +4504,238 @@
     },
     "2026-11-27": {
       "date": "2026-11-27",
-      "cursor": 0,
+      "cursor": 54,
       "sweeps": 0,
-      "symbols": {},
-      "counts": {},
+      "symbols": {
+        "360ONE": {
+          "checked_at": "2026-11-27T09:20:03.542213+05:30",
+          "status": "chain_received"
+        },
+        "ABB": {
+          "checked_at": "2026-11-27T09:20:08.148352+05:30",
+          "status": "chain_received"
+        },
+        "ABCAPITAL": {
+          "checked_at": "2026-11-27T09:20:11.679831+05:30",
+          "status": "chain_received"
+        },
+        "ACUTAAS": {
+          "checked_at": "2026-11-27T09:20:15.670549+05:30",
+          "status": "chain_received"
+        },
+        "ADANIENSOL": {
+          "checked_at": "2026-11-27T09:20:19.195579+05:30",
+          "status": "chain_received"
+        },
+        "ADANIENT": {
+          "checked_at": "2026-11-27T09:20:22.731219+05:30",
+          "status": "chain_received"
+        },
+        "ADANIGREEN": {
+          "checked_at": "2026-11-27T09:20:26.250393+05:30",
+          "status": "chain_received"
+        },
+        "ADANIPORTS": {
+          "checked_at": "2026-11-27T09:20:30.982897+05:30",
+          "status": "chain_received"
+        },
+        "ADANIPOWER": {
+          "checked_at": "2026-11-27T09:20:34.523071+05:30",
+          "status": "chain_received"
+        },
+        "ALKEM": {
+          "checked_at": "2026-11-27T09:20:38.047269+05:30",
+          "status": "chain_received"
+        },
+        "AMBER": {
+          "checked_at": "2026-11-27T09:20:41.571469+05:30",
+          "status": "chain_received"
+        },
+        "AMBUJACEM": {
+          "checked_at": "2026-11-27T09:20:46.305685+05:30",
+          "status": "chain_received"
+        },
+        "ANANDRATHI": {
+          "checked_at": "2026-11-27T09:20:49.833741+05:30",
+          "status": "chain_received"
+        },
+        "ANGELONE": {
+          "checked_at": "2026-11-27T09:20:53.359178+05:30",
+          "status": "chain_received"
+        },
+        "APARINDS": {
+          "checked_at": "2026-11-27T09:20:56.876719+05:30",
+          "status": "chain_received"
+        },
+        "APLAPOLLO": {
+          "checked_at": "2026-11-27T09:20:59.213668+05:30",
+          "status": "chain_received"
+        },
+        "APOLLOHOSP": {
+          "checked_at": "2026-11-27T09:21:02.749437+05:30",
+          "status": "chain_received"
+        },
+        "ASHOKLEY": {
+          "checked_at": "2026-11-27T09:21:07.472366+05:30",
+          "status": "chain_received"
+        },
+        "ASIANPAINT": {
+          "checked_at": "2026-11-27T09:21:10.992836+05:30",
+          "status": "chain_received"
+        },
+        "ASTRAL": {
+          "checked_at": "2026-11-27T09:21:14.531196+05:30",
+          "status": "chain_received"
+        },
+        "ATHERENERG": {
+          "checked_at": "2026-11-27T09:21:18.050015+05:30",
+          "status": "chain_received"
+        },
+        "AUBANK": {
+          "checked_at": "2026-11-27T09:21:21.566779+05:30",
+          "status": "chain_received"
+        },
+        "AUROPHARMA": {
+          "checked_at": "2026-11-27T09:21:25.109768+05:30",
+          "status": "chain_received"
+        },
+        "AXISBANK": {
+          "checked_at": "2026-11-27T09:21:28.633890+05:30",
+          "status": "chain_received"
+        },
+        "BAJAJ-AUTO": {
+          "checked_at": "2026-11-27T09:21:32.159519+05:30",
+          "status": "chain_received"
+        },
+        "BAJAJFINSV": {
+          "checked_at": "2026-11-27T09:21:35.690927+05:30",
+          "status": "chain_received"
+        },
+        "BAJFINANCE": {
+          "checked_at": "2026-11-27T09:21:39.209677+05:30",
+          "status": "chain_received"
+        },
+        "BANDHANBNK": {
+          "checked_at": "2026-11-27T09:21:42.726341+05:30",
+          "status": "chain_received"
+        },
+        "BANKBARODA": {
+          "checked_at": "2026-11-27T09:21:46.268707+05:30",
+          "status": "chain_received"
+        },
+        "BANKINDIA": {
+          "checked_at": "2026-11-27T09:21:49.794509+05:30",
+          "status": "chain_received"
+        },
+        "BDL": {
+          "checked_at": "2026-11-27T09:21:53.311436+05:30",
+          "status": "chain_received"
+        },
+        "BEL": {
+          "checked_at": "2026-11-27T09:21:56.843892+05:30",
+          "status": "chain_received"
+        },
+        "BHARATFORG": {
+          "checked_at": "2026-11-27T09:22:00.381151+05:30",
+          "status": "chain_received"
+        },
+        "BHARTIARTL": {
+          "checked_at": "2026-11-27T09:22:03.895965+05:30",
+          "status": "chain_received"
+        },
+        "BHEL": {
+          "checked_at": "2026-11-27T09:22:08.627658+05:30",
+          "status": "chain_received"
+        },
+        "BIOCON": {
+          "checked_at": "2026-11-27T09:22:12.162840+05:30",
+          "status": "chain_received"
+        },
+        "BLUESTARCO": {
+          "checked_at": "2026-11-27T09:22:15.688718+05:30",
+          "status": "chain_received"
+        },
+        "BOSCHLTD": {
+          "checked_at": "2026-11-27T09:22:19.378550+05:30",
+          "status": "chain_received"
+        },
+        "BPCL": {
+          "checked_at": "2026-11-27T09:22:22.899756+05:30",
+          "status": "chain_received"
+        },
+        "BRITANNIA": {
+          "checked_at": "2026-11-27T09:22:26.441818+05:30",
+          "status": "chain_received"
+        },
+        "BSE": {
+          "checked_at": "2026-11-27T09:22:29.986466+05:30",
+          "status": "chain_received"
+        },
+        "CAMS": {
+          "checked_at": "2026-11-27T09:22:33.502920+05:30",
+          "status": "chain_received"
+        },
+        "CANBK": {
+          "checked_at": "2026-11-27T09:22:37.032874+05:30",
+          "status": "chain_received"
+        },
+        "CDSL": {
+          "checked_at": "2026-11-27T09:22:40.543911+05:30",
+          "status": "chain_received"
+        },
+        "CGPOWER": {
+          "checked_at": "2026-11-27T09:22:44.066982+05:30",
+          "status": "chain_received"
+        },
+        "CHOLAFIN": {
+          "checked_at": "2026-11-27T09:22:47.599452+05:30",
+          "status": "chain_received"
+        },
+        "CIPLA": {
+          "checked_at": "2026-11-27T09:22:51.132279+05:30",
+          "status": "chain_received"
+        },
+        "COALINDIA": {
+          "checked_at": "2026-11-27T09:22:54.659327+05:30",
+          "status": "chain_received"
+        },
+        "COCHINSHIP": {
+          "checked_at": "2026-11-27T09:22:58.190207+05:30",
+          "status": "chain_received"
+        },
+        "COFORGE": {
+          "checked_at": "2026-11-27T09:23:01.724821+05:30",
+          "status": "chain_received"
+        },
+        "COLPAL": {
+          "checked_at": "2026-11-27T09:23:06.892328+05:30",
+          "status": "chain_received"
+        },
+        "CONCOR": {
+          "checked_at": "2026-11-27T09:23:11.612871+05:30",
+          "status": "chain_received"
+        },
+        "COROMANDEL": {
+          "checked_at": "2026-11-27T09:23:15.153243+05:30",
+          "status": "chain_received"
+        },
+        "CROMPTON": {
+          "checked_at": "2026-11-27T09:23:17.496469+05:30",
+          "status": "chain_received"
+        }
+      },
+      "counts": {
+        "chains_received": 54,
+        "stale_option_or_missing_quote": 167,
+        "non_atm_excluded": 258,
+        "new_silent_records": 4,
+        "gap_below_threshold": 12,
+        "sell_direction_excluded": 31,
+        "liquidity": 12,
+        "insufficient_peer_iv": 26,
+        "no_liquid_contracts": 2,
+        "atm_shift_during_request": 1
+      },
       "last_error": null,
       "universe_count": 218,
       "filter_policy": "BUY_ATM_QUALITY_V5",
@@ -4522,7 +4750,10 @@
         "max_spread_pct": 1.0,
         "max_trade_age_s": 40.0,
         "min_depth_lots": 1.0
-      }
+      },
+      "sweep_started": "2026-11-27T09:20:03.150244+05:30",
+      "recorded_events": 70,
+      "observed_rows": 366
     }
   },
   "watches": [
@@ -26968,6 +27199,459 @@
       "hit_evidence": "fresh polled LTP",
       "hit_candle_close": null,
       "candle_error": false
+    },
+    {
+      "key": "NSE_FO|67594",
+      "symbol": "360ONE",
+      "underlying": "NSE_EQ|INE466L01038",
+      "expiry": "2026-12-29",
+      "strike": 1220.0,
+      "side": "CE",
+      "lot": 500,
+      "spot": 1219.65,
+      "market": {
+        "ltp": 43.6,
+        "oi": 58500.0,
+        "volume": 13500.0,
+        "bid_price": 43.75,
+        "ask_price": 44.85,
+        "bid_qty": 500.0,
+        "ask_qty": 500.0
+      },
+      "greeks": {
+        "vega": 1.4448,
+        "theta": -0.6821,
+        "gamma": 0.0036,
+        "delta": 0.5144,
+        "iv": 30.46,
+        "pop": 32.95
+      },
+      "quote_time": "2026-11-27T09:20:04.482+05:30",
+      "last_trade_time": "1795751390268",
+      "target": 48.7664,
+      "entry": 43.6,
+      "direction": "UP",
+      "gap_pct": 10.59427074404587,
+      "executable_gap_pct": 8.031033093359111,
+      "peer_iv": 31.645,
+      "entry_oi_lots": 117.0,
+      "gap_tier": "BASE",
+      "rules": {
+        "T": true,
+        "D": false,
+        "O": false,
+        "A": false,
+        "V": true,
+        "G": false,
+        "E": true,
+        "I": false,
+        "P": false,
+        "S": false,
+        "Q": false
+      },
+      "rules_passed": "TVE",
+      "rules_failed": "DOAGIPSQ",
+      "metrics": {
+        "gap_pct": 10.59427074404587,
+        "minute": 560,
+        "oi_lots": 117.0,
+        "volume_lots": 27.0,
+        "vol_oi": 0.23076923076923078,
+        "bid_lots": 1.0,
+        "ask_lots": 1.0,
+        "depth_lots": 1.0,
+        "trade_age_s": 14.214,
+        "gamma": 0.0036,
+        "delta": 0.5144,
+        "iv": 30.46,
+        "theta": -0.6821,
+        "vega": 1.4448,
+        "spread_pct": 2.48306997742664,
+        "ask_upside_pct": 8.732329353565031
+      },
+      "channel": "SILENT",
+      "header": "SILENT | T\u2713 D\u2717 O\u2717 A\u2717 V\u2713 G\u2717 E\u2713 I\u2717 P\u2717 S\u2717 Q\u2717 | 3/11 rules passed",
+      "quality_failures": [
+        "gap_5_to_below_7",
+        "iv_up_to_28",
+        "oi_at_least_500_lots",
+        "volume_at_least_100_lots",
+        "spread_up_to_1_pct"
+      ],
+      "filter_settings": {
+        "gap_min_pct": 5.0,
+        "gap_max_exclusive_pct": 7.0,
+        "min_ask_upside_pct": 5.0,
+        "min_abs_delta": 0.5,
+        "max_iv_pct": 28.0,
+        "min_oi_lots": 500.0,
+        "min_volume_lots": 100.0,
+        "max_spread_pct": 1.0,
+        "max_trade_age_s": 40.0,
+        "min_depth_lots": 1.0
+      },
+      "entry_ask": 44.85,
+      "fixed_5pct_target": 47.0925,
+      "years": 0.08840358289776762,
+      "r": 0.06,
+      "q": 0.0,
+      "policy": "BUY_ATM_QUALITY_V5",
+      "atm_at_entry": 1220.0,
+      "id": "0b3c1d40a3dfc871",
+      "day": "2026-11-27",
+      "entered": "2026-11-27T09:20:04.609736+05:30",
+      "status": "OPEN",
+      "last_price": 45.15,
+      "last_observed_at": "2026-11-27T09:23:10.421229+05:30",
+      "checked_until": "2026-11-27T09:20:04.609736+05:30",
+      "last_candle_attempt": "2026-11-27T09:20:06.673546+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false,
+      "recorded_candle_until": "2026-11-27T09:19:00+05:30",
+      "sampled_ltp_max_return_pct": 2.1181716833890585,
+      "sampled_ltp_min_return_pct": -3.12151616499442
+    },
+    {
+      "key": "NSE_FO|71924",
+      "symbol": "ADANIGREEN",
+      "underlying": "NSE_EQ|INE364U01010",
+      "expiry": "2026-12-29",
+      "strike": 1360.0,
+      "side": "CE",
+      "lot": 600,
+      "spot": 1367.1,
+      "market": {
+        "ltp": 57.45,
+        "oi": 121200.0,
+        "volume": 60000.0,
+        "bid_price": 57.1,
+        "ask_price": 57.45,
+        "bid_qty": 600.0,
+        "ask_qty": 1200.0
+      },
+      "greeks": {
+        "vega": 1.6125,
+        "theta": -0.8574,
+        "gamma": 0.0029,
+        "delta": 0.5318,
+        "iv": 34.3,
+        "pop": 33.44
+      },
+      "quote_time": "2026-11-27T09:20:27.323+05:30",
+      "last_trade_time": "1795751422599",
+      "target": 63.1986,
+      "entry": 57.45,
+      "direction": "UP",
+      "gap_pct": 9.096105191101206,
+      "executable_gap_pct": 9.096105191101206,
+      "peer_iv": 34.58204930661433,
+      "entry_oi_lots": 202.0,
+      "gap_tier": "BASE",
+      "rules": {
+        "T": true,
+        "D": false,
+        "O": false,
+        "A": true,
+        "V": true,
+        "G": false,
+        "E": true,
+        "I": false,
+        "P": false,
+        "S": false,
+        "Q": false
+      },
+      "rules_passed": "TAVE",
+      "rules_failed": "DOGIPSQ",
+      "metrics": {
+        "gap_pct": 9.096105191101206,
+        "minute": 560,
+        "oi_lots": 202.0,
+        "volume_lots": 100.0,
+        "vol_oi": 0.49504950495049505,
+        "bid_lots": 1.0,
+        "ask_lots": 2.0,
+        "depth_lots": 1.0,
+        "trade_age_s": 4.724,
+        "gamma": 0.0029,
+        "delta": 0.5318,
+        "iv": 34.3,
+        "theta": -0.8574,
+        "vega": 1.6125,
+        "spread_pct": 0.6110868616324774,
+        "ask_upside_pct": 10.006287640615778
+      },
+      "channel": "SILENT",
+      "header": "SILENT | T\u2713 D\u2717 O\u2717 A\u2713 V\u2713 G\u2717 E\u2713 I\u2717 P\u2717 S\u2717 Q\u2717 | 4/11 rules passed",
+      "quality_failures": [
+        "gap_5_to_below_7",
+        "iv_up_to_28",
+        "oi_at_least_500_lots"
+      ],
+      "filter_settings": {
+        "gap_min_pct": 5.0,
+        "gap_max_exclusive_pct": 7.0,
+        "min_ask_upside_pct": 5.0,
+        "min_abs_delta": 0.5,
+        "max_iv_pct": 28.0,
+        "min_oi_lots": 500.0,
+        "min_volume_lots": 100.0,
+        "max_spread_pct": 1.0,
+        "max_trade_age_s": 40.0,
+        "min_depth_lots": 1.0
+      },
+      "entry_ask": 57.45,
+      "fixed_5pct_target": 60.3225,
+      "years": 0.08840285865439497,
+      "r": 0.06,
+      "q": 0.0,
+      "policy": "BUY_ATM_QUALITY_V5",
+      "atm_at_entry": 1360.0,
+      "id": "b06c4b3f6db4b08b",
+      "day": "2026-11-27",
+      "entered": "2026-11-27T09:20:27.449475+05:30",
+      "status": "OPEN",
+      "last_price": 56.2,
+      "last_observed_at": "2026-11-27T09:23:10.421229+05:30",
+      "checked_until": "2026-11-27T09:20:27.449475+05:30",
+      "last_candle_attempt": "2026-11-27T09:20:29.514463+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false,
+      "recorded_candle_until": "2026-11-27T09:19:00+05:30",
+      "sampled_ltp_max_return_pct": -2.175805047867707,
+      "sampled_ltp_min_return_pct": -3.4812880765883403
+    },
+    {
+      "key": "NSE_FO|70014",
+      "symbol": "AMBER",
+      "underlying": "NSE_EQ|INE371P01015",
+      "expiry": "2026-12-29",
+      "strike": 6900.0,
+      "side": "CE",
+      "lot": 100,
+      "spot": 6859.0,
+      "market": {
+        "ltp": 257.05,
+        "oi": 45200.0,
+        "volume": 3200.0,
+        "bid_price": 253.75,
+        "ask_price": 256.8,
+        "bid_qty": 100.0,
+        "ask_qty": 100.0
+      },
+      "greeks": {
+        "vega": 8.123,
+        "theta": -4.5178,
+        "gamma": 0.0005,
+        "delta": 0.4941,
+        "iv": 35.88,
+        "pop": 31.6
+      },
+      "quote_time": "2026-11-27T09:20:42.638+05:30",
+      "last_trade_time": "1795751441108",
+      "target": 288.1244,
+      "entry": 257.05,
+      "direction": "UP",
+      "gap_pct": 10.785071544858221,
+      "executable_gap_pct": 10.871839613770048,
+      "peer_iv": 35.695,
+      "entry_oi_lots": 452.0,
+      "gap_tier": "BASE",
+      "rules": {
+        "T": true,
+        "D": false,
+        "O": false,
+        "A": true,
+        "V": true,
+        "G": false,
+        "E": true,
+        "I": false,
+        "P": false,
+        "S": false,
+        "Q": false
+      },
+      "rules_passed": "TAVE",
+      "rules_failed": "DOGIPSQ",
+      "metrics": {
+        "gap_pct": 10.785071544858221,
+        "minute": 560,
+        "oi_lots": 452.0,
+        "volume_lots": 32.0,
+        "vol_oi": 0.07079646017699115,
+        "bid_lots": 1.0,
+        "ask_lots": 1.0,
+        "depth_lots": 1.0,
+        "trade_age_s": 1.53,
+        "gamma": 0.0005,
+        "delta": 0.4941,
+        "iv": 35.88,
+        "theta": -4.5178,
+        "vega": 8.123,
+        "spread_pct": 1.1947899324258198,
+        "ask_upside_pct": 12.197984976530178
+      },
+      "channel": "SILENT",
+      "header": "SILENT | T\u2713 D\u2717 O\u2717 A\u2713 V\u2713 G\u2717 E\u2713 I\u2717 P\u2717 S\u2717 Q\u2717 | 4/11 rules passed",
+      "quality_failures": [
+        "gap_5_to_below_7",
+        "abs_delta_at_least_0_50",
+        "iv_up_to_28",
+        "oi_at_least_500_lots",
+        "volume_at_least_100_lots",
+        "spread_up_to_1_pct"
+      ],
+      "filter_settings": {
+        "gap_min_pct": 5.0,
+        "gap_max_exclusive_pct": 7.0,
+        "min_ask_upside_pct": 5.0,
+        "min_abs_delta": 0.5,
+        "max_iv_pct": 28.0,
+        "min_oi_lots": 500.0,
+        "min_volume_lots": 100.0,
+        "max_spread_pct": 1.0,
+        "max_trade_age_s": 40.0,
+        "min_depth_lots": 1.0
+      },
+      "entry_ask": 256.8,
+      "fixed_5pct_target": 269.64,
+      "years": 0.08840237298744293,
+      "r": 0.06,
+      "q": 0.0,
+      "policy": "BUY_ATM_QUALITY_V5",
+      "atm_at_entry": 6900.0,
+      "id": "cab81601a25d159a",
+      "day": "2026-11-27",
+      "entered": "2026-11-27T09:20:42.765468+05:30",
+      "status": "OPEN",
+      "last_price": 258.6,
+      "last_observed_at": "2026-11-27T09:23:10.421229+05:30",
+      "checked_until": "2026-11-27T09:20:42.765468+05:30",
+      "last_candle_attempt": "2026-11-27T09:20:44.829512+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false,
+      "recorded_candle_until": "2026-11-27T09:19:00+05:30",
+      "sampled_ltp_max_return_pct": 0.7009345794392496,
+      "sampled_ltp_min_return_pct": -1.5186915887850483
+    },
+    {
+      "key": "NSE_FO|82336",
+      "symbol": "COFORGE",
+      "underlying": "NSE_EQ|INE591G01025",
+      "expiry": "2026-12-29",
+      "strike": 2060.0,
+      "side": "CE",
+      "lot": 475,
+      "spot": 2050.4,
+      "market": {
+        "ltp": 80.85,
+        "oi": 286425.0,
+        "volume": 376675.0,
+        "bid_price": 80.2,
+        "ask_price": 80.8,
+        "bid_qty": 475.0,
+        "ask_qty": 475.0
+      },
+      "greeks": {
+        "vega": 2.4263,
+        "theta": -1.3567,
+        "gamma": 0.0018,
+        "delta": 0.496,
+        "iv": 36.07,
+        "pop": 31.67
+      },
+      "quote_time": "2026-11-27T09:23:03.24+05:30",
+      "last_trade_time": "1795751580813",
+      "target": 88.1166,
+      "entry": 80.85,
+      "direction": "UP",
+      "gap_pct": 8.246545320522296,
+      "executable_gap_pct": 8.303288335166373,
+      "peer_iv": 35.99289131172275,
+      "entry_oi_lots": 603.0,
+      "gap_tier": "BASE",
+      "rules": {
+        "T": true,
+        "D": false,
+        "O": true,
+        "A": true,
+        "V": true,
+        "G": false,
+        "E": true,
+        "I": false,
+        "P": false,
+        "S": false,
+        "Q": false
+      },
+      "rules_passed": "TOAVE",
+      "rules_failed": "DGIPSQ",
+      "metrics": {
+        "gap_pct": 8.246545320522296,
+        "minute": 563,
+        "oi_lots": 603.0,
+        "volume_lots": 793.0,
+        "vol_oi": 1.3150912106135986,
+        "bid_lots": 1.0,
+        "ask_lots": 1.0,
+        "depth_lots": 1.0,
+        "trade_age_s": 2.427,
+        "gamma": 0.0018,
+        "delta": 0.496,
+        "iv": 36.07,
+        "theta": -1.3567,
+        "vega": 2.4263,
+        "spread_pct": 0.7453416149068253,
+        "ask_upside_pct": 9.05516477571872
+      },
+      "channel": "SILENT",
+      "header": "SILENT | T\u2713 D\u2717 O\u2713 A\u2713 V\u2713 G\u2717 E\u2713 I\u2717 P\u2717 S\u2717 Q\u2717 | 5/11 rules passed",
+      "quality_failures": [
+        "gap_5_to_below_7",
+        "abs_delta_at_least_0_50",
+        "iv_up_to_28"
+      ],
+      "filter_settings": {
+        "gap_min_pct": 5.0,
+        "gap_max_exclusive_pct": 7.0,
+        "min_ask_upside_pct": 5.0,
+        "min_abs_delta": 0.5,
+        "max_iv_pct": 28.0,
+        "min_oi_lots": 500.0,
+        "min_volume_lots": 100.0,
+        "max_spread_pct": 1.0,
+        "max_trade_age_s": 40.0,
+        "min_depth_lots": 1.0
+      },
+      "entry_ask": 80.8,
+      "fixed_5pct_target": 84.84,
+      "years": 0.08839791471156773,
+      "r": 0.06,
+      "q": 0.0,
+      "policy": "BUY_ATM_QUALITY_V5",
+      "atm_at_entry": 2060.0,
+      "id": "62cca00e53bf966f",
+      "day": "2026-11-27",
+      "entered": "2026-11-27T09:23:03.361656+05:30",
+      "status": "OPEN",
+      "last_price": 79.55,
+      "last_observed_at": "2026-11-27T09:23:10.421229+05:30",
+      "checked_until": "2026-11-27T09:23:03.361656+05:30",
+      "last_candle_attempt": "2026-11-27T09:23:05.427972+05:30",
+      "hit_time": null,
+      "hit_price": null,
+      "hit_evidence": null,
+      "hit_candle_close": null,
+      "candle_error": false,
+      "recorded_candle_until": "2026-11-27T09:22:00+05:30",
+      "sampled_ltp_max_return_pct": -1.5470297029702929,
+      "sampled_ltp_min_return_pct": -1.5470297029702929
     }
   ],
   "outbox": [
