@@ -1,4 +1,4 @@
-name: S3 stock option alerts
+name: S3 stock option research V7
 
 on:
   workflow_dispatch:
@@ -74,8 +74,8 @@ jobs:
           SCANNER_MODE: ${{ inputs.mode || 'run' }}
           PYTHONUNBUFFERED: '1'
 
-          # Q requires every agreed quality condition to pass.
-          MAIN_RULES: 'Q'
+          # R: volume/OI >=3, entry before 15:00, first qualifying contract/day.
+          MAIN_RULES: 'R'
 
           # Disable the alternative P alert route.
           MAIN_ALSO_IF: ''
