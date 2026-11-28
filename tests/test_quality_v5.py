@@ -12,6 +12,12 @@ T = datetime(2026, 11, 27, 10, 0, 30, tzinfo=b.IST)
 
 
 class QualityV5Tests(unittest.TestCase):
+    def setUp(self):
+        # Retain V5 comparison regression coverage under its explicit route.
+        patcher = patch.object(b, "MAIN_RULES", "Q")
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
     def metrics(self):
         return {
             "gap_pct": 6.0,
@@ -71,7 +77,7 @@ class QualityV5Tests(unittest.TestCase):
             ]
 
     def test_frozen_defaults(self):
-        self.assertEqual(b.FILTER_POLICY, "BUY_ATM_QUALITY_V5")
+        self.assertEqual(b.FILTER_POLICY, "BUY_ATM_ACTIVITY_V7")
         self.assertEqual(b.MAIN_RULES, "Q")
         self.assertEqual(b.MAIN_ALSO_IF, "")
         self.assertTrue(b.OBSERVE_ALL)

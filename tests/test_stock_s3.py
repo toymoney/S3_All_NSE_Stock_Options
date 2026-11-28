@@ -1282,7 +1282,7 @@ class StockTests(unittest.TestCase):
                 "SILENT",
             )
 
-    def test_shipped_defaults_make_q_the_main_rule(self):
+    def test_shipped_defaults_make_r_the_main_rule(self):
         import os
         import subprocess
         import sys
@@ -1328,12 +1328,12 @@ class StockTests(unittest.TestCase):
         self.assertEqual(
             result.stdout.split(),
             [
-                "Q",
+                "R",
                 "0.05",
                 "0.05",
                 "0.08",
                 "900",
-                "TDOAVGEIPSQ",
+                "TDOAVGEIPSQR",
             ],
             result.stderr,
         )
