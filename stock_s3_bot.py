@@ -3,18 +3,10 @@
 
 Python 3.11+. No broker order execution.
 
-V5 quality filter Q:
-- Recorded model gap >=5% and <7%
-- Model value at least 5% above entry ask
-- Absolute delta >=0.50
-- IV <=28%
-- OI >=500 lots
-- Volume >=100 lots
-- Spread <=1%
-- Last-trade age between 0 and 40 seconds
-- Best bid and ask depth >=1 lot each
-
-Existing research rules remain recorded for comparison.
+V7 research filter R: volume/OI >=3 and entry before 15:00 IST.
+Only the first qualifying main alert per contract per day is retained.
+Existing ATM, buy-only, model-pricing and broad collection gates remain.
+V5 Q and historical rules remain recorded for comparison.
 Rejected observations, monitoring quotes and candle evidence are retained.
 """
 
@@ -36,9 +28,11 @@ import requests
 
 
 IST = ZoneInfo("Asia/Kolkata")
-FILTER_POLICY = "BUY_ATM_QUALITY_V5"
+FILTER_POLICY = "BUY_ATM_ACTIVITY_V7"
 
 LEGACY_POLICIES = (
+    "BUY_ATM_ACTIVITY_V6",
+    "BUY_ATM_QUALITY_V5",
     "BUY_ATM_RULELAB_V4",
     "BUY_ATM_V1",
     "BUY_ATM_GAP_DEPTH_V2",
@@ -54,7 +48,7 @@ MASTER_URL = (
 )
 
 # Broad research collection settings.
-# These are separate from the strict Q alert filter.
+# These remain separate from R selection and historical Q comparison.
 GAP = float(os.getenv("MIN_VALUE_GAP", "0.05"))
 BASE_MAX_GAP = float(os.getenv("BASE_MAX_VALUE_GAP", "0.17"))
 MAX_GAP = float(os.getenv("MAX_VALUE_GAP", "0.30"))
@@ -96,7 +90,7 @@ try:
 except ValueError:
     raise ValueError("RULE_S_CUTOFF must look like 15:00")
 
-RULE_ORDER = "TDOAVGEIPSQ"
+RULE_ORDER = "TDOAVGEIPSQR"
 
 QUALITY_SETTINGS = {
     "gap_min_pct": 5.0,
@@ -111,7 +105,15 @@ QUALITY_SETTINGS = {
     "min_depth_lots": 1.0,
 }
 
-MAIN_RULES = os.getenv("MAIN_RULES", "Q").strip().upper()
+RESEARCH_SETTINGS = {
+    "min_volume_oi_ratio": 3.0,
+    "entry_before_ist": "15:00",
+    "first_qualifying_contract_signal_per_day": True,
+    "target_definition": "fixed_model_value_at_entry",
+    "separate_study_target_pct_from_ask": 5.0,
+}
+
+MAIN_RULES = os.getenv("MAIN_RULES", "R").strip().upper()
 MAIN_ALSO_IF = os.getenv("MAIN_ALSO_IF", "").strip().upper()
 
 OBSERVE_ALL = (
@@ -151,7 +153,7 @@ if (
 ):
     raise ValueError(
         "Invalid MAIN_RULES or rule thresholds. "
-        "Letters must come from TDOAVGEIPSQ without repeats."
+        "Letters must come from TDOAVGEIPSQR without repeats."
     )
 
 MAX_SPREAD = float(os.getenv("MAX_SPREAD", "0.05"))
@@ -415,6 +417,7 @@ RULE_TEXT = {
         f"{RULE_S_CUTOFF_MIN // 60:02d}:"
         f"{RULE_S_CUTOFF_MIN % 60:02d} IST"
     ),
+    "R": "volume/OI>=3; entry before 15:00 IST; first qualifying contract alert/day",
     "Q": (
         "5<=gap<7%; ask upside>=5%; |delta|>=0.50; "
         "IV<=28%; OI>=500 lots; volume>=100 lots; "
@@ -488,6 +491,30 @@ def quality_failures(metrics):
     return [name for name, passed in checks.items() if not passed]
 
 
+def research_failures(metrics):
+    """Frozen three-day research rule. Only entry-time inputs are used.
+
+    Volume and OI must use the same units. The scanner computes both
+    from current contract quantities; it does not use future day totals.
+    """
+    def valid(key):
+        value = metrics.get(key)
+        return (isinstance(value, (int, float))
+                and not isinstance(value, bool) and math.isfinite(value))
+
+    checks = {
+        "volume_oi_at_least_3": valid("vol_oi") and metrics["vol_oi"] >= 3,
+        "entry_before_15_00_ist": (
+            valid("minute") and 0 <= metrics["minute"] < 15 * 60
+        ),
+    }
+    return [name for name, passed in checks.items() if not passed]
+
+
+def active_filter_settings():
+    return dict(RESEARCH_SETTINGS if MAIN_RULES == "R" else QUALITY_SETTINGS)
+
+
 def main_rule_text():
     return MAIN_RULES + (
         f" or {MAIN_ALSO_IF}" if MAIN_ALSO_IF else ""
@@ -558,7 +585,7 @@ def rule_metrics(c, gap, t):
 
 
 def evaluate_rules(metrics):
-    """Historical flags plus the complete Q filter."""
+    """Historical flags plus V5 Q and active V7 R research filters."""
     gap = metrics["gap_pct"] / 100
     age = metrics["trade_age_s"]
     ratio = metrics["vol_oi"]
@@ -582,6 +609,7 @@ def evaluate_rules(metrics):
             and metrics["minute"] < RULE_S_CUTOFF_MIN
         ),
         "Q": not quality_failures(metrics),
+        "R": not research_failures(metrics),
     }
 
     return {k: flags[k] for k in RULE_ORDER}
@@ -744,7 +772,7 @@ def candidate(c, band, spot, t):
     )
     executable_gap = (fair - executable) / fair
 
-    if MAIN_RULES == "Q" and not MAIN_ALSO_IF:
+    if MAIN_RULES in ("Q", "R") and not MAIN_ALSO_IF:
         executable_too_small = fair + 1e-10 < executable * 1.05
     else:
         executable_too_small = abs(executable_gap) < GAP
@@ -789,7 +817,8 @@ def candidate(c, band, spot, t):
         "channel": channel,
         "header": header,
         "quality_failures": quality_failures(metrics),
-        "filter_settings": dict(QUALITY_SETTINGS),
+        "filter_settings": active_filter_settings(),
+        "research_failures": research_failures(metrics),
         "entry_ask": executable,
         "fixed_5pct_target": round(executable * 1.05, 6),
         "spot": spot,
@@ -919,6 +948,7 @@ def snapshot_row(
                 "passed": value.get("rules_passed"),
                 "failed": value.get("rules_failed"),
                 "quality_failures": value.get("quality_failures"),
+                "research_failures": value.get("research_failures"),
                 "metrics": value.get("metrics"),
                 "entry_ask": value.get("entry_ask"),
                 "fixed_5pct_target": value.get("fixed_5pct_target"),
@@ -938,6 +968,8 @@ def snapshot_row(
             else None
         )
         row["quality_failures"] = quality_failures(metrics)
+        row["research_failures"] = research_failures(metrics)
+        row["metrics"] = metrics
 
     return row
 
@@ -1358,7 +1390,8 @@ class Scanner:
 
         day["universe_count"] = len(self.universe)
         day["filter_policy"] = FILTER_POLICY
-        day["filter_settings"] = dict(QUALITY_SETTINGS)
+        day["filter_settings"] = active_filter_settings()
+        day["v5_comparison_settings"] = dict(QUALITY_SETTINGS)
 
         return day
 
@@ -1772,7 +1805,7 @@ class Scanner:
             return watch
 
         if value.get("policy") == FILTER_POLICY:
-            label = "BUY-ONLY ATM WATCH"
+            label = "BUY-ONLY ATM RESEARCH WATCH"
         elif value["direction"] == "UP":
             label = "BELOW MODEL VALUE"
         else:
@@ -1792,6 +1825,8 @@ class Scanner:
 
         text += (
             f'{label} | expiry {c["expiry"]}\n'
+            f'Signal time {iso(t)} | volume/OI '
+            f'{value.get("metrics", {}).get("vol_oi", 0):.3f}\n'
             f'LTP ₹{value["entry"]:.2f} | '
             f'fixed model target ₹{value["target"]:.2f}\n'
             f'Gap {abs(value["gap_pct"]):.1f}% of model value | '
@@ -2812,20 +2847,21 @@ class Scanner:
             "online-" + FILTER_POLICY + "-" + day["date"],
             (
                 f'S3 STOCK OPTIONS ONLINE | {day["date"]} '
-                "| QUALITY V5\n"
+                "| ACTIVITY RESEARCH V7\n"
                 "BUY-ONLY ATM: CE or PE, only when its premium "
                 "must RISE to the target.\n"
                 f"Universe: {len(self.universe)} NSE F&O stocks; "
                 "expiry more than 5 calendar days away "
                 "(automatic rollover). "
                 "ATM ±2 supplies IV peers; only ATM can alert.\n"
-                "Q alert filter: "
-                f'{RULE_TEXT["Q"]}\n'
+                "R research alert filter: "
+                f'{RULE_TEXT["R"]}\n'
                 "Broader research candidate gap: "
                 f"{GAP * 100:g}% to below {MAX_GAP * 100:g}%. "
-                "Candidates failing Q are recorded silently.\n"
+                "Candidates failing R are recorded silently; V5 Q is comparison only.\n"
                 f"{rule_legend()}\n"
-                "Alerts 09:20-15:20 IST, Mon-Fri. "
+                "R entries 09:20 to before 15:00 IST, Mon-Fri. "
+                "Scanning and silent recording continue until 15:20 IST. "
                 "Every ATM contract and available peer band scanned "
                 "is logged for later filter checks. "
                 "One active MAIN and one active SILENT record "
@@ -2892,7 +2928,7 @@ def main():
                 f"{len(chain)} contracts in full chain; "
                 f"{band_count} IV-support contracts at ATM ±2.\n"
                 "New alerts: BUY-ONLY ATM CE or PE.\n"
-                f'Q filter: {RULE_TEXT["Q"]}\n'
+                f'R research filter: {RULE_TEXT["R"]}\n'
                 "This verifies connectivity, not signal quality."
             ),
         )
